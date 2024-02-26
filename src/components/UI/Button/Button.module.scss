@@ -1,0 +1,12 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 30px;
+  min-height: 30px;
+
+  padding: 0;
+  border: 1px solid #cecece;
+  background-color: transparent;
+}

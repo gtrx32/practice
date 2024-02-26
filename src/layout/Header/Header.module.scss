@@ -1,0 +1,22 @@
+.header {
+  border-bottom: 1px solid #cecece;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 62px;
+  }
+
+  &__logo {
+    img {
+      width: 130px;
+    }
+  }
+
+  &__btns {
+    display: flex;
+    gap: 7px;
+  }
+}

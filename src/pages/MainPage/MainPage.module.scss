@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  padding: 50px !important;
+
+  .logo {
+    width: 455px;
+    margin-bottom: 25px;
+  }
+
+  .welcome {
+    font-family: 'Furore';
+    font-weight: 500;
+    font-size: 32px;
+    text-transform: uppercase;
+  }
+
+  .tip {
+    font-family: 'Jost';
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+  }
+}
