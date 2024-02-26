@@ -4,20 +4,22 @@
 
   .logo {
     width: 455px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
   }
 
   .welcome {
+    margin-bottom: 18px;
+
     font-family: 'Furore';
-    font-weight: 500;
+    font-weight: 400;
     font-size: 32px;
     text-transform: uppercase;
+    letter-spacing: -0.3px;
   }
 
   .tip {
     font-family: 'Jost';
-    font-weight: 500;
+    font-weight: 400;
     font-size: 18px;
-    line-height: 160%;
   }
 }
