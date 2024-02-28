@@ -2,9 +2,7 @@ import s from "./MainPage.module.scss";
 import logo from "../../assets/header/logo.png";
 import Container from "../../components/UI/Container";
 
-interface MainPageProps {}
-
-const MainPage: React.FC<MainPageProps> = () => (
+const MainPage = () => (
   <Container className={s.container}>
     <div className={s.logo}>
       <img src={logo} alt="" />

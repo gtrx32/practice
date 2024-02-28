@@ -1,15 +1,18 @@
-import { PropsWithChildren } from 'react';
-import s from './Button.module.scss';
-import clsx from 'clsx';
+import s from "./Button.module.scss";
+import clsx from "clsx";
+import ButtonProps from "./types";
+import { ReactElement, cloneElement } from "react";
 
-interface ButtonProps extends PropsWithChildren {
-  className?: string;
-}
+const Button: React.FC<ButtonProps> = ({ className, ...props }) => {
+  if (props.asChild) {
+    const { children } = props;
 
-const Button: React.FC<ButtonProps> = ({ className, children, ...props }) => (
-  <button className={clsx(s.button, className)} {...props}>
-    {children}
-  </button >
-);
+    return cloneElement(children as ReactElement, {
+      className: clsx(s.button, className, children?.props.className),
+    });
+  }
+
+  return <button className={clsx(s.button, className)} {...props} />;
+};
 
 export default Button;

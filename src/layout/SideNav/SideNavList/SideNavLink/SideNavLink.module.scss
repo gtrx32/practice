@@ -1,0 +1,49 @@
+.listItem {
+  line-height: 32px;
+  list-style: none;
+  font-family: "Jost";
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: black;
+}
+
+.subMenu {
+  line-height: 24px;
+}
+
+.subLink {
+  padding-left: 25px;
+  list-style: none;
+  font-weight: 400;
+  color: inherit;
+}
+
+.link:hover,
+.subLink:hover {
+  cursor: pointer;
+}
+
+.subMenuButton {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: black;
+}
+
+.icon {
+  width: 15px;
+  height: auto;
+}
+
+.arrowClose {
+  transform: rotate(180deg);
+}

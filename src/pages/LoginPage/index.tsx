@@ -1,10 +1,7 @@
-import s from './LoginPage.module.scss';
+import s from "./LoginPage.module.scss";
 
-interface LoginPageProps {
-}
+interface LoginPageProps {}
 
-const LoginPage: React.FC<LoginPageProps> = () => (
-  <div />
-);
+const LoginPage: React.FC<LoginPageProps> = () => <div />;
 
 export default LoginPage;

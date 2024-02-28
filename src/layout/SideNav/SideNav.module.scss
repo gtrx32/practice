@@ -1,18 +1,15 @@
 .sideNav {
   min-width: 330px;
   height: 100%;
-
   border-right: 1px solid #cecece;
 
   .topRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     height: 40px;
     border-bottom: 1px solid #cecece;
-
-    font-family: 'Furore';
+    font-family: "Furore";
     font-size: 18px;
 
     .button {
@@ -20,36 +17,6 @@
       min-height: 40px;
       border: none;
       border-left: 1px solid #cecece;
-    }
-  }
-
-  .container {
-    padding: 30px 50px;
-
-    .list {
-
-      ul {
-        li {
-          line-height: 32px;
-          list-style: none;
-
-          font-family: 'Jost';
-          font-weight: 500;
-          font-size: 15px;
-
-          a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: black;
-
-            img {
-              width: 12px;
-              height: auto;
-            }
-          }
-        }
-      }
     }
   }
 }

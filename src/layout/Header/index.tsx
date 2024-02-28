@@ -1,31 +1,26 @@
-import s from './Header.module.scss';
-import image from '../../assets/header/logo.png'
-import Container from '../../components/UI/Container';
-import themePic from "../../assets/header/themeBtn.svg"
-import anonymousPic from "../../assets/header/userBtn.svg"
-import Button from '../../components/UI/Button';
+import s from "./Header.module.scss";
+import logo from "../../assets/header/logo.png";
+import Container from "../../components/UI/Container";
+import themePic from "../../assets/header/themeButton.svg";
+import profilePic from "../../assets/header/profileButton.svg";
+import Button from "../../components/UI/Button";
 
-const Header: React.FC = () => (
-  <header className={s.header}>
-    <Container>
-      <div className={s.header__inner}>
-
-        <div className={s.header__logo}>
-          <img src={image} alt="" />
-        </div>
-
-        <div className={s.header__btns}>
-          <Button aria-label="theme">
-            <img src={themePic} alt="" />
-          </Button>
-          <Button aria-label="anonymous">
-            <img src={anonymousPic} alt="" />
-          </Button>
-        </div>
-
+const Header = () => (
+  <Container as="header" className={s.header}>
+    <div className={s.wrapper}>
+      <a href="" className={s.logo}>
+        <img src={logo} alt="" />
+      </a>
+      <div className={s.buttons}>
+        <Button aria-label="theme">
+          <img src={themePic} alt="" />
+        </Button>
+        <Button aria-label="profile">
+          <img src={profilePic} alt="" />
+        </Button>
       </div>
-    </Container>
-  </header>
+    </div>
+  </Container>
 );
 
 export default Header;
