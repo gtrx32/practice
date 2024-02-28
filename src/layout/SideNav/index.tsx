@@ -3,17 +3,25 @@ import s from "./SideNav.module.scss";
 import arrow from "../../assets/navHideButton.svg";
 import Container from "../../components/UI/Container";
 import SideNavList from "./SideNavList";
+import { useState } from "react";
+import clsx from "clsx";
 
-const SideNav = () => (
-  <div className={s.sideNav}>
-    <div className={s.topRow}>
-      <Container>ADMIN</Container>
-      <Button className={s.button}>
-        <img src={arrow} alt="" />
-      </Button>
+const SideNav = () => {
+  const [sideMenuIsOpen, setSideMenuIsOpen] = useState(true);
+
+  const handleSideMenuClick = () => setSideMenuIsOpen(!sideMenuIsOpen);
+
+  return (
+    <div className={clsx(s.sideNav, sideMenuIsOpen && s.openedNav)}>
+      <div className={s.topRow}>
+        {sideMenuIsOpen && <Container>ADMIN</Container>}
+        <Button onClick={handleSideMenuClick} className={clsx(s.button, s.buttonClose)}>
+          <img src={arrow} alt="" />
+        </Button>
+      </div>
+      {sideMenuIsOpen && <SideNavList />}
     </div>
-    <SideNavList />
-  </div>
-);
+  );
+};
 
 export default SideNav;

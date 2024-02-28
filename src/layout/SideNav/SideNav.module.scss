@@ -1,5 +1,4 @@
 .sideNav {
-  min-width: 330px;
   height: 100%;
   border-right: 1px solid #cecece;
 
@@ -11,12 +10,25 @@
     border-bottom: 1px solid #cecece;
     font-family: "Furore";
     font-size: 18px;
-
-    .button {
-      min-width: 40px;
-      min-height: 40px;
-      border: none;
-      border-left: 1px solid #cecece;
-    }
   }
+}
+
+.openedNav {
+  width: 330px;
+}
+
+.button {
+  min-width: 40px;
+  min-height: 40px;
+  width: 40px;
+  height: 40px;
+  border: none;
+}
+
+.buttonOpen {
+  border-bottom: 1px solid #cecece;
+}
+
+.buttonClose {
+  border-left: 1px solid #cecece;
 }

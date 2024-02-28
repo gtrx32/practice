@@ -7,7 +7,7 @@ const SideNavList = () => (
   <Container className={s.container}>
     <ul className={s.menuList}>
       {LINKS.map((link) => (
-        <SideNavLink {...link} />
+        <SideNavLink {...link} key={link.text} />
       ))}
     </ul>
   </Container>

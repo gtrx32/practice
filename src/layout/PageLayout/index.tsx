@@ -8,7 +8,7 @@ const PageLayout: React.FC<PropsWithChildren> = ({ children }) => (
     <Header />
     <main className={s.main}>
       <SideNav />
-      {children}
+      <div className={s.content}>{children}</div>
     </main>
   </div>
 );

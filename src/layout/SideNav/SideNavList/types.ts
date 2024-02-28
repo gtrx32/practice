@@ -18,42 +18,19 @@ export type SubLinkType = {
 };
 
 export const LINKS: LinkType[] = [
-  {
-    href: "/",
-    text: "Главная",
-    image: main,
-  },
-  {
-    href: "/",
-    text: "Пользователи",
-    image: users,
-  },
-  {
-    href: "/",
-    text: "Задания",
-    image: todos,
-  },
-  {
-    href: "/",
-    text: "Картинки",
-    image: photos,
-  },
-  {
-    href: "/",
-    text: "Альбомы",
-    image: albums,
-  },
+  { href: "/", text: "Главная", image: main },
+  { href: "/users", text: "Пользователи", image: users },
+  { href: "/todos", text: "Задания", image: todos },
+  { href: "/photos", text: "Картинки", image: photos },
+  { href: "/albums", text: "Альбомы", image: albums },
   {
     href: "/",
     text: "Блог",
     image: blog,
     submenu: [
+      { subHref: "/posts", subText: "Посты" },
       {
-        subHref: "/",
-        subText: "Посты",
-      },
-      {
-        subHref: "/",
+        subHref: "/comments",
         subText: "Комментарии",
       },
     ],

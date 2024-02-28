@@ -4,13 +4,14 @@ import Container from "../../components/UI/Container";
 import themePic from "../../assets/header/themeButton.svg";
 import profilePic from "../../assets/header/profileButton.svg";
 import Button from "../../components/UI/Button";
+import { Link } from "react-router-dom";
 
 const Header = () => (
   <Container as="header" className={s.header}>
     <div className={s.wrapper}>
-      <a href="" className={s.logo}>
+      <Link to="/" className={s.logo}>
         <img src={logo} alt="" />
-      </a>
+      </Link>
       <div className={s.buttons}>
         <Button aria-label="theme">
           <img src={themePic} alt="" />
