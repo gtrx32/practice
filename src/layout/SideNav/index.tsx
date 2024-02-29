@@ -4,23 +4,24 @@ import navHide from "../../assets/navHideButton.svg";
 import navShow from "../../assets/navShowButton.svg";
 import Container from "../../components/UI/Container";
 import SideNavList from "./SideNavList";
-import { useState } from "react";
+import { useContext } from "react";
 import clsx from "clsx";
+import MenuIsOpenContext from "../../context/MenuIsOpenContext";
 
 const SideNav = () => {
-  const [sideMenuIsOpen, setSideMenuIsOpen] = useState(true);
+  const { menuIsOpen, setMenuIsOpen } = useContext(MenuIsOpenContext);
 
-  const handleSideMenuClick = () => setSideMenuIsOpen(!sideMenuIsOpen);
+  const handleMenuClick = () => setMenuIsOpen(!menuIsOpen);
 
   return (
-    <div className={clsx(s.sideNav, sideMenuIsOpen && s.openedNav)}>
+    <div className={clsx(s.sideNav, menuIsOpen ? "" : s.closedNav)}>
       <div className={s.topRow}>
-        {sideMenuIsOpen && <Container>ADMIN</Container>}
-        <Button onClick={handleSideMenuClick} className={s.button}>
-          <img src={sideMenuIsOpen ? navHide : navShow} alt="" />
+        <Container className={clsx(s.shrink, menuIsOpen ? "" : s.closed)}>ADMIN</Container>
+        <Button onClick={handleMenuClick} className={s.button}>
+          <img src={menuIsOpen ? navHide : navShow} alt="" />
         </Button>
       </div>
-      {sideMenuIsOpen && <SideNavList />}
+      <SideNavList className={clsx(s.shrink, menuIsOpen ? "" : s.closed)} />
     </div>
   );
 };

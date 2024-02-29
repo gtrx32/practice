@@ -8,8 +8,27 @@
   display: flex;
   height: 100%;
   width: 100%;
+  margin-top: 62px;
+  height: calc(100% - 62px);
+  flex: 1 0 auto;
+}
+
+.dark {
+  @media (max-width: 1439px) {
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.5);
+    filter: blur(4px);
+    transition: all 0.2s linear;
+    overflow: hidden;
+  }
 }
 
 .content {
-  flex: 1 0 auto;
+  @media (min-width: 744px) {
+    padding-left: 40px;
+  }
+
+  @media (min-width: 1440px) {
+    padding-left: 0px;
+  }
 }

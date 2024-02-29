@@ -7,8 +7,12 @@ const MainPage = () => (
     <div className={s.logo}>
       <img src={logo} alt="" />
     </div>
-    <h1 className={s.welcome}>Добро пожаловать в админ-панель M-SOCIAL!</h1>
-    <h2 className={s.tip}>Используйте боковое меню, чтобы перейти к нужному разделу</h2>
+    <h1 className={s.welcome}>
+      Добро пожаловать{"\n"}в админ-панель{"\n"}M-SOCIAL!
+    </h1>
+    <div className={s.tip}>
+      <p>Используйте боковое меню, чтобы перейти к нужному разделу</p>
+    </div>
   </Container>
 );
 

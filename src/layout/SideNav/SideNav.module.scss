@@ -1,20 +1,44 @@
 .sideNav {
-  height: 100%;
+  max-width: 100%;
+  width: 100%;
+  min-width: 100%;
+
+  @media (min-width: 744px) {
+    max-width: 330px;
+    width: 330px;
+    min-width: 330px;
+    height: 100%;
+  }
+
   border-right: 1px solid #cecece;
+  transition: all 0.5s ease;
+  background-color: white !important;
+  z-index: 100;
+
+  @media (min-width: 744px) {
+    height: calc(100% - 62px);
+  }
+
+  position: absolute;
+
+  @media (min-width: 1440px) {
+    position: static;
+    height: 100%;
+  }
 
   .topRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 40px;
-    border-bottom: 1px solid #cecece;
-    font-family: "Furore";
-    font-size: 18px;
-  }
-}
+    display: none;
 
-.openedNav {
-  width: 330px;
+    @media (min-width: 744px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 40px;
+      border-bottom: 1px solid #cecece;
+      font-family: "Furore";
+      font-size: 18px;
+    }
+  }
 }
 
 .button {
@@ -24,4 +48,27 @@
   height: 40px;
   border: none;
   border-left: 1px solid #cecece;
+}
+
+.closedNav {
+  max-width: 0;
+  width: 0;
+  min-width: 0;
+
+  @media (min-width: 744px) {
+    max-width: 40px;
+    width: 40px;
+    min-width: 40px;
+  }
+}
+
+.shrink {
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+
+.closed {
+  width: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }

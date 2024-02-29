@@ -1,9 +1,9 @@
-import main from "../../../assets/sidemenu/mainItem.svg";
-import users from "../../../assets/sidemenu/usersItem.svg";
-import todos from "../../../assets/sidemenu/todosItem.svg";
-import photos from "../../../assets/sidemenu/photosItem.svg";
-import albums from "../../../assets/sidemenu/albumsItem.svg";
-import blog from "../../../assets/sidemenu/blogItem.svg";
+import main from "../../../assets/menu/mainItem.svg";
+import users from "../../../assets/menu/usersItem.svg";
+import todos from "../../../assets/menu/todosItem.svg";
+import photos from "../../../assets/menu/photosItem.svg";
+import albums from "../../../assets/menu/albumsItem.svg";
+import blog from "../../../assets/menu/blogItem.svg";
 
 export type LinkType = {
   href: string;
