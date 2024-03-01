@@ -14,14 +14,16 @@ const SideNav = () => {
   const handleMenuClick = () => setMenuIsOpen(!menuIsOpen);
 
   return (
-    <div className={clsx(s.sideNav, menuIsOpen ? "" : s.closedNav)}>
-      <div className={s.topRow}>
-        <Container className={clsx(s.shrink, menuIsOpen ? "" : s.closed)}>ADMIN</Container>
-        <Button onClick={handleMenuClick} className={s.button}>
-          <img src={menuIsOpen ? navHide : navShow} alt="" />
-        </Button>
+    <div className={s.wrapper}>
+      <div className={clsx(s.sideNav, menuIsOpen ? "" : s.closedNav)}>
+        <div className={s.topRow}>
+          <Container className={clsx(s.shrink, menuIsOpen ? "" : s.closed)}>ADMIN</Container>
+          <Button onClick={handleMenuClick} className={s.button}>
+            <img src={menuIsOpen ? navHide : navShow} alt="" />
+          </Button>
+        </div>
+        <SideNavList className={clsx(s.shrink, menuIsOpen ? "" : s.closed)} />
       </div>
-      <SideNavList className={clsx(s.shrink, menuIsOpen ? "" : s.closed)} />
     </div>
   );
 };

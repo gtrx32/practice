@@ -1,5 +1,8 @@
+.wrapper {
+}
+
 .sideNav {
-  position: absolute;
+  position: fixed;
   max-width: 100%;
   width: 100%;
   min-width: 100%;
@@ -12,12 +15,12 @@
     max-width: 330px;
     width: 330px;
     min-width: 330px;
-    height: calc(100% - 62px);
+    height: calc(100vh - 62px);
   }
 
   @media (min-width: 1440px) {
-    position: static;
-    height: 100%;
+    position: sticky;
+    top: 62px;
   }
 
   .topRow {

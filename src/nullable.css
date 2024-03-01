@@ -51,7 +51,6 @@ figcaption {
 
 /* Выставляем основные настройки по-умолчанию для body */
 body {
-  min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.2;
   overflow-y: scroll;
@@ -92,7 +91,7 @@ img {
 }
 
 /* Указываем понятную периодичность в потоке данных у article*/
-article>*+* {
+article > * + * {
   margin-top: 1em;
 }
 
@@ -108,10 +107,4 @@ select {
   .grecaptcha-badge {
     display: none !important;
   }
-}
-
-html,
-body,
-#root {
-  height: 100%;
 }
