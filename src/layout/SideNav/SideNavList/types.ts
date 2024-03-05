@@ -1,4 +1,4 @@
-import main from "../../../assets/menu/mainItem.svg";
+import main from "@assets/menu/mainItem.svg";
 import users from "../../../assets/menu/usersItem.svg";
 import todos from "../../../assets/menu/todosItem.svg";
 import photos from "../../../assets/menu/photosItem.svg";
