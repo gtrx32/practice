@@ -12,17 +12,19 @@
   flex: 1 0 auto;
 }
 
-@media (max-width: 1439px) {
-  .dark {
-    width: 100%;
+.dark {
+  width: 100%;
+  @media (max-width: 1439px) {
     background-color: rgba(128, 128, 128, 0.5);
     filter: blur(4px);
     transition: all 0.2s linear;
     overflow: hidden;
   }
+}
 
-  .transparent {
-    width: 100%;
+.transparent {
+  width: 100%;
+  @media (max-width: 1439px) {
     background-color: transparent;
     filter: none;
     transition: all 0.2s linear;
