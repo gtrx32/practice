@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  .title {
+    font-family: "Furore";
+    font-size: 36px;
+    font-weight: 400;
+  }
+
+  .search {
+    width: 300px;
+  }
+}
