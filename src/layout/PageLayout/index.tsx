@@ -12,9 +12,8 @@ const PageLayout: React.FC<PropsWithChildren> = ({ children }) => {
       <Header />
       <main className={s.main}>
         <SideNav />
-        <div className={menuIsOpen ? s.dark : s.transparent}>
-          <div className={s.content}>{children}</div>
-        </div>
+        <div className={menuIsOpen ? s.dark : s.transparent} />
+        <div className={s.content}>{children}</div>
       </main>
     </div>
   );
