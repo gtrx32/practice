@@ -24,12 +24,6 @@
       font-weight: 400;
       color: var(--primary-color-gray);
 
-      &[class="headerArrow"] {
-        span {
-          height: 10px;
-        }
-      }
-
       span[data-pc-section="sort"] {
         display: none;
       }

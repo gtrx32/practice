@@ -4,7 +4,6 @@ import { Columns } from "./types";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import ActionsBodyTemplate from "./_components/ActionsBodyTemplate";
-import ArrowTemplate from "./_components/ArrowTemplate";
 import UpperPanel from "./_components/UpperPanel";
 
 interface ListPageProps {
@@ -26,12 +25,6 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
     <div className={s.container}>
       <UpperPanel table={table} />
       <DataTable value={data.slice(0, 20)} scrollable>
-        <Column
-          header={<ArrowTemplate isHeader={true} />}
-          body={<ArrowTemplate isHeader={false} />}
-          headerClassName="headerArrow"
-          style={{ width: `40px`, maxWidth: `40px` }}
-        />
         {Columns[table as keyof typeof Columns].map((column) => (
           <Column
             key={column.field}
