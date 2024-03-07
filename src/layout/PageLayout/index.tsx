@@ -3,6 +3,7 @@ import Header from "../Header";
 import SideNav from "../SideNav";
 import { PropsWithChildren, useContext } from "react";
 import MenuIsOpenContext from "../../context/MenuIsOpenContext";
+import clsx from "clsx";
 
 const PageLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const { menuIsOpen } = useContext(MenuIsOpenContext);
@@ -12,7 +13,7 @@ const PageLayout: React.FC<PropsWithChildren> = ({ children }) => {
       <Header />
       <main className={s.main}>
         <SideNav />
-        <div className={menuIsOpen ? s.dark : s.transparent} />
+        <div className={clsx(s.cover, menuIsOpen ? s.blur : s.clear)} />
         <div className={s.content}>{children}</div>
       </main>
     </div>
