@@ -21,17 +21,15 @@ const SideNavLink: React.FC<SideNavLinkProps> = ({ href, text, image, submenu })
             {text}
             <img className={clsx(!dropdownIsOpen && s.arrowClose)} src={arrow} alt="" />
           </button>
-          {dropdownIsOpen && (
-            <ul className={s.subMenu}>
-              {submenu.map(({ subHref, subText }) => (
-                <li key={subText}>
-                  <Link to={subHref} className={s.subLink}>
-                    {subText}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul className={clsx(s.subMenu, dropdownIsOpen && s.subMenuOpened)}>
+            {submenu.map(({ subHref, subText }) => (
+              <li key={subText}>
+                <Link to={subHref} className={s.subLink}>
+                  {subText}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </>
       ) : (
         <Link to={href} className={s.link}>

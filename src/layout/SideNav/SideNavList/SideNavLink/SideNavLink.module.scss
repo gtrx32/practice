@@ -15,6 +15,14 @@
 
 .subMenu {
   line-height: 24px;
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.3s linear;
+}
+
+.subMenuOpened {
+  height: 50px;
+  transition: height 0.3s linear;
 }
 
 .subLink {
