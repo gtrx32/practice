@@ -1,8 +1,8 @@
 import s from "./Header.module.scss";
-import logo from "../../assets/header/logo.png";
 import Container from "../../components/UI/Container";
-import themePic from "../../assets/header/themeButton.svg";
-import profilePic from "../../assets/header/profileButton.svg";
+import logo from "@assets/images/header/logo.png";
+import themePic from "@assets/images/header/themeButton.svg";
+import profilePic from "@assets/images/header/profileButton.svg";
 import Button from "../../components/UI/Button";
 import { Link } from "react-router-dom";
 import { useContext } from "react";

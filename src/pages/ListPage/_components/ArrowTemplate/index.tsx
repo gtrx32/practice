@@ -1,6 +1,6 @@
 import s from "./ArrowTemplate.module.scss";
-import sideArrowBlack from "../../../../assets/table/sideArrowBlack.svg";
-import sideArrowGray from "../../../../assets/table/sideArrowGray.svg";
+import sideArrowBlack from "@assets/images/table/sideArrowBlack.svg";
+import sideArrowGray from "@assets/images/table/sideArrowGray.svg";
 
 interface ArrowTemplateProps {
   isHeader: boolean;

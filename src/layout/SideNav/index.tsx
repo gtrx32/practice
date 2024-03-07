@@ -1,7 +1,7 @@
 import Button from "../../components/UI/Button";
 import s from "./SideNav.module.scss";
-import navHide from "../../assets/navHideButton.svg";
-import navShow from "../../assets/navShowButton.svg";
+import navHide from "@assets/images/navHideButton.svg";
+import navShow from "@assets/images/navShowButton.svg";
 import Container from "../../components/UI/Container";
 import SideNavList from "./SideNavList";
 import { useContext } from "react";

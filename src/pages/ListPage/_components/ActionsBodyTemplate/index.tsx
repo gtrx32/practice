@@ -1,7 +1,7 @@
 import s from "./ActionsBodyTemplate.module.scss";
 import Button from "../../../../components/UI/Button";
-import trashcan from "../../../../assets/table/trashcan.svg";
-import pencil from "../../../../assets/table/pencil.svg";
+import trashcan from "@assets/images/table/trashcan.svg";
+import pencil from "@assets/images/table/pencil.svg";
 
 const ActionsBodyTemplate = () => (
   <div className={s.buttons}>

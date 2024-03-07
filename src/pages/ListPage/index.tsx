@@ -25,7 +25,7 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
   return (
     <div className={s.container}>
       <UpperPanel table={table} />
-      <DataTable value={data}>
+      <DataTable value={data.slice(0, 20)} scrollable>
         <Column
           header={<ArrowTemplate isHeader={true} />}
           body={<ArrowTemplate isHeader={false} />}

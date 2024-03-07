@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: black;
+  color: var(--font-color-black);
 }
 
 .subMenu {
@@ -36,7 +36,7 @@
   padding: 0;
   border: none;
   background-color: transparent;
-  color: black;
+  color: var(--font-color-black);
 }
 
 .icon {

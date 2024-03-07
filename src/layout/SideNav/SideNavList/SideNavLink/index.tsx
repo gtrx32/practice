@@ -1,7 +1,7 @@
 import { useState } from "react";
 import s from "./SideNavLink.module.scss";
 import { LinkType } from "../types";
-import arrow from "../../../../assets/menu/arrow.svg";
+import arrow from "@assets/images/menu/arrow.svg";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 

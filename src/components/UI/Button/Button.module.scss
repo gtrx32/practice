@@ -5,12 +5,12 @@
   min-width: 30px;
   min-height: 30px;
   padding: 0;
-  border: 1px solid #cecece;
+  border: 1px solid var(--primary-color-gray);
   background-color: transparent;
 
   &:hover {
     cursor: pointer;
-    background-color: #cecece;
+    background-color: var(--primary-color-gray);
     transition: 0.2s all ease-in-out;
   }
 }

@@ -1,0 +1,11 @@
+@font-face {
+  font-family: "Furore";
+  src: url("./Furore/Furore.ttf"), url("./Furore/Furore.otf"), url("./Furore/Furore.woff"), url("./Furore/Furore.woff2"),
+    url("./Furore/Furore.eot");
+}
+
+@font-face {
+  font-family: "Jost";
+  src: url("./Jost/Jost.ttf"), url("./Jost/Jost.otf"), url("./Jost/Jost.woff"), url("./Jost/Jost.woff2"),
+    url("./Jost/Jost.eot");
+}

@@ -3,15 +3,26 @@
   flex-direction: column;
   gap: 30px;
   padding: 36px 50px;
+  max-width: 100%;
+  width: 100%;
+  padding: 50px 10px !important;
+
+  @media (min-width: 744px) {
+    padding: 50px 33px !important;
+  }
+
+  @media (min-width: 1440px) {
+    padding: 50px 50px !important;
+  }
 
   table {
     th {
-      padding: 15px 0px 5px;
-      border-bottom: 1px solid #d2d0d0;
+      padding: 15px 10px 10px;
+      border-bottom: 1px solid var(--secondary-color-gray);
       font-family: "Furore";
       font-size: 14px;
       font-weight: 400;
-      color: #bcb8b8;
+      color: var(--primary-color-gray);
 
       &[class="headerArrow"] {
         span {
@@ -53,7 +64,7 @@
     }
 
     td {
-      padding: 20px 0px 5px;
+      padding: 20px 10px 5px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

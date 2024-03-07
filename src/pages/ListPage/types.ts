@@ -39,7 +39,7 @@ export const Columns = {
   ],
   comments: [
     { field: "id", header: "ID", width: "70px" },
-    { field: "postId", header: "Пост", width: "310px" },
+    { field: "postId", header: "Пост", width: "280px" },
     { field: "email", header: "E-mail автора", width: "215px" },
     { field: "body", header: "Текст комментария", width: "330px" },
   ],

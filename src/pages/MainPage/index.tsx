@@ -1,5 +1,5 @@
 import s from "./MainPage.module.scss";
-import logo from "../../assets/header/logo.png";
+import logo from "@assets/images/header/logo.png";
 import Container from "../../components/UI/Container";
 
 const MainPage = () => (
