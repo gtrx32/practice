@@ -1,0 +1,27 @@
+.title {
+  font-family: "Furore";
+  font-size: 36px;
+  font-weight: 400;
+  margin-top: 35px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rightButtons {
+  display: flex;
+  gap: 15px;
+}
+
+.link {
+  border: none;
+  padding: 0;
+  font-family: "Furore";
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--primary-color-gray);
+  cursor: pointer;
+}
