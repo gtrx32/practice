@@ -5,6 +5,7 @@
   padding: 36px 50px;
   max-width: 100%;
   width: 100%;
+  height: 100%;
   padding: 50px 10px !important;
 
   @media (min-width: 744px) {
@@ -34,7 +35,7 @@
         width: 10px;
         height: 10px;
         margin-left: 7px;
-        background-image: url("../../assets/table/sortArrow.svg");
+        background-image: url("@assets/images/table/sortArrow.svg");
         background-size: cover;
       }
 
@@ -68,8 +69,20 @@
       font-weight: 400;
     }
 
-    tbody[class="p-datatable-tbody"] > tr:first-child > td {
-      padding-top: 30px;
+    tbody[class="p-datatable-tbody"] {
+      tr {
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        &:hover {
+          background-color: var(--secondary-color-gray);
+        }
+      }
+
+      tr:first-child {
+        td {
+          padding-top: 30px;
+        }
+      }
     }
   }
 }

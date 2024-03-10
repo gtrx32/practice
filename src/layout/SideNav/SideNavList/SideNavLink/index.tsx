@@ -19,7 +19,7 @@ const SideNavLink: React.FC<SideNavLinkProps> = ({ href, text, image, submenu })
           <button className={clsx(s.link, s.subMenuButton)} onClick={handleDropdownClick}>
             <img className={s.icon} src={image} alt="" />
             {text}
-            <img className={clsx(!dropdownIsOpen && s.arrowClose)} src={arrow} alt="" />
+            <img className={clsx(s.arrow, !dropdownIsOpen && s.arrowClose)} src={arrow} alt="" />
           </button>
           <ul className={clsx(s.subMenu, dropdownIsOpen && s.subMenuOpened)}>
             {submenu.map(({ subHref, subText }) => (
