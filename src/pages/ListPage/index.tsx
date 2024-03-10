@@ -30,33 +30,37 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
   return (
     <div className={s.container}>
       <UpperPanel table={table} />
-      {isError && <p>Произошла ошибка при загрузке данных</p>}
-      {!isError && (
-        <>
-          {!isLoading ? (
-            <>
-              <DataTable value={data.slice(0, 20)} scrollable>
-                {Columns[table as keyof typeof Columns].map((column) => (
-                  <Column
-                    key={column.field}
-                    header={column.header}
-                    field={column.field}
-                    sortable
-                    style={{ width: column.width, maxWidth: column.width }}
-                  ></Column>
-                ))}
-                <Column
-                  header="Действия"
-                  body={<ActionsBodyTemplate />}
-                  headerClassName="actions"
-                  style={{ width: `90px`, maxWidth: `90px`, textAlign: `center` }}
-                />
-              </DataTable>
-            </>
-          ) : (
-            <LoadingSpinner />
-          )}
-        </>
+      {!isError ? (
+        !isLoading ? (
+          <DataTable value={data.slice(0, 20)} scrollable>
+            {Columns[table as keyof typeof Columns].map((column) => (
+              <Column
+                key={column.field}
+                header={column.header}
+                body={
+                  column.field === "thumbnailUrl"
+                    ? (rowData) => (
+                        <img src={rowData[column.field]} alt={rowData[column.field]} style={{ maxHeight: "50px" }} />
+                      )
+                    : undefined
+                }
+                field={column.field}
+                sortable
+                style={{ width: column.width, maxWidth: column.width }}
+              ></Column>
+            ))}
+            <Column
+              header="Действия"
+              body={<ActionsBodyTemplate />}
+              headerClassName="actions"
+              style={{ width: `90px`, maxWidth: `90px`, textAlign: `center` }}
+            />
+          </DataTable>
+        ) : (
+          <LoadingSpinner />
+        )
+      ) : (
+        <p>Произошла ошибка при загрузке данных</p>
       )}
     </div>
   );
