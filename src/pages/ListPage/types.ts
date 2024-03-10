@@ -23,7 +23,7 @@ export const Columns = {
   ],
   photos: [
     { field: "id", header: "ID", width: "70px" },
-    { field: "thumbnailUrl", header: "Превью", width: "150px" },
+    { field: "thumbnailUrl", header: "Превью", width: "100px" },
     { field: "title", header: "Заголовок", width: "340px" },
     { field: "albumId", header: "Альбом", width: "360px" },
   ],

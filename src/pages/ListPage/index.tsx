@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Columns } from "./types";
 import { Column } from "primereact/column";
-import { DataTable } from "primereact/datatable";
+import { DataTable, DataTableRowClickEvent } from "primereact/datatable";
 import ActionsBodyTemplate from "./_components/ActionsBodyTemplate";
 import UpperPanel from "./_components/UpperPanel";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -30,8 +30,9 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
       .finally(() => setIsLoading(false));
   }, [table]);
 
-  const redirectToDetailPage = (rowData: any) => {
-    navigate(`/${table}/${rowData.id}`);
+  const redirectToDetailPage = ({ data }: DataTableRowClickEvent) => {
+    const { id } = data as { id: number };
+    navigate(`/${table}/${id}`);
   };
 
   return (
@@ -39,21 +40,19 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
       <UpperPanel table={table} />
       {!isError ? (
         !isLoading ? (
-          <DataTable value={data.slice(0, 20)} scrollable onRowClick={(e) => redirectToDetailPage(e.data)}>
-            {Columns[table as keyof typeof Columns].map((column) => (
+          <DataTable value={data.slice(0, 20)} scrollable onRowClick={redirectToDetailPage}>
+            {Columns[table as keyof typeof Columns].map(({ field, header, width }) => (
               <Column
-                key={column.field}
-                header={column.header}
+                key={field}
+                header={header}
                 body={
-                  column.field === "thumbnailUrl"
-                    ? (rowData) => (
-                        <img src={rowData[column.field]} alt={rowData[column.field]} style={{ maxHeight: "50px" }} />
-                      )
+                  field === "thumbnailUrl"
+                    ? (rowData) => <img src={rowData[field]} alt={rowData[field]} style={{ maxHeight: "50px" }} />
                     : undefined
                 }
-                field={column.field}
+                field={field}
                 sortable
-                style={{ width: column.width, maxWidth: column.width }}
+                style={{ width: width, maxWidth: width }}
               ></Column>
             ))}
             <Column

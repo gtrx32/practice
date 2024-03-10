@@ -18,7 +18,6 @@
   z-index: 50;
   width: 100%;
   height: 100%;
-  pointer-events: none;
   transition: all 0.5s ease;
 
   @media (min-width: 1440px) {
@@ -34,6 +33,7 @@
 .clear {
   background-color: transparent;
   backdrop-filter: blur(0);
+  pointer-events: none;
 }
 
 .content {

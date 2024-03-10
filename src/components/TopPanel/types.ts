@@ -10,7 +10,7 @@ export const titles: Record<string, Record<string, string>> = {
     create: "Создать пост",
   },
   comments: {
-    details: "Просмотр комментарий",
+    details: "Просмотр комментария",
     edit: "Редактировать комментарий",
     create: "Создать комментарий",
   },

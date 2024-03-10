@@ -4,7 +4,7 @@ import { titles } from "./types";
 
 interface TopPanelProps {
   dataType: string;
-  pageType: string;
+  pageType: "details" | "edit" | "create";
   id?: string;
 }
 
@@ -19,70 +19,27 @@ const TopPanel: React.FC<TopPanelProps> = ({ dataType, pageType, id }) => {
 
   const title = titles[dataType]?.[pageType] || "";
 
-  const renderButtons = () => {
-    switch (pageType) {
-      case "details":
-        return (
-          <div className={s.wrapper}>
-            <div className={s.buttons}>
-              <button onClick={goBack} className={s.link}>
-                &#60;&#60;&#60; Назад
-              </button>
-              <div className={s.rightButtons}>
-                <Link className={s.link} to={`/${dataType}`}>
-                  Список
-                </Link>
-                <Link className={s.link} to={`/${dataType}/${id}/edit`}>
-                  Редактировать
-                </Link>
-                <button className={s.link}>Удалить</button>
-              </div>
-            </div>
-            <h1 className={s.title}>{title}</h1>
-          </div>
-        );
-      case "edit":
-        return (
-          <div className={s.wrapper}>
-            <div className={s.buttons}>
-              <button onClick={goBack} className={s.link}>
-                &#60;&#60;&#60; Назад
-              </button>
-              <div className={s.rightButtons}>
-                <Link className={s.link} to={`/${dataType}`}>
-                  Список
-                </Link>
-                <Link className={s.link} to={`/${dataType}/${id}`}>
-                  Посмотреть
-                </Link>
-                <button className={s.link}>Удалить</button>
-              </div>
-            </div>
-            <h1 className={s.title}>{title}</h1>
-          </div>
-        );
-      case "create":
-        return (
-          <div className={s.wrapper}>
-            <div className={s.buttons}>
-              <button onClick={goBack} className={s.link}>
-                &#60;&#60;&#60; Назад
-              </button>
-              <div className={s.rightButtons}>
-                <Link className={s.link} to={`/${dataType}`}>
-                  Список
-                </Link>
-              </div>
-            </div>
-            <h1 className={s.title}>{title}</h1>
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
-
-  return renderButtons();
+  return (
+    <div className={s.wrapper}>
+      <div className={s.buttons}>
+        <button onClick={goBack} className={s.link}>
+          &#60;&#60;&#60; Назад
+        </button>
+        <div className={s.rightButtons}>
+          <Link className={s.link} to={`/${dataType}`}>
+            Список
+          </Link>
+          {(pageType === "details" || pageType === "edit") && (
+            <Link className={s.link} to={`/${dataType}/${id}${pageType === "details" ? "/edit" : ""}`}>
+              {pageType === "details" ? "Редактировать" : "Посмотреть"}
+            </Link>
+          )}
+          <button className={s.link}>Удалить</button>
+        </div>
+      </div>
+      <h1 className={s.title}>{title}</h1>
+    </div>
+  );
 };
 
 export default TopPanel;

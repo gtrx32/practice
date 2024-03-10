@@ -9,8 +9,10 @@
   background-color: transparent;
   transition: 0.2s background-color ease-in-out;
 
-  &:hover {
-    cursor: pointer;
-    background-color: var(--accent-color-red);
+  @media (any-hover: hover) {
+    &:hover {
+      cursor: pointer;
+      background-color: var(--accent-color-red);
+    }
   }
 }
