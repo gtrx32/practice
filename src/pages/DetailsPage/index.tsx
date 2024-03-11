@@ -15,7 +15,7 @@ const DetailsPage: React.FC<DetailsPageProps> = () => {
   const location = useLocation();
   const { pathname } = location;
   const [table, id] = pathname.split("/").slice(1);
-  const [data, setData] = useState<any>(null); // Мы не уверены в типе данных, поэтому используем any
+  const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -44,11 +44,7 @@ const DetailsPage: React.FC<DetailsPageProps> = () => {
                   {field.name === "url" || field.name === "thumbnailUrl" ? (
                     <img src={data[field.name]} className={s.image} />
                   ) : field.name === "completed" ? (
-                    data[field.name] ? (
-                      <img src={done} className={s.readyIcon} />
-                    ) : (
-                      <img src={notDone} className={s.readyIcon} />
-                    )
+                    <img src={data[field.name] ? done : notDone} className={s.readyIcon} />
                   ) : field.sub ? (
                     field.sub.map((subField: any, index: number) => (
                       <span key={subField.name}>

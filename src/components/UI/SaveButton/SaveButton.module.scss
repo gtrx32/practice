@@ -1,0 +1,33 @@
+.button {
+  background-color: var(--primary-color-gray);
+  color: white;
+  font-family: "Furore";
+  font-size: 14px;
+  padding: 20px 40px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  transition: background-color 0.3s ease;
+
+  @media (min-width: 744px) {
+    width: 300px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-top: 15px solid var(--background-color-white);
+  }
+
+  &:hover {
+    background-color: var(--accent-color-red);
+  }
+}
