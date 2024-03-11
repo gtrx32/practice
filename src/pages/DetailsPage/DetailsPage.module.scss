@@ -1,3 +1,45 @@
 .container {
-  padding: 40px 50px;
+  padding: 20px 10px;
+  @media (min-width: 744px) {
+    padding: 40px 30px;
+  }
+  @media (min-width: 1440px) {
+    padding: 40px 50px;
+  }
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.row {
+  @media (min-width: 744px) {
+    display: flex;
+  }
+
+  padding: 15px 0 10px;
+  border-bottom: 1px solid var(--secondary-color-gray);
+  font-family: "Jost";
+  font-size: 15px;
+}
+
+.rowTitle {
+  flex: 0 0 200px;
+
+  font-size: 12px;
+  margin-bottom: 5px;
+
+  @media (min-width: 744px) {
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+}
+
+.rowData {
+  width: 100%;
+
+  .readyIcon {
+    padding-top: 3px;
+    width: 16px;
+  }
 }
