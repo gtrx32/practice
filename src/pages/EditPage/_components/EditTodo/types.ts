@@ -2,6 +2,7 @@ import { TodoType } from "../../types";
 
 export interface EditTodoProps {
   id: number;
+  edit: boolean;
 }
 
 export const initialValue: TodoType = {

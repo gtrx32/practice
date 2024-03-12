@@ -1,4 +1,3 @@
-/* Указываем box sizing */
 *,
 *::before,
 *::after {
@@ -17,17 +16,11 @@ body .widget-visible {
   --anchor-offset: 55px;
 }
 
-/* *:focus-visible, *:focus{
-  outline: none !important;
-} */
-
-/* Убираем внутренние отступы */
 ul,
 ol {
   padding: 0;
 }
 
-/* Убираем внешние отступы */
 body,
 h1,
 h2,
@@ -49,7 +42,6 @@ figcaption {
   display: none;
 }
 
-/* Выставляем основные настройки по-умолчанию для body */
 body {
   text-rendering: optimizeSpeed;
   line-height: 1.2;
@@ -70,12 +62,10 @@ body {
   scroll-behavior: smooth !important;
 }
 
-/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
 ul[class] {
   list-style: none;
 }
 
-/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
 a:not([class]) {
   text-decoration-skip-ink: auto;
 }
@@ -84,18 +74,15 @@ a {
   text-decoration: none;
 }
 
-/* Упрощаем работу с изображениями */
 img {
   max-width: 100%;
   display: block;
 }
 
-/* Указываем понятную периодичность в потоке данных у article*/
 article > * + * {
   margin-top: 1em;
 }
 
-/* Наследуем шрифты для инпутов и кнопок */
 input,
 button,
 textarea,

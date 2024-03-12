@@ -9,7 +9,7 @@ import { EditPostProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 
-const EditPost: React.FC<EditPostProps> = ({ id }) => {
+const EditPost: React.FC<EditPostProps> = ({ id, edit }) => {
   const [post, setPost] = useState<PostType | null>(null);
   const [users, setUsers] = useState<UserType[] | null>(null);
   const [postResponse, setPostResponse] = useState<PostType>(initialValue);
@@ -18,10 +18,11 @@ const EditPost: React.FC<EditPostProps> = ({ id }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    mainApi.get("posts/" + id).then(({ data }) => {
-      setPost(data);
-      setPostResponse(data);
-    });
+    edit &&
+      mainApi.get("posts/" + id).then(({ data }) => {
+        setPost(data);
+        setPostResponse(data);
+      });
     mainApi
       .get("users")
       .then(({ data }) => setUsers(data))
@@ -43,18 +44,17 @@ const EditPost: React.FC<EditPostProps> = ({ id }) => {
   };
 
   const onClickHandler = () => {
-    mainApi
-      .put("posts/" + id, {
-        method: "PUT",
-        body: JSON.stringify(postResponse),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      })
-      .then((json) => {
-        console.log(json);
-        navigate("/posts/" + id);
-      });
+    const method = edit ? "put" : "post";
+    mainApi[method](edit ? "posts/" + id : "posts", {
+      method: method.toUpperCase(),
+      body: JSON.stringify(postResponse),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }).then((json) => {
+      console.log(json);
+      edit ? navigate("/posts/" + id) : navigate("/posts/");
+    });
   };
 
   return !isLoading ? (

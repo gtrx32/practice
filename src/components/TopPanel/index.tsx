@@ -30,11 +30,13 @@ const TopPanel: React.FC<TopPanelProps> = ({ dataType, pageType, id }) => {
             Список
           </Link>
           {(pageType === "details" || pageType === "edit") && (
-            <Link className={s.link} to={`/${dataType}/${id}${pageType === "details" ? "/edit" : ""}`}>
-              {pageType === "details" ? "Редактировать" : "Посмотреть"}
-            </Link>
+            <>
+              <Link className={s.link} to={`/${dataType}/${id}${pageType === "details" ? "/edit" : ""}`}>
+                {pageType === "details" ? "Редактировать" : "Посмотреть"}
+              </Link>
+              <button className={s.link}>Удалить</button>
+            </>
           )}
-          <button className={s.link}>Удалить</button>
         </div>
       </div>
       <h1 className={s.title}>{title}</h1>

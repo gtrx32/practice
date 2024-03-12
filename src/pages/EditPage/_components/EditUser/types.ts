@@ -2,6 +2,7 @@ import { UserType } from "../../types";
 
 export interface EditUserProps {
   id: number;
+  edit: boolean;
 }
 
 export const initialValue: UserType = {

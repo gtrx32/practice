@@ -9,7 +9,7 @@ import { EditPhotoProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 
-const EditPhoto: React.FC<EditPhotoProps> = ({ id }) => {
+const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
   const [photo, setPhoto] = useState<PhotoType | null>(null);
   const [albums, setAlbums] = useState<AlbumType[] | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -19,10 +19,11 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    mainApi.get("photos/" + id).then(({ data }) => {
-      setPhoto(data);
-      setPhotoResponse(data);
-    });
+    edit &&
+      mainApi.get("photos/" + id).then(({ data }) => {
+        setPhoto(data);
+        setPhotoResponse(data);
+      });
     mainApi
       .get("albums")
       .then(({ data }) => setAlbums(data))
@@ -44,18 +45,17 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id }) => {
   };
 
   const onClickHandler = () => {
-    mainApi
-      .put("photos/" + id, {
-        method: "PUT",
-        body: JSON.stringify(photoResponse),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      })
-      .then((json) => {
-        console.log(json);
-        navigate("/photos/" + id);
-      });
+    const method = edit ? "put" : "post";
+    mainApi[method](edit ? "photos/" + id : "photos", {
+      method: method.toUpperCase(),
+      body: JSON.stringify(photoResponse),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }).then((json) => {
+      console.log(json);
+      edit ? navigate("/photos/" + id) : navigate("/photos/");
+    });
   };
 
   return !isLoading ? (

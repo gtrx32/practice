@@ -10,7 +10,7 @@ import { EditTodoProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 
-const EditTodo: React.FC<EditTodoProps> = ({ id }) => {
+const EditTodo: React.FC<EditTodoProps> = ({ id, edit }) => {
   const [todo, setTodo] = useState<TodoType | null>(null);
   const [users, setUsers] = useState<UserType[] | null>(null);
   const [todoResponse, setTodoResponse] = useState<TodoType>(initialValue);
@@ -19,10 +19,11 @@ const EditTodo: React.FC<EditTodoProps> = ({ id }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    mainApi.get("todos/" + id).then(({ data }) => {
-      setTodo(data);
-      setTodoResponse(data);
-    });
+    edit &&
+      mainApi.get("todos/" + id).then(({ data }) => {
+        setTodo(data);
+        setTodoResponse(data);
+      });
     mainApi
       .get("users")
       .then(({ data }) => setUsers(data))
@@ -51,18 +52,17 @@ const EditTodo: React.FC<EditTodoProps> = ({ id }) => {
   };
 
   const onClickHandler = () => {
-    mainApi
-      .put("todos/" + id, {
-        method: "PUT",
-        body: JSON.stringify(todoResponse),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      })
-      .then((json) => {
-        console.log(json);
-        navigate("/todos/" + id);
-      });
+    const method = edit ? "put" : "post";
+    mainApi[method](edit ? "todos/" + id : "todos", {
+      method: method.toUpperCase(),
+      body: JSON.stringify(todoResponse),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }).then((json) => {
+      console.log(json);
+      edit ? navigate("/todos/" + id) : navigate("/todos/");
+    });
   };
 
   return !isLoading ? (

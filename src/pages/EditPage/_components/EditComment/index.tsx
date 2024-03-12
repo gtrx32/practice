@@ -9,7 +9,7 @@ import { EditCommentProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 
-const EditComment: React.FC<EditCommentProps> = ({ id }) => {
+const EditComment: React.FC<EditCommentProps> = ({ id, edit }) => {
   const [comment, setComment] = useState<CommentType | null>(null);
   const [posts, setPosts] = useState<PostType[] | null>(null);
   const [commentResponse, setCommentResponse] = useState<CommentType>(initialValue);
@@ -18,10 +18,11 @@ const EditComment: React.FC<EditCommentProps> = ({ id }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    mainApi.get("comments/" + id).then(({ data }) => {
-      setComment(data);
-      setCommentResponse(data);
-    });
+    edit &&
+      mainApi.get("comments/" + id).then(({ data }) => {
+        setComment(data);
+        setCommentResponse(data);
+      });
     mainApi
       .get("posts")
       .then(({ data }) => setPosts(data))
@@ -43,18 +44,17 @@ const EditComment: React.FC<EditCommentProps> = ({ id }) => {
   };
 
   const onClickHandler = () => {
-    mainApi
-      .put("comments/" + id, {
-        method: "PUT",
-        body: JSON.stringify(commentResponse),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      })
-      .then((json) => {
-        console.log(json);
-        navigate("/comments/" + id);
-      });
+    const method = edit ? "put" : "post";
+    mainApi[method](edit ? "comments/" + id : "comments", {
+      method: method.toUpperCase(),
+      body: JSON.stringify(commentResponse),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }).then((json) => {
+      console.log(json);
+      edit ? navigate("/comments/" + id) : navigate("/comments/");
+    });
   };
 
   return !isLoading ? (

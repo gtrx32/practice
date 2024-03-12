@@ -12,31 +12,33 @@ const EditAlbum = lazy(() => import("./_components/EditAlbum"));
 const EditPost = lazy(() => import("./_components/EditPost"));
 const EditComment = lazy(() => import("./_components/EditComment"));
 
-interface EditPageProps {}
+interface EditPageProps {
+  edit: boolean;
+}
 
-const EditPage: React.FC<EditPageProps> = () => {
+const EditPage: React.FC<EditPageProps> = ({ edit = true }) => {
   const location = useLocation();
   const { pathname } = location;
   const [table, id] = pathname.split("/").slice(1);
 
   return (
     <Container className={s.container}>
-      <TopPanel dataType={table} pageType="edit" id={id} />
+      <TopPanel dataType={table} pageType={edit ? "edit" : "create"} id={id} />
       <Suspense fallback={<LoadingSpinner />}>
         {(() => {
           switch (table) {
             case "users":
-              return <EditUser id={parseInt(id)} />;
+              return <EditUser id={parseInt(id)} edit={edit} />;
             case "todos":
-              return <EditTodo id={parseInt(id)} />;
+              return <EditTodo id={parseInt(id)} edit={edit} />;
             case "photos":
-              return <EditPhoto id={parseInt(id)} />;
+              return <EditPhoto id={parseInt(id)} edit={edit} />;
             case "albums":
-              return <EditAlbum id={parseInt(id)} />;
+              return <EditAlbum id={parseInt(id)} edit={edit} />;
             case "posts":
-              return <EditPost id={parseInt(id)} />;
+              return <EditPost id={parseInt(id)} edit={edit} />;
             case "comments":
-              return <EditComment id={parseInt(id)} />;
+              return <EditComment id={parseInt(id)} edit={edit} />;
             default:
               return null;
           }

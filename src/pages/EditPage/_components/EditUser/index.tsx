@@ -8,22 +8,23 @@ import { EditUserProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 
-const EditUser: React.FC<EditUserProps> = ({ id }) => {
+const EditUser: React.FC<EditUserProps> = ({ id, edit }) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [userResponse, setUserResponse] = useState<UserType>(initialValue);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setIsLoading(true);
-    mainApi
-      .get("users/" + id)
-      .then(({ data }) => {
-        setUser(data);
-        setUserResponse(data);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
+  edit &&
+    useEffect(() => {
+      setIsLoading(true);
+      mainApi
+        .get("users/" + id)
+        .then(({ data }) => {
+          setUser(data);
+          setUserResponse(data);
+        })
+        .finally(() => setIsLoading(false));
+    }, []);
 
   const handleTextBoxChange = (fieldName: string, value: string) => {
     setUserResponse((prevUser) => ({
@@ -53,18 +54,17 @@ const EditUser: React.FC<EditUserProps> = ({ id }) => {
   };
 
   const onClickHandler = () => {
-    mainApi
-      .put("users/" + id, {
-        method: "PUT",
-        body: JSON.stringify(userResponse),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      })
-      .then((json) => {
-        console.log(json);
-        navigate("/users/" + id);
-      });
+    const method = edit ? "put" : "post";
+    mainApi[method](edit ? "users/" + id : "users", {
+      method: method.toUpperCase(),
+      body: JSON.stringify(userResponse),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }).then((json) => {
+      console.log(json);
+      edit ? navigate("/users/" + id) : navigate("/users/");
+    });
   };
 
   return !isLoading ? (
