@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import s from "./TopPanel.module.scss";
 import { titles } from "./types";
+import mainApi from "../../api/api";
 
 interface TopPanelProps {
   dataType: string;
@@ -15,6 +16,13 @@ const TopPanel: React.FC<TopPanelProps> = ({ dataType, pageType, id }) => {
     const currentPath = window.location.pathname;
     const newPath = currentPath.substring(0, currentPath.lastIndexOf("/"));
     navigate(newPath);
+  };
+
+  const onClickHandler = () => {
+    mainApi.delete(dataType + "/" + id, { method: "DELETE" }).then((json) => {
+      console.log(json);
+      navigate("/" + dataType);
+    });
   };
 
   const title = titles[dataType]?.[pageType] || "";
@@ -34,7 +42,9 @@ const TopPanel: React.FC<TopPanelProps> = ({ dataType, pageType, id }) => {
               <Link className={s.link} to={`/${dataType}/${id}${pageType === "details" ? "/edit" : ""}`}>
                 {pageType === "details" ? "Редактировать" : "Посмотреть"}
               </Link>
-              <button className={s.link}>Удалить</button>
+              <button onClick={onClickHandler} className={s.link}>
+                Удалить
+              </button>
             </>
           )}
         </div>
