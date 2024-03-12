@@ -1,12 +1,14 @@
+@import "@assets/styles/breakpoints/breakpoints";
+
 .container {
   width: 100%;
   padding: 30px 10px !important;
 
-  @media (min-width: 744px) {
+  @media (min-width: $tablet) {
     padding: 50px 30px !important;
   }
 
-  @media (min-width: 1440px) {
+  @media (min-width: $desktop) {
     padding: 50px 55px !important;
   }
 
@@ -15,7 +17,7 @@
     height: auto;
     margin-bottom: 10px;
 
-    @media (min-width: 744px) {
+    @media (min-width: $tablet) {
       width: 455px;
       margin-bottom: 20px;
     }
@@ -30,7 +32,7 @@
     letter-spacing: -0.3px;
     white-space: pre-wrap;
 
-    @media (min-width: 1440px) {
+    @media (min-width: $desktop) {
       white-space: normal;
     }
   }

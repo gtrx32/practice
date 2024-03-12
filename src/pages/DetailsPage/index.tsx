@@ -2,12 +2,12 @@ import { useLocation } from "react-router-dom";
 import TopPanel from "../../components/TopPanel";
 import s from "./DetailsPage.module.scss";
 import Container from "../../components/UI/Container";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { DataRow, Show } from "./types";
 import done from "@assets/images/details/done.svg";
 import notDone from "@assets/images/details/notDone.svg";
+import mainApi from "../../api/api";
 
 interface DetailsPageProps {}
 
@@ -21,9 +21,8 @@ const DetailsPage: React.FC<DetailsPageProps> = () => {
 
   useEffect(() => {
     setIsLoading(true);
-
-    axios
-      .get("https://jsonplaceholder.typicode.com/" + table + "/" + id)
+    mainApi
+      .get(table + "/" + id)
       .then(({ data }) => setData(data))
       .catch(() => setIsError(true))
       .finally(() => setIsLoading(false));
@@ -37,23 +36,23 @@ const DetailsPage: React.FC<DetailsPageProps> = () => {
       {!isError ? (
         !isLoading ? (
           <div className={s.wrapper}>
-            {fieldsToShow.map((field: DataRow) => (
-              <div key={field.name} className={s.row}>
-                <div className={s.rowTitle}>{field.label}: </div>
+            {fieldsToShow.map(({ name, label, sub }: DataRow) => (
+              <div key={name} className={s.row}>
+                <div className={s.rowTitle}>{label}: </div>
                 <div className={s.rowData}>
-                  {field.name === "url" || field.name === "thumbnailUrl" ? (
-                    <img src={data[field.name]} className={s.image} />
-                  ) : field.name === "completed" ? (
-                    <img src={data[field.name] ? done : notDone} className={s.readyIcon} />
-                  ) : field.sub ? (
-                    field.sub.map((subField: any, index: number) => (
+                  {name === "url" || name === "thumbnailUrl" ? (
+                    <img src={data[name]} className={s.image} />
+                  ) : name === "completed" ? (
+                    <img src={data[name] ? done : notDone} className={s.readyIcon} />
+                  ) : sub ? (
+                    sub.map((subField: any, index: number) => (
                       <span key={subField.name}>
                         {index > 0 && ", "}
-                        {data[field.name][subField.name]}
+                        {data[name][subField.name]}
                       </span>
                     ))
                   ) : (
-                    data[field.name]
+                    data[name]
                   )}
                 </div>
               </div>

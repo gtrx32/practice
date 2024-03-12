@@ -1,12 +1,14 @@
+@import "@assets/styles/breakpoints/breakpoints";
+
 .container {
   width: 100%;
   padding: 0 10px;
 
-  @media (min-width: 744px) {
+  @media (min-width: $tablet) {
     padding: 0 40px;
   }
 
-  @media (min-width: 1440px) {
+  @media (min-width: $desktop) {
     padding: 0 50px;
   }
 }

@@ -1,10 +1,12 @@
+@import "@assets/styles/breakpoints/breakpoints";
+
 .wrapper {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   gap: 20px;
 
-  @media (min-width: 1440px) {
+  @media (min-width: $desktop) {
     flex-direction: row;
   }
 

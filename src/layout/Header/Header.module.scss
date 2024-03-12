@@ -1,3 +1,5 @@
+@import "@assets/styles/breakpoints/breakpoints";
+
 .header {
   border-bottom: 1px solid var(--secondary-color-gray);
   z-index: 101;
@@ -19,7 +21,7 @@
     .buttons {
       display: none;
 
-      @media (min-width: 744px) {
+      @media (min-width: $tablet) {
         display: flex;
         gap: 7px;
       }
@@ -32,7 +34,7 @@
       font-size: 14px;
       line-height: 1px;
 
-      @media (min-width: 744px) {
+      @media (min-width: $tablet) {
         display: none !important;
       }
     }

@@ -1,3 +1,5 @@
+@import "@assets/styles/breakpoints/breakpoints";
+
 .wrapper {
 }
 
@@ -11,14 +13,14 @@
   transition: all 0.5s ease;
   z-index: 100;
 
-  @media (min-width: 744px) {
+  @media (min-width: $tablet) {
     max-width: 330px;
     width: 330px;
     min-width: 330px;
     height: calc(100vh - 62px);
   }
 
-  @media (min-width: 1440px) {
+  @media (min-width: $desktop) {
     position: sticky;
     top: 62px;
   }
@@ -26,7 +28,7 @@
   .topRow {
     display: none;
 
-    @media (min-width: 744px) {
+    @media (min-width: $tablet) {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -52,7 +54,7 @@
   width: 0;
   min-width: 0;
 
-  @media (min-width: 744px) {
+  @media (min-width: $tablet) {
     max-width: 40px;
     width: 40px;
     min-width: 40px;

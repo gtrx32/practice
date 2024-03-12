@@ -7,8 +7,8 @@ import { DataTable, DataTableRowClickEvent } from "primereact/datatable";
 import ActionsBodyTemplate from "./_components/ActionsBodyTemplate";
 import UpperPanel from "./_components/UpperPanel";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import axios from "axios";
 import Container from "../../components/UI/Container";
+import mainApi from "../../api/api";
 
 interface ListPageProps {
   table: string;
@@ -22,9 +22,8 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
 
   useEffect(() => {
     setIsLoading(true);
-
-    axios
-      .get("https://jsonplaceholder.typicode.com/" + table)
+    mainApi
+      .get(table)
       .then(({ data }) => setData(data))
       .catch(() => setIsError(true))
       .finally(() => setIsLoading(false));

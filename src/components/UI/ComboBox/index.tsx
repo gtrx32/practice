@@ -1,29 +1,44 @@
 import clsx from "clsx";
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import s from "./ComboBox.module.scss";
 
 interface ComboBoxProps extends PropsWithChildren {
-  options: string[]; // Добавляем свойство options типа string[]
+  options: number[] | undefined;
   placeholder: string;
-  className?: string;
+  defaultValue?: number;
   width?: string;
+  className?: string;
+  onChange?: (value: number) => void;
 }
 
-const ComboBox: React.FC<ComboBoxProps> = ({ options, placeholder, children, className, width = "100%" }) => {
-  const [selectedValue, setSelectedValue] = useState(placeholder);
+const ComboBox: React.FC<ComboBoxProps> = ({
+  options,
+  placeholder,
+  defaultValue = placeholder,
+  width = "100%",
+  className,
+  onChange,
+  children,
+}) => {
+  const [selectedValue, setSelectedValue] = useState(defaultValue);
 
-  const handleChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(value);
+  useEffect(() => {
+    setSelectedValue(defaultValue);
+  }, [defaultValue]);
+
+  const onHandleChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedValue(target.value);
+    onChange?.(parseInt(target.value));
   };
 
   return (
     <div className={clsx(s.wrapper, className)} style={{ width: width }}>
       <div className={s.label}>{children}</div>
-      <select className={s.select} value={selectedValue} onChange={handleChange}>
+      <select className={s.select} value={selectedValue} onChange={onHandleChange}>
         <option value={placeholder} disabled hidden>
           {placeholder}
         </option>
-        {options.map((option, index) => (
+        {options?.map((option, index) => (
           <option key={index} value={option}>
             {option}
           </option>
