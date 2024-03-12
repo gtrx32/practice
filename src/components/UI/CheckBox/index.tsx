@@ -1,12 +1,7 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./CheckBox.module.scss";
 import clsx from "clsx";
-
-interface CheckBoxProps extends PropsWithChildren {
-  defaultValue?: boolean;
-  className?: string;
-  onChange?: (value: boolean) => void;
-}
+import { CheckBoxProps } from "./types";
 
 const CheckBox: React.FC<CheckBoxProps> = ({ defaultValue = false, className, onChange, children }) => {
   const [isChecked, setIsChecked] = useState(defaultValue);
@@ -21,10 +16,16 @@ const CheckBox: React.FC<CheckBoxProps> = ({ defaultValue = false, className, on
   };
 
   return (
-    <div className={s.wrapper}>
-      <input type="checkbox" checked={isChecked} onChange={toggleCheckbox} className={clsx(s.checkbox, className)} />
+    <label className={s.wrapper} htmlFor="todocheck">
+      <input
+        id="todocheck"
+        type="checkbox"
+        checked={isChecked}
+        onChange={toggleCheckbox}
+        className={clsx(s.checkbox, className)}
+      />
       {children}
-    </div>
+    </label>
   );
 };
 export default CheckBox;

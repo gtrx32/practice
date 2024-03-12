@@ -5,43 +5,75 @@ import SaveButton from "../../../../components/UI/SaveButton";
 import TextBox from "../../../../components/UI/TextBox";
 import { CommentType, PostType } from "../../types";
 import s from "./EditComment.module.scss";
-
-interface EditCommentProps {
-  id: number;
-}
+import { EditCommentProps, initialValue } from "./types";
 
 const EditComment: React.FC<EditCommentProps> = ({ id }) => {
   const [comment, setComment] = useState<CommentType | null>(null);
   const [posts, setPosts] = useState<PostType[] | null>(null);
+  const [commentResponse, setCommentResponse] = useState<CommentType>(initialValue);
 
   useEffect(() => {
-    mainApi.get("comments/" + id).then(({ data }) => setComment(data));
+    mainApi.get("comments/" + id).then(({ data }) => {
+      setComment(data);
+      setCommentResponse(data);
+    });
     mainApi.get("posts").then(({ data }) => setPosts(data));
   }, []);
 
-  const handleTextBoxChange = (value: string) => {
-    console.log("Текст из TextBox:", value);
+  const handleComboBoxChange = (fieldName: string, value: number) => {
+    setCommentResponse((prevComment) => ({
+      ...prevComment,
+      [fieldName]: value,
+    }));
+  };
+
+  const handleTextBoxChange = (fieldName: string, value: string) => {
+    setCommentResponse((prevComment) => ({
+      ...prevComment,
+      [fieldName]: value,
+    }));
+  };
+
+  const onClickHandler = () => {
+    mainApi
+      .put("comments/" + id, {
+        method: "PUT",
+        body: JSON.stringify(commentResponse),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+      .then((json) => console.log(json));
   };
 
   return (
     <div className={s.form}>
       <div className={s.block}>
+        <TextBox defaultValue={comment?.id} onChange={(value) => handleTextBoxChange("id", value)}>
+          ID
+        </TextBox>
         <ComboBox
           defaultValue={comment?.postId}
           options={posts?.map((item) => item.id)}
           placeholder="Пост"
           className={s.half}
+          onChange={(value) => handleComboBoxChange("postId", value)}
         >
           Выберите пост
         </ComboBox>
-        <TextBox onChange={handleTextBoxChange} defaultValue={comment?.email} className={s.half} width="440px">
+        <TextBox
+          onChange={(value) => handleTextBoxChange("email", value)}
+          defaultValue={comment?.email}
+          className={s.half}
+          width="440px"
+        >
           Email автора
         </TextBox>
-        <TextBox defaultValue={comment?.body} textarea={true}>
+        <TextBox onChange={(value) => handleTextBoxChange("body", value)} defaultValue={comment?.body} textarea={true}>
           Текст комментария
         </TextBox>
       </div>
-      <SaveButton>Сохранить изменения &#62;&#62;&#62; </SaveButton>
+      <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </div>
   );
 };

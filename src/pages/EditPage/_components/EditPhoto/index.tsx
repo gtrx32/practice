@@ -1,34 +1,64 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
 import TextBox from "../../../../components/UI/TextBox";
 import s from "./EditPhoto.module.scss";
 import { AlbumType, PhotoType } from "../../types";
 import mainApi from "../../../../api/api";
-
-interface EditPhotoProps {
-  id: number;
-}
+import { EditPhotoProps, initialValue } from "./types";
 
 const EditPhoto: React.FC<EditPhotoProps> = ({ id }) => {
   const [photo, setPhoto] = useState<PhotoType | null>(null);
   const [albums, setAlbums] = useState<AlbumType[] | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [photoResponse, setPhotoResponse] = useState<PhotoType>(initialValue);
 
   useEffect(() => {
-    mainApi.get("photos/" + id).then(({ data }) => setPhoto(data));
+    mainApi.get("photos/" + id).then(({ data }) => {
+      setPhoto(data);
+      setPhotoResponse(data);
+    });
     mainApi.get("albums").then(({ data }) => setAlbums(data));
   }, []);
 
-  const handleImageChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    const file = target.files?.[0];
-    setSelectedImage(file || null);
+  const handleComboBoxChange = (fieldName: string, value: number) => {
+    setPhotoResponse((prevPhoto) => ({
+      ...prevPhoto,
+      [fieldName]: value,
+    }));
+  };
+
+  const handleTextBoxChange = (fieldName: string, value: string) => {
+    setPhotoResponse((prevPhoto) => ({
+      ...prevPhoto,
+      [fieldName]: value,
+    }));
+  };
+
+  const onClickHandler = () => {
+    mainApi
+      .put("photos/" + id, {
+        method: "PUT",
+        body: JSON.stringify(photoResponse),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+      .then((json) => console.log(json));
   };
 
   return (
     <div className={s.form}>
       <div className={s.block}>
-        <TextBox defaultValue={photo?.title} className={s.half} width="440px">
+        <TextBox defaultValue={photo?.id} onChange={(value) => handleTextBoxChange("id", value)}>
+          ID
+        </TextBox>
+        <TextBox
+          defaultValue={photo?.title}
+          className={s.half}
+          width="440px"
+          onChange={(value) => handleTextBoxChange("title", value)}
+        >
           Название
         </TextBox>
         <ComboBox
@@ -36,6 +66,7 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id }) => {
           options={albums?.map((item) => item.id)}
           placeholder="Альбом"
           className={s.half}
+          onChange={(value) => handleComboBoxChange("albumId", value)}
         >
           Выберите альбом
         </ComboBox>
@@ -46,14 +77,14 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id }) => {
           <label className={s.imageLabel} htmlFor="imageInput">
             Перетащите сюда или нажмите для выбора
           </label>
-          <input type="file" id="imageInput" className={s.imageUploader} onChange={handleImageChange} />
+          <input type="file" id="imageInput" className={s.imageUploader} />
           <img
             src={selectedImage ? URL.createObjectURL(selectedImage) : photo?.thumbnailUrl}
             className={s.imagePreview}
           />
         </div>
       </div>
-      <SaveButton>Сохранить изменения &#62;&#62;&#62; </SaveButton>
+      <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </div>
   );
 };

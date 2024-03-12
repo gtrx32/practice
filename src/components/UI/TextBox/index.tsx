@@ -1,14 +1,7 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./TextBox.module.scss";
 import clsx from "clsx";
-
-interface TextBoxProps extends PropsWithChildren {
-  defaultValue?: string;
-  width?: string;
-  textarea?: boolean;
-  className?: string;
-  onChange?: (value: string) => void;
-}
+import { TextBoxProps } from "./types";
 
 const TextBox: React.FC<TextBoxProps> = ({
   defaultValue = "",

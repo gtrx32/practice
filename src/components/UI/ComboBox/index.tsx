@@ -1,15 +1,7 @@
 import clsx from "clsx";
-import { PropsWithChildren, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./ComboBox.module.scss";
-
-interface ComboBoxProps extends PropsWithChildren {
-  options: number[] | undefined;
-  placeholder: string;
-  defaultValue?: number;
-  width?: string;
-  className?: string;
-  onChange?: (value: number) => void;
-}
+import { ComboBoxProps } from "./types";
 
 const ComboBox: React.FC<ComboBoxProps> = ({
   options,
