@@ -26,14 +26,14 @@ const EditUser: React.FC<EditUserProps> = ({ id, edit }) => {
         .finally(() => setIsLoading(false));
     }, []);
 
-  const handleTextBoxChange = (fieldName: string, value: string) => {
+  const handleTextBoxChange = (fieldName: keyof UserType, value: string) => {
     setUserResponse((prevUser) => ({
       ...prevUser,
       [fieldName]: value,
     }));
   };
 
-  const handleCompanyFieldChange = (fieldName: string, value: string) => {
+  const handleCompanyFieldChange = (fieldName: keyof UserType["company"], value: string) => {
     setUserResponse((prevUser) => ({
       ...prevUser,
       company: {
@@ -43,7 +43,7 @@ const EditUser: React.FC<EditUserProps> = ({ id, edit }) => {
     }));
   };
 
-  const handleAddressFieldChange = (fieldName: string, value: string) => {
+  const handleAddressFieldChange = (fieldName: keyof UserType["address"], value: string) => {
     setUserResponse((prevUser) => ({
       ...prevUser,
       address: {

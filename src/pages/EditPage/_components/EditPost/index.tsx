@@ -29,14 +29,7 @@ const EditPost: React.FC<EditPostProps> = ({ id, edit }) => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const handleComboBoxChange = (fieldName: string, value: number) => {
-    setPostResponse((prevPost) => ({
-      ...prevPost,
-      [fieldName]: value,
-    }));
-  };
-
-  const handleTextBoxChange = (fieldName: string, value: string) => {
+  const handleChange = (fieldName: keyof PostType, value: number | string) => {
     setPostResponse((prevPost) => ({
       ...prevPost,
       [fieldName]: value,
@@ -60,21 +53,21 @@ const EditPost: React.FC<EditPostProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <TextBox defaultValue={post?.id} onChange={(value) => handleTextBoxChange("id", value)}>
+        <TextBox defaultValue={post?.id} onChange={(value) => handleChange("id", value)}>
           ID
         </TextBox>
         <ComboBox
           defaultValue={post?.userId}
           options={users?.map((item) => item.id)}
           placeholder="Автор"
-          onChange={(value) => handleComboBoxChange("userId", value)}
+          onChange={(value) => handleChange("userId", value)}
         >
           Выберите автора
         </ComboBox>
-        <TextBox defaultValue={post?.title} onChange={(value) => handleTextBoxChange("title", value)}>
+        <TextBox defaultValue={post?.title} onChange={(value) => handleChange("title", value)}>
           Заголовок
         </TextBox>
-        <TextBox defaultValue={post?.body} textarea={true} onChange={(value) => handleTextBoxChange("body", value)}>
+        <TextBox defaultValue={post?.body} textarea={true} onChange={(value) => handleChange("body", value)}>
           Текст поста
         </TextBox>
       </div>

@@ -29,7 +29,9 @@
     border-top: 15px solid var(--background-color-white);
   }
 
-  &:hover {
-    background-color: var(--accent-color-red);
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: var(--accent-color-red);
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
 import TextBox from "../../../../components/UI/TextBox";
@@ -30,18 +30,16 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const handleComboBoxChange = (fieldName: string, value: number) => {
+  const handleChange = (fieldName: keyof PhotoType, value: number | string) => {
     setPhotoResponse((prevPhoto) => ({
       ...prevPhoto,
       [fieldName]: value,
     }));
   };
 
-  const handleTextBoxChange = (fieldName: string, value: string) => {
-    setPhotoResponse((prevPhoto) => ({
-      ...prevPhoto,
-      [fieldName]: value,
-    }));
+  const handleImageChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const file = target.files?.[0];
+    setSelectedImage(file || null);
   };
 
   const onClickHandler = () => {
@@ -61,14 +59,14 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <TextBox defaultValue={photo?.id} onChange={(value) => handleTextBoxChange("id", value)}>
+        <TextBox defaultValue={photo?.id} onChange={(value) => handleChange("id", value)}>
           ID
         </TextBox>
         <TextBox
           defaultValue={photo?.title}
           className={s.half}
           width="440px"
-          onChange={(value) => handleTextBoxChange("title", value)}
+          onChange={(value) => handleChange("title", value)}
         >
           Название
         </TextBox>
@@ -77,7 +75,7 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
           options={albums?.map((item) => item.id)}
           placeholder="Альбом"
           className={s.half}
-          onChange={(value) => handleComboBoxChange("albumId", value)}
+          onChange={(value) => handleChange("albumId", value)}
         >
           Выберите альбом
         </ComboBox>
@@ -88,7 +86,7 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
           <label className={s.imageLabel} htmlFor="imageInput">
             Перетащите сюда или нажмите для выбора
           </label>
-          <input type="file" id="imageInput" className={s.imageUploader} />
+          <input type="file" id="imageInput" className={s.imageUploader} onChange={handleImageChange} />
           <img
             src={selectedImage ? URL.createObjectURL(selectedImage) : photo?.thumbnailUrl}
             className={s.imagePreview}

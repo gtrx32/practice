@@ -20,7 +20,6 @@ const EditAlbum: React.FC<EditAlbumProps> = ({ id, edit }) => {
     setIsLoading(true);
     edit &&
       mainApi.get("albums/" + id).then(({ data }) => {
-        console.log("+");
         setAlbum(data);
         setAlbumResponse(data);
       });
@@ -30,14 +29,7 @@ const EditAlbum: React.FC<EditAlbumProps> = ({ id, edit }) => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const handleComboBoxChange = (fieldName: string, value: number) => {
-    setAlbumResponse((prevAlbum) => ({
-      ...prevAlbum,
-      [fieldName]: value,
-    }));
-  };
-
-  const handleTextBoxChange = (fieldName: string, value: string) => {
+  const handleChange = (fieldName: keyof AlbumType, value: number | string) => {
     setAlbumResponse((prevAlbum) => ({
       ...prevAlbum,
       [fieldName]: value,
@@ -61,18 +53,18 @@ const EditAlbum: React.FC<EditAlbumProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <TextBox defaultValue={album?.id} onChange={(value) => handleTextBoxChange("id", value)}>
+        <TextBox defaultValue={album?.id} onChange={(value) => handleChange("id", value)}>
           ID
         </TextBox>
         <ComboBox
           defaultValue={album?.userId}
           options={users?.map((item) => item.id)}
           placeholder="Владелец"
-          onChange={(value) => handleComboBoxChange("userId", value)}
+          onChange={(value) => handleChange("userId", value)}
         >
           Выберите владельца
         </ComboBox>
-        <TextBox defaultValue={album?.title} onChange={(value) => handleTextBoxChange("title", value)}>
+        <TextBox defaultValue={album?.title} onChange={(value) => handleChange("title", value)}>
           Название
         </TextBox>
       </div>

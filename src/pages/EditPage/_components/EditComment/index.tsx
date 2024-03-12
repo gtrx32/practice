@@ -29,14 +29,7 @@ const EditComment: React.FC<EditCommentProps> = ({ id, edit }) => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const handleComboBoxChange = (fieldName: string, value: number) => {
-    setCommentResponse((prevComment) => ({
-      ...prevComment,
-      [fieldName]: value,
-    }));
-  };
-
-  const handleTextBoxChange = (fieldName: string, value: string) => {
+  const handleChange = (fieldName: keyof CommentType, value: number | string) => {
     setCommentResponse((prevComment) => ({
       ...prevComment,
       [fieldName]: value,
@@ -60,7 +53,7 @@ const EditComment: React.FC<EditCommentProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <TextBox defaultValue={comment?.id} onChange={(value) => handleTextBoxChange("id", value)}>
+        <TextBox defaultValue={comment?.id} onChange={(value) => handleChange("id", value)}>
           ID
         </TextBox>
         <ComboBox
@@ -68,19 +61,19 @@ const EditComment: React.FC<EditCommentProps> = ({ id, edit }) => {
           options={posts?.map((item) => item.id)}
           placeholder="Пост"
           className={s.half}
-          onChange={(value) => handleComboBoxChange("postId", value)}
+          onChange={(value) => handleChange("postId", value)}
         >
           Выберите пост
         </ComboBox>
         <TextBox
-          onChange={(value) => handleTextBoxChange("email", value)}
+          onChange={(value) => handleChange("email", value)}
           defaultValue={comment?.email}
           className={s.half}
           width="440px"
         >
           Email автора
         </TextBox>
-        <TextBox onChange={(value) => handleTextBoxChange("body", value)} defaultValue={comment?.body} textarea={true}>
+        <TextBox onChange={(value) => handleChange("body", value)} defaultValue={comment?.body} textarea={true}>
           Текст комментария
         </TextBox>
       </div>

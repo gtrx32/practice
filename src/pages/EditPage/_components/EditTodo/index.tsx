@@ -30,21 +30,7 @@ const EditTodo: React.FC<EditTodoProps> = ({ id, edit }) => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const handleComboBoxChange = (fieldName: string, value: number) => {
-    setTodoResponse((prevTodo) => ({
-      ...prevTodo,
-      [fieldName]: value,
-    }));
-  };
-
-  const handleCheckBoxChange = (fieldName: string, value: boolean) => {
-    setTodoResponse((prevTodo) => ({
-      ...prevTodo,
-      [fieldName]: value,
-    }));
-  };
-
-  const handleTextBoxChange = (fieldName: string, value: string) => {
+  const handleChange = (fieldName: keyof TodoType, value: number | string | boolean) => {
     setTodoResponse((prevTodo) => ({
       ...prevTodo,
       [fieldName]: value,
@@ -68,21 +54,21 @@ const EditTodo: React.FC<EditTodoProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <TextBox defaultValue={todo?.id} onChange={(value) => handleTextBoxChange("id", value)}>
+        <TextBox defaultValue={todo?.id} onChange={(value) => handleChange("id", value)}>
           ID
         </TextBox>
         <ComboBox
           defaultValue={todo?.userId}
           options={users?.map((item) => item.id)}
           placeholder="Автор"
-          onChange={(value) => handleComboBoxChange("userId", value)}
+          onChange={(value) => handleChange("userId", value)}
         >
           Выберите автора
         </ComboBox>
-        <CheckBox defaultValue={todo?.completed} onChange={(value) => handleCheckBoxChange("completed", value)}>
+        <CheckBox defaultValue={todo?.completed} onChange={(value) => handleChange("completed", value)}>
           Выполнена
         </CheckBox>
-        <TextBox defaultValue={todo?.title} onChange={(value) => handleTextBoxChange("title", value)}>
+        <TextBox defaultValue={todo?.title} onChange={(value) => handleChange("title", value)}>
           Текст
         </TextBox>
       </div>

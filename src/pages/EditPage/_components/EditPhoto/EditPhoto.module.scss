@@ -49,8 +49,10 @@
   cursor: pointer;
   transition: 0.3s all ease;
 
-  &:hover {
-    color: blue;
+  @media (any-hover: hover) {
+    &:hover {
+      color: blue;
+    }
   }
 
   @media (min-width: $desktop) {
