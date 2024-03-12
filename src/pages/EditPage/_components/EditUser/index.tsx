@@ -5,16 +5,24 @@ import { UserType } from "../../types";
 import s from "./EditUser.module.scss";
 import mainApi from "../../../../api/api";
 import { EditUserProps, initialValue } from "./types";
+import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
 
 const EditUser: React.FC<EditUserProps> = ({ id }) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [userResponse, setUserResponse] = useState<UserType>(initialValue);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    mainApi.get("users/" + id).then(({ data }) => {
-      setUser(data);
-      setUserResponse(data);
-    });
+    setIsLoading(true);
+    mainApi
+      .get("users/" + id)
+      .then(({ data }) => {
+        setUser(data);
+        setUserResponse(data);
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const handleTextBoxChange = (fieldName: string, value: string) => {
@@ -53,10 +61,13 @@ const EditUser: React.FC<EditUserProps> = ({ id }) => {
           "Content-type": "application/json; charset=UTF-8",
         },
       })
-      .then((json) => console.log(json));
+      .then((json) => {
+        console.log(json);
+        navigate("/users/" + id);
+      });
   };
 
-  return (
+  return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
         <TextBox defaultValue={user?.id} onChange={(value) => handleTextBoxChange("id", value)}>
@@ -138,6 +149,8 @@ const EditUser: React.FC<EditUserProps> = ({ id }) => {
       </div>
       <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62; </SaveButton>
     </div>
+  ) : (
+    <LoadingSpinner />
   );
 };
 

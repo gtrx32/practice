@@ -7,19 +7,25 @@ import mainApi from "../../../../api/api";
 import { AlbumType, UserType } from "../../types";
 import { EditAlbumProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
 
 const EditAlbum: React.FC<EditAlbumProps> = ({ id }) => {
   const [album, setAlbum] = useState<AlbumType | null>(null);
   const [users, setUsers] = useState<UserType[] | null>(null);
   const [albumResponse, setAlbumResponse] = useState<AlbumType>(initialValue);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
+    setIsLoading(true);
     mainApi.get("albums/" + id).then(({ data }) => {
       setAlbum(data);
       setAlbumResponse(data);
     });
-    mainApi.get("users").then(({ data }) => setUsers(data));
+    mainApi
+      .get("users")
+      .then(({ data }) => setUsers(data))
+      .finally(() => setIsLoading(false));
   }, []);
 
   const handleComboBoxChange = (fieldName: string, value: number) => {
@@ -51,7 +57,7 @@ const EditAlbum: React.FC<EditAlbumProps> = ({ id }) => {
       });
   };
 
-  return (
+  return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
         <TextBox defaultValue={album?.id} onChange={(value) => handleTextBoxChange("id", value)}>
@@ -71,6 +77,8 @@ const EditAlbum: React.FC<EditAlbumProps> = ({ id }) => {
       </div>
       <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62; </SaveButton>
     </div>
+  ) : (
+    <LoadingSpinner />
   );
 };
 

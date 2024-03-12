@@ -6,18 +6,26 @@ import { PostType, UserType } from "../../types";
 import s from "./EditPost.module.scss";
 import mainApi from "../../../../api/api";
 import { EditPostProps, initialValue } from "./types";
+import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
 
 const EditPost: React.FC<EditPostProps> = ({ id }) => {
   const [post, setPost] = useState<PostType | null>(null);
   const [users, setUsers] = useState<UserType[] | null>(null);
   const [postResponse, setPostResponse] = useState<PostType>(initialValue);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    setIsLoading(true);
     mainApi.get("posts/" + id).then(({ data }) => {
       setPost(data);
       setPostResponse(data);
     });
-    mainApi.get("users").then(({ data }) => setUsers(data));
+    mainApi
+      .get("users")
+      .then(({ data }) => setUsers(data))
+      .finally(() => setIsLoading(false));
   }, []);
 
   const handleComboBoxChange = (fieldName: string, value: number) => {
@@ -36,17 +44,20 @@ const EditPost: React.FC<EditPostProps> = ({ id }) => {
 
   const onClickHandler = () => {
     mainApi
-      .put("postt/" + id, {
+      .put("posts/" + id, {
         method: "PUT",
         body: JSON.stringify(postResponse),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
       })
-      .then((json) => console.log(json));
+      .then((json) => {
+        console.log(json);
+        navigate("/posts/" + id);
+      });
   };
 
-  return (
+  return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
         <TextBox defaultValue={post?.id} onChange={(value) => handleTextBoxChange("id", value)}>
@@ -69,6 +80,8 @@ const EditPost: React.FC<EditPostProps> = ({ id }) => {
       </div>
       <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </div>
+  ) : (
+    <LoadingSpinner />
   );
 };
 

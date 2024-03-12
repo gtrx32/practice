@@ -6,19 +6,27 @@ import s from "./EditPhoto.module.scss";
 import { AlbumType, PhotoType } from "../../types";
 import mainApi from "../../../../api/api";
 import { EditPhotoProps, initialValue } from "./types";
+import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
 
 const EditPhoto: React.FC<EditPhotoProps> = ({ id }) => {
   const [photo, setPhoto] = useState<PhotoType | null>(null);
   const [albums, setAlbums] = useState<AlbumType[] | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [photoResponse, setPhotoResponse] = useState<PhotoType>(initialValue);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    setIsLoading(true);
     mainApi.get("photos/" + id).then(({ data }) => {
       setPhoto(data);
       setPhotoResponse(data);
     });
-    mainApi.get("albums").then(({ data }) => setAlbums(data));
+    mainApi
+      .get("albums")
+      .then(({ data }) => setAlbums(data))
+      .finally(() => setIsLoading(false));
   }, []);
 
   const handleComboBoxChange = (fieldName: string, value: number) => {
@@ -44,10 +52,13 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id }) => {
           "Content-type": "application/json; charset=UTF-8",
         },
       })
-      .then((json) => console.log(json));
+      .then((json) => {
+        console.log(json);
+        navigate("/photos/" + id);
+      });
   };
 
-  return (
+  return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
         <TextBox defaultValue={photo?.id} onChange={(value) => handleTextBoxChange("id", value)}>
@@ -86,6 +97,8 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id }) => {
       </div>
       <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </div>
+  ) : (
+    <LoadingSpinner />
   );
 };
 

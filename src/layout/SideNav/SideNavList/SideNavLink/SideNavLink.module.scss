@@ -50,11 +50,11 @@
 .icon {
   width: 15px;
   height: auto;
-  transition: 0.3s all ease;
+  transition: 0.3s width ease;
 }
 
 .link:hover .icon {
-  width: 20px;
+  width: 25px;
 }
 
 .arrow {

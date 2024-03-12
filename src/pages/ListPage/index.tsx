@@ -56,7 +56,7 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
             ))}
             <Column
               header="Действия"
-              body={<ActionsBodyTemplate />}
+              body={(rowData) => <ActionsBodyTemplate id={rowData.id} table={table} />}
               headerClassName="actions"
               style={{ width: `90px`, maxWidth: `90px`, textAlign: `center` }}
             />
