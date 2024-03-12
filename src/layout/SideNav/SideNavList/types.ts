@@ -21,18 +21,22 @@ export const LINKS: LinkType[] = [
   { href: "/", text: "Главная", image: main },
   { href: "/users", text: "Пользователи", image: users },
   { href: "/todos", text: "Задания", image: todos },
-  { href: "/photos", text: "Картинки", image: photos },
-  { href: "/albums", text: "Альбомы", image: albums },
+  {
+    href: "/",
+    text: "Графика",
+    image: photos,
+    submenu: [
+      { subHref: "/photos", subText: "Картинки" },
+      { subHref: "/albums", subText: "Альбомы" },
+    ],
+  },
   {
     href: "/",
     text: "Блог",
     image: blog,
     submenu: [
       { subHref: "/posts", subText: "Посты" },
-      {
-        subHref: "/comments",
-        subText: "Комментарии",
-      },
+      { subHref: "/comments", subText: "Комментарии" },
     ],
   },
 ];
