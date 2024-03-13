@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import s from "./CheckBox.module.scss";
 import clsx from "clsx";
 import { CheckBoxProps } from "./types";
+import { CheckboxChangeEvent } from "primereact/checkbox";
 
 const CheckBox: React.FC<CheckBoxProps> = ({ defaultValue = false, className, onChange, children }) => {
   const [isChecked, setIsChecked] = useState(defaultValue);
@@ -10,9 +11,9 @@ const CheckBox: React.FC<CheckBoxProps> = ({ defaultValue = false, className, on
     setIsChecked(defaultValue);
   }, [defaultValue]);
 
-  const toggleCheckbox = () => {
-    setIsChecked(!isChecked);
-    onChange?.(!isChecked);
+  const toggleCheckbox = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(target.checked);
+    onChange?.(target.checked);
   };
 
   return (

@@ -9,6 +9,8 @@ import UpperPanel from "./_components/UpperPanel";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Container from "../../components/UI/Container";
 import mainApi from "../../api/api";
+import done from "@assets/images/details/done.svg";
+import notDone from "@assets/images/details/notDone.svg";
 
 interface ListPageProps {
   table: string;
@@ -45,8 +47,13 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
                 key={field}
                 header={header}
                 body={
-                  field === "thumbnailUrl"
-                    ? (rowData) => <img src={rowData[field]} alt={rowData[field]} style={{ maxHeight: "50px" }} />
+                  field == "thumbnailUrl" || field == "completed"
+                    ? (rowData) => (
+                        <img
+                          src={field == "thumbnailUrl" ? rowData[field] : rowData[field] == true ? done : notDone}
+                          style={field == "thumbnailUrl" ? { maxHeight: "50px" } : { width: "16px" }}
+                        />
+                      )
                     : undefined
                 }
                 field={field}
