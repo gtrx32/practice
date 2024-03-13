@@ -13,7 +13,7 @@ const EditPost = lazy(() => import("./_components/EditPost"));
 const EditComment = lazy(() => import("./_components/EditComment"));
 
 interface EditPageProps {
-  edit: boolean;
+  edit?: boolean;
 }
 
 const EditPage: React.FC<EditPageProps> = ({ edit = true }) => {

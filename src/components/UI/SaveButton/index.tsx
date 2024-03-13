@@ -1,4 +1,4 @@
-import { MouseEventHandler, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import s from "./SaveButton.module.scss";
 import clsx from "clsx";
 
