@@ -8,14 +8,15 @@ import mainApi from "../../../../api/api";
 import { EditPhotoProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
+import clsx from "clsx";
 
 const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
   const [photo, setPhoto] = useState<PhotoType | null>(null);
   const [albums, setAlbums] = useState<AlbumType[] | null>(null);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [photoResponse, setPhotoResponse] = useState<PhotoType>(initialValue);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const [imageUrl, setImageUrl] = useState<string | undefined>("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -30,6 +31,11 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
       .finally(() => setIsLoading(false));
   }, []);
 
+  edit == true &&
+    useEffect(() => {
+      setImageUrl(photo?.thumbnailUrl);
+    }, [photo]);
+
   const handleChange = (fieldName: keyof PhotoType, value: number | string) => {
     setPhotoResponse((prevPhoto) => ({
       ...prevPhoto,
@@ -39,7 +45,29 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
 
   const handleImageChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const file = target.files?.[0];
-    setSelectedImage(file || null);
+    if (file) {
+      const allowedTypes = ["image/png", "image/jpeg", "image/webp"];
+      if (!allowedTypes.includes(file.type)) {
+        alert("Пожалуйста, загрузите изображение в формате PNG, JPEG или WEBP.");
+        return;
+      }
+      const maxSize = 5 * 1024 * 1024;
+      if (file.size > maxSize) {
+        alert("Максимальный размер файла - 5 МБ.");
+        return;
+      }
+      setImageUrl(URL.createObjectURL(file));
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        setPhotoResponse((prevPhoto) => ({
+          ...prevPhoto,
+          url: base64String,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const onClickHandler = () => {
@@ -54,6 +82,10 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
       console.log(json);
       edit ? navigate("/photos/" + id) : navigate("/photos/");
     });
+  };
+
+  const imageButtonHandler = () => {
+    setImageUrl("");
   };
 
   return !isLoading ? (
@@ -87,10 +119,12 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
             Перетащите сюда или нажмите для выбора
           </label>
           <input type="file" id="imageInput" className={s.imageUploader} onChange={handleImageChange} />
-          <img
-            src={selectedImage ? URL.createObjectURL(selectedImage) : photo?.thumbnailUrl}
-            className={s.imagePreview}
-          />
+          <div className={clsx(s.imageContainer, imageUrl !== "" ? s.imageHover : "")}>
+            {imageUrl !== "" ? <img src={imageUrl} className={s.imagePreview} /> : null}
+            <button onClick={imageButtonHandler} className={s.imageButton}>
+              Удалить
+            </button>
+          </div>
         </div>
       </div>
       <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62;</SaveButton>
