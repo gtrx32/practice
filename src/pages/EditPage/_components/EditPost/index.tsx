@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
-import TextBox from "../../../../components/UI/TextBox";
 import { PostType, UserType } from "../../types";
 import s from "./EditPost.module.scss";
 import mainApi from "../../../../api/api";
 import { EditPostProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
+import TextArea from "../../../../components/UI/TextArea";
+import ValidatedInput from "../../../../components/UI/ValidatedInput";
+import CorrectInputContext from "../../../../context/CorrectInputContext";
 
 const EditPost: React.FC<EditPostProps> = ({ id, edit }) => {
   const [post, setPost] = useState<PostType | null>(null);
@@ -15,6 +17,7 @@ const EditPost: React.FC<EditPostProps> = ({ id, edit }) => {
   const [postResponse, setPostResponse] = useState<PostType>(initialValue);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const { fieldsIsValid } = useContext(CorrectInputContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -37,6 +40,8 @@ const EditPost: React.FC<EditPostProps> = ({ id, edit }) => {
   };
 
   const onClickHandler = () => {
+    if (!fieldsIsValid) return;
+
     const method = edit ? "put" : "post";
     mainApi[method](edit ? "posts/" + id : "posts", {
       method: method.toUpperCase(),
@@ -53,9 +58,9 @@ const EditPost: React.FC<EditPostProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <TextBox defaultValue={post?.id} onChange={(value) => handleChange("id", value)}>
+        <ValidatedInput pattern="id" defaultValue={post?.id} onChange={(value) => handleChange("id", value)}>
           ID
-        </TextBox>
+        </ValidatedInput>
         <ComboBox
           defaultValue={post?.userId}
           options={users?.map((item) => item.id)}
@@ -64,12 +69,12 @@ const EditPost: React.FC<EditPostProps> = ({ id, edit }) => {
         >
           Выберите автора
         </ComboBox>
-        <TextBox defaultValue={post?.title} onChange={(value) => handleChange("title", value)}>
+        <ValidatedInput pattern="default" defaultValue={post?.title} onChange={(value) => handleChange("title", value)}>
           Заголовок
-        </TextBox>
-        <TextBox defaultValue={post?.body} textarea={true} onChange={(value) => handleChange("body", value)}>
+        </ValidatedInput>
+        <TextArea defaultValue={post?.body} onChange={(value) => handleChange("body", value)}>
           Текст поста
-        </TextBox>
+        </TextArea>
       </div>
       <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </div>

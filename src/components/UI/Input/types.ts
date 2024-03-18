@@ -1,9 +1,9 @@
 import { PropsWithChildren } from "react";
 
-export interface TextBoxProps extends PropsWithChildren {
+export interface InputProps extends PropsWithChildren {
   defaultValue?: string | number;
   width?: string;
-  textarea?: boolean;
   className?: string;
   onChange?: (value: string) => void;
+  validate?: (value: string) => void;
 }

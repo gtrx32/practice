@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SaveButton from "../../../../components/UI/SaveButton";
-import TextBox from "../../../../components/UI/TextBox";
+import Input from "../../../../components/UI/Input";
 import { UserType } from "../../types";
 import s from "./EditUser.module.scss";
 import mainApi from "../../../../api/api";
 import { EditUserProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
+import CorrectInputContext from "../../../../context/CorrectInputContext";
+import ValidatedInput from "../../../../components/UI/ValidatedInput";
+import TextArea from "../../../../components/UI/TextArea";
 
 const EditUser: React.FC<EditUserProps> = ({ id, edit }) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [userResponse, setUserResponse] = useState<UserType>(initialValue);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { fieldsIsValid } = useContext(CorrectInputContext);
 
   edit &&
     useEffect(() => {
@@ -26,7 +30,7 @@ const EditUser: React.FC<EditUserProps> = ({ id, edit }) => {
         .finally(() => setIsLoading(false));
     }, []);
 
-  const handleTextBoxChange = (fieldName: keyof UserType, value: string) => {
+  const handleInputChange = (fieldName: keyof UserType, value: string) => {
     setUserResponse((prevUser) => ({
       ...prevUser,
       [fieldName]: value,
@@ -54,6 +58,8 @@ const EditUser: React.FC<EditUserProps> = ({ id, edit }) => {
   };
 
   const onClickHandler = () => {
+    if (!fieldsIsValid) return;
+
     const method = edit ? "put" : "post";
     mainApi[method](edit ? "users/" + id : "users", {
       method: method.toUpperCase(),
@@ -70,82 +76,89 @@ const EditUser: React.FC<EditUserProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <TextBox defaultValue={user?.id} onChange={(value) => handleTextBoxChange("id", value)}>
+        <ValidatedInput pattern="id" defaultValue={user?.id} onChange={(value) => handleInputChange("id", value)}>
           ID
-        </TextBox>
-        <TextBox
-          onChange={(value) => handleTextBoxChange("name", value)}
+        </ValidatedInput>
+        <ValidatedInput
+          pattern="default"
+          onChange={(value) => handleInputChange("name", value)}
           defaultValue={user?.name}
           className={s.half}
           width="440px"
         >
           ФИО
-        </TextBox>
-        <TextBox
-          onChange={(value) => handleTextBoxChange("username", value)}
+        </ValidatedInput>
+        <ValidatedInput
+          pattern="default"
+          onChange={(value) => handleInputChange("username", value)}
           defaultValue={user?.username}
           className={s.half}
           width="440px"
         >
           Никнейм
-        </TextBox>
-        <TextBox
-          onChange={(value) => handleTextBoxChange("email", value)}
+        </ValidatedInput>
+        <ValidatedInput
+          pattern="email"
+          onChange={(value) => handleInputChange("email", value)}
           defaultValue={user?.email}
           className={s.half}
           width="440px"
         >
           Email
-        </TextBox>
-        <TextBox
-          onChange={(value) => handleTextBoxChange("website", value)}
+        </ValidatedInput>
+        <Input
+          onChange={(value) => handleInputChange("website", value)}
           defaultValue={user?.website}
           className={s.half}
           width="440px"
         >
           Вебсайт
-        </TextBox>
-        <TextBox
-          onChange={(value) => handleTextBoxChange("phone", value)}
+        </Input>
+        <ValidatedInput
+          pattern="phone"
+          onChange={(value) => handleInputChange("phone", value)}
           defaultValue={user?.phone}
           className={s.half}
           width="440px"
         >
           Телефон
-        </TextBox>
+        </ValidatedInput>
       </div>
       <div className={s.block}>
         <h2>Адрес</h2>
-        <TextBox
+        <Input
           onChange={(value) => handleAddressFieldChange("zipcode", value)}
           defaultValue={user?.address.zipcode}
           width="440px"
         >
           Индекс
-        </TextBox>
-        <TextBox
+        </Input>
+        <Input
           onChange={(value) => handleAddressFieldChange("city", value)}
           defaultValue={user?.address.city}
           width="440px"
         >
           Город
-        </TextBox>
-        <TextBox onChange={(value) => handleAddressFieldChange("street", value)} defaultValue={user?.address.street}>
+        </Input>
+        <Input onChange={(value) => handleAddressFieldChange("street", value)} defaultValue={user?.address.street}>
           Улица
-        </TextBox>
+        </Input>
       </div>
       <div className={s.block}>
         <h2>Компания</h2>
-        <TextBox onChange={(value) => handleCompanyFieldChange("name", value)} defaultValue={user?.company.name}>
+        <ValidatedInput
+          pattern="default"
+          onChange={(value) => handleCompanyFieldChange("name", value)}
+          defaultValue={user?.company.name}
+        >
           Название
-        </TextBox>
-        <TextBox
+        </ValidatedInput>
+        <TextArea
           onChange={(value) => handleCompanyFieldChange("catchPhrase", value)}
           defaultValue={user?.company.catchPhrase}
-          textarea={true}
         >
           Описание
-        </TextBox>
+        </TextArea>
       </div>
       <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62; </SaveButton>
     </div>

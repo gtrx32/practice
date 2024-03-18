@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import mainApi from "../../../../api/api";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
-import TextBox from "../../../../components/UI/TextBox";
+import Input from "../../../../components/UI/Input";
 import { CommentType, PostType } from "../../types";
 import s from "./EditComment.module.scss";
 import { EditCommentProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
+import TextArea from "../../../../components/UI/TextArea";
+import CorrectInputContext from "../../../../context/CorrectInputContext";
+import ValidatedInput from "../../../../components/UI/ValidatedInput";
 
 const EditComment: React.FC<EditCommentProps> = ({ id, edit }) => {
   const [comment, setComment] = useState<CommentType | null>(null);
@@ -15,6 +18,7 @@ const EditComment: React.FC<EditCommentProps> = ({ id, edit }) => {
   const [commentResponse, setCommentResponse] = useState<CommentType>(initialValue);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const { fieldsIsValid } = useContext(CorrectInputContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -37,6 +41,8 @@ const EditComment: React.FC<EditCommentProps> = ({ id, edit }) => {
   };
 
   const onClickHandler = () => {
+    if (!fieldsIsValid) return;
+
     const method = edit ? "put" : "post";
     mainApi[method](edit ? "comments/" + id : "comments", {
       method: method.toUpperCase(),
@@ -53,9 +59,9 @@ const EditComment: React.FC<EditCommentProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <TextBox defaultValue={comment?.id} onChange={(value) => handleChange("id", value)}>
+        <ValidatedInput pattern="id" defaultValue={comment?.id} onChange={(value) => handleChange("id", value)}>
           ID
-        </TextBox>
+        </ValidatedInput>
         <ComboBox
           defaultValue={comment?.postId}
           options={posts?.map((item) => item.id)}
@@ -65,17 +71,17 @@ const EditComment: React.FC<EditCommentProps> = ({ id, edit }) => {
         >
           Выберите пост
         </ComboBox>
-        <TextBox
+        <Input
           onChange={(value) => handleChange("email", value)}
           defaultValue={comment?.email}
           className={s.half}
           width="440px"
         >
           Email автора
-        </TextBox>
-        <TextBox onChange={(value) => handleChange("body", value)} defaultValue={comment?.body} textarea={true}>
+        </Input>
+        <TextArea onChange={(value) => handleChange("body", value)} defaultValue={comment?.body}>
           Текст комментария
-        </TextBox>
+        </TextArea>
       </div>
       <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </div>

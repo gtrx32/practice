@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
-import TextBox from "../../../../components/UI/TextBox";
+import Input from "../../../../components/UI/Input";
 import s from "./EditAlbum.module.scss";
 import mainApi from "../../../../api/api";
 import { AlbumType, UserType } from "../../types";
 import { EditAlbumProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
+import CorrectInputContext from "../../../../context/CorrectInputContext";
+import ValidatedInput from "../../../../components/UI/ValidatedInput";
 
 const EditAlbum: React.FC<EditAlbumProps> = ({ id, edit }) => {
   const [album, setAlbum] = useState<AlbumType | null>(null);
@@ -15,6 +17,7 @@ const EditAlbum: React.FC<EditAlbumProps> = ({ id, edit }) => {
   const [albumResponse, setAlbumResponse] = useState<AlbumType>(initialValue);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const { fields, fieldsIsValid } = useContext(CorrectInputContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -37,6 +40,8 @@ const EditAlbum: React.FC<EditAlbumProps> = ({ id, edit }) => {
   };
 
   const onClickHandler = () => {
+    if (!fieldsIsValid) return;
+
     const method = edit ? "put" : "post";
     mainApi[method](edit ? "albums/" + id : "albums", {
       method: method.toUpperCase(),
@@ -53,9 +58,9 @@ const EditAlbum: React.FC<EditAlbumProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <TextBox defaultValue={album?.id} onChange={(value) => handleChange("id", value)}>
+        <ValidatedInput pattern="id" defaultValue={album?.id} onChange={(value) => handleChange("id", value)}>
           ID
-        </TextBox>
+        </ValidatedInput>
         <ComboBox
           defaultValue={album?.userId}
           options={users?.map((item) => item.id)}
@@ -64,9 +69,13 @@ const EditAlbum: React.FC<EditAlbumProps> = ({ id, edit }) => {
         >
           Выберите владельца
         </ComboBox>
-        <TextBox defaultValue={album?.title} onChange={(value) => handleChange("title", value)}>
+        <ValidatedInput
+          pattern="default"
+          defaultValue={album?.title}
+          onChange={(value) => handleChange("title", value)}
+        >
           Название
-        </TextBox>
+        </ValidatedInput>
       </div>
       <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62; </SaveButton>
     </div>

@@ -1,7 +1,7 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
-import TextBox from "../../../../components/UI/TextBox";
+import Input from "../../../../components/UI/Input";
 import s from "./EditPhoto.module.scss";
 import { AlbumType, PhotoType } from "../../types";
 import mainApi from "../../../../api/api";
@@ -9,6 +9,8 @@ import { EditPhotoProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import clsx from "clsx";
+import CorrectInputContext from "../../../../context/CorrectInputContext";
+import ValidatedInput from "../../../../components/UI/ValidatedInput";
 
 const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
   const [photo, setPhoto] = useState<PhotoType | null>(null);
@@ -17,6 +19,7 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState<string | undefined>("");
+  const { fieldsIsValid } = useContext(CorrectInputContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -71,6 +74,8 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
   };
 
   const onClickHandler = () => {
+    if (!fieldsIsValid) return;
+
     const method = edit ? "put" : "post";
     mainApi[method](edit ? "photos/" + id : "photos", {
       method: method.toUpperCase(),
@@ -91,17 +96,18 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <TextBox defaultValue={photo?.id} onChange={(value) => handleChange("id", value)}>
+        <ValidatedInput pattern="id" defaultValue={photo?.id} onChange={(value) => handleChange("id", value)}>
           ID
-        </TextBox>
-        <TextBox
+        </ValidatedInput>
+        <ValidatedInput
+          pattern="default"
           defaultValue={photo?.title}
           className={s.half}
           width="440px"
           onChange={(value) => handleChange("title", value)}
         >
           Название
-        </TextBox>
+        </ValidatedInput>
         <ComboBox
           defaultValue={photo?.albumId}
           options={albums?.map((item) => item.id)}

@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import mainApi from "../../../../api/api";
 import CheckBox from "../../../../components/UI/CheckBox";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
-import TextBox from "../../../../components/UI/TextBox";
+import Input from "../../../../components/UI/Input";
 import { TodoType, UserType } from "../../types";
 import s from "./EditTodo.module.scss";
 import { EditTodoProps, initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
+import ValidatedInput from "../../../../components/UI/ValidatedInput";
+import CorrectInputContext from "../../../../context/CorrectInputContext";
 
 const EditTodo: React.FC<EditTodoProps> = ({ id, edit }) => {
   const [todo, setTodo] = useState<TodoType | null>(null);
@@ -16,6 +18,7 @@ const EditTodo: React.FC<EditTodoProps> = ({ id, edit }) => {
   const [todoResponse, setTodoResponse] = useState<TodoType>(initialValue);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const { fieldsIsValid } = useContext(CorrectInputContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -38,6 +41,8 @@ const EditTodo: React.FC<EditTodoProps> = ({ id, edit }) => {
   };
 
   const onClickHandler = () => {
+    if (!fieldsIsValid) return;
+
     const method = edit ? "put" : "post";
     mainApi[method](edit ? "todos/" + id : "todos", {
       method: method.toUpperCase(),
@@ -54,9 +59,9 @@ const EditTodo: React.FC<EditTodoProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <TextBox defaultValue={todo?.id} onChange={(value) => handleChange("id", value)}>
+        <ValidatedInput pattern="id" defaultValue={todo?.id} onChange={(value) => handleChange("id", value)}>
           ID
-        </TextBox>
+        </ValidatedInput>
         <ComboBox
           defaultValue={todo?.userId}
           options={users?.map((item) => item.id)}
@@ -68,9 +73,9 @@ const EditTodo: React.FC<EditTodoProps> = ({ id, edit }) => {
         <CheckBox defaultValue={todo?.completed} onChange={(value) => handleChange("completed", value)}>
           Выполнена
         </CheckBox>
-        <TextBox defaultValue={todo?.title} onChange={(value) => handleChange("title", value)}>
+        <Input defaultValue={todo?.title} onChange={(value) => handleChange("title", value)}>
           Текст
-        </TextBox>
+        </Input>
       </div>
       <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62; </SaveButton>
     </div>
