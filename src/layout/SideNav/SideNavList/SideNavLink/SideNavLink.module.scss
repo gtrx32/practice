@@ -4,6 +4,14 @@
   font-family: "Jost";
   font-weight: 500;
   font-size: 15px;
+
+  &:has(ul > li:hover) {
+    button {
+      .icon {
+        width: 20px;
+      }
+    }
+  }
 }
 
 .link {
@@ -11,6 +19,32 @@
   align-items: center;
   gap: 10px;
   color: var(--font-color-black);
+
+  &:hover .icon {
+    width: 20px;
+  }
+}
+
+.subLink {
+  padding-left: 25px;
+  list-style: none;
+  font-weight: 400;
+  color: inherit;
+}
+
+.link,
+.subLink {
+  transition: font-weight 0.2s ease;
+  &:hover {
+    cursor: pointer;
+    font-weight: 700;
+  }
+}
+
+.icon {
+  width: 15px;
+  height: auto;
+  transition: 0.2s width ease;
 }
 
 .subMenu {
@@ -25,18 +59,6 @@
   transition: height 0.3s linear;
 }
 
-.subLink {
-  padding-left: 25px;
-  list-style: none;
-  font-weight: 400;
-  color: inherit;
-}
-
-.link:hover,
-.subLink:hover {
-  cursor: pointer;
-}
-
 .subMenuButton {
   display: flex;
   align-items: center;
@@ -45,16 +67,6 @@
   border: none;
   background-color: transparent;
   color: var(--font-color-black);
-}
-
-.icon {
-  width: 15px;
-  height: auto;
-  transition: 0.3s width ease;
-}
-
-.link:hover .icon {
-  width: 25px;
 }
 
 .arrow {
