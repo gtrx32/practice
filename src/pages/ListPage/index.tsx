@@ -11,6 +11,7 @@ import Container from "../../components/UI/Container";
 import mainApi from "../../api/api";
 import done from "@assets/images/details/done.svg";
 import notDone from "@assets/images/details/notDone.svg";
+import Pagination from "./_components/Pagination";
 
 interface ListPageProps {
   table: string;
@@ -22,6 +23,9 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
 
+  const [rowsOnPage, setRowsOnPage] = useState<number>(10);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
   useEffect(() => {
     setIsLoading(true);
     mainApi
@@ -30,6 +34,14 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
       .catch(() => setIsError(true))
       .finally(() => setIsLoading(false));
   }, [table]);
+
+  const handleRowsOnPageChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) =>
+    setRowsOnPage(Number(value));
+  const handleCurrentPageChange = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  const startIndex = (currentPage - 1) * rowsOnPage;
+  const endIndex = startIndex + rowsOnPage;
+  const displayedData = data.slice(startIndex, endIndex);
 
   const redirectToDetailPage = ({ data }: DataTableRowClickEvent) => {
     const { id } = data as { id: number };
@@ -41,7 +53,7 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
       <UpperPanel table={table} />
       {!isError ? (
         !isLoading ? (
-          <DataTable value={data.slice(0, 20)} scrollable onRowClick={redirectToDetailPage}>
+          <DataTable value={displayedData} scrollable onRowClick={redirectToDetailPage}>
             {Columns[table as keyof typeof Columns].map(({ field, header, width }) => (
               <Column
                 key={field}
@@ -74,6 +86,15 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
       ) : (
         <p>Произошла ошибка при загрузке данных</p>
       )}
+      <Pagination
+        rowCount={data.length}
+        startIndex={startIndex}
+        endIndex={endIndex}
+        currentPage={currentPage}
+        rowsOnPage={rowsOnPage}
+        handleRowsOnPageChange={handleRowsOnPageChange}
+        handleCurrentPageChange={handleCurrentPageChange}
+      />
     </Container>
   );
 };
