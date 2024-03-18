@@ -16,6 +16,10 @@ const ValidatedInput: React.FC<ValidatedInputProps> = ({
   const [isCorrect, setIsCorrect] = useState<boolean>(pattern ? patterns[pattern].test(defaultValue.toString()) : true);
 
   useEffect(() => {
+    setFields({});
+  }, []);
+
+  useEffect(() => {
     const validateFields = (key: string, value: boolean) => setFields((prev) => ({ ...prev, [key]: value }));
     validateFields(pattern, isCorrect);
   }, [isCorrect]);

@@ -23,7 +23,7 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
 
-  const [rowsOnPage, setRowsOnPage] = useState<number>(10);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
@@ -35,12 +35,8 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
       .finally(() => setIsLoading(false));
   }, [table]);
 
-  const handleRowsOnPageChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) =>
-    setRowsOnPage(Number(value));
-  const handleCurrentPageChange = (pageNumber: number) => setCurrentPage(pageNumber);
-
-  const startIndex = (currentPage - 1) * rowsOnPage;
-  const endIndex = startIndex + rowsOnPage;
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
   const displayedData = data.slice(startIndex, endIndex);
 
   const redirectToDetailPage = ({ data }: DataTableRowClickEvent) => {
@@ -91,9 +87,9 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
         startIndex={startIndex}
         endIndex={endIndex}
         currentPage={currentPage}
-        rowsOnPage={rowsOnPage}
-        handleRowsOnPageChange={handleRowsOnPageChange}
-        handleCurrentPageChange={handleCurrentPageChange}
+        rowsPerPage={rowsPerPage}
+        setCurrentPage={setCurrentPage}
+        setRowsPerPage={setRowsPerPage}
       />
     </Container>
   );

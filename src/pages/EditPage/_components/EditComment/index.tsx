@@ -41,7 +41,7 @@ const EditComment: React.FC<EditCommentProps> = ({ id, edit }) => {
   };
 
   const onClickHandler = () => {
-    if (!fieldsIsValid) return;
+    if (!fieldsIsValid()) return;
 
     const method = edit ? "put" : "post";
     mainApi[method](edit ? "comments/" + id : "comments", {

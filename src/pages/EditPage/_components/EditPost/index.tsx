@@ -40,7 +40,7 @@ const EditPost: React.FC<EditPostProps> = ({ id, edit }) => {
   };
 
   const onClickHandler = () => {
-    if (!fieldsIsValid) return;
+    if (!fieldsIsValid()) return;
 
     const method = edit ? "put" : "post";
     mainApi[method](edit ? "posts/" + id : "posts", {

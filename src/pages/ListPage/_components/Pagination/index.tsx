@@ -1,25 +1,16 @@
 import { useEffect, useState } from "react";
 import Button from "../../../../components/UI/Button";
 import s from "./Pagination.module.scss";
-
-interface PaginationProps {
-  rowCount: number;
-  startIndex: number;
-  endIndex: number;
-  currentPage: number;
-  rowsOnPage: number;
-  handleCurrentPageChange: (pageNumber: number) => void;
-  handleRowsOnPageChange: ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => void;
-}
+import { PaginationProps } from "./types";
 
 const Pagination: React.FC<PaginationProps> = ({
   rowCount,
   startIndex,
   endIndex,
   currentPage,
-  rowsOnPage,
-  handleCurrentPageChange,
-  handleRowsOnPageChange,
+  rowsPerPage,
+  setCurrentPage,
+  setRowsPerPage,
 }) => {
   const [pagesCount, setPagesCount] = useState<number>(1);
   const [displayedPages, setDisplayedPages] = useState<number[]>([]);
@@ -47,37 +38,40 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   useEffect(() => {
-    if (rowCount > 0) setPagesCount(Math.ceil(rowCount / rowsOnPage));
-    handleCurrentPageChange(1);
-  }, [rowCount, rowsOnPage]);
+    if (rowCount > 0) setPagesCount(Math.ceil(rowCount / rowsPerPage));
+    setCurrentPage(1);
+  }, [rowCount, rowsPerPage]);
 
   useEffect(() => {
     generateDisplayedPages(currentPage, pagesCount);
   }, [pagesCount, currentPage]);
 
   const handlePrevPageClick = () => {
-    currentPage > 1 && handleCurrentPageChange(currentPage - 1);
+    currentPage > 1 && setCurrentPage(currentPage - 1);
   };
 
   const handleNextPageClick = () => {
-    currentPage < pagesCount && handleCurrentPageChange(currentPage + 1);
+    currentPage < pagesCount && setCurrentPage(currentPage + 1);
   };
+
+  const handleRowsOnPageChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) =>
+    setRowsPerPage(Number(value));
 
   return (
     <div className={s.wrapper}>
       <div className={s.pagination}>
         <Button onClick={handlePrevPageClick}>&#60; Назад</Button>
         {displayedPages.map((page, index) => (
-          <Button onClick={() => handleCurrentPageChange(page)} key={index}>
+          <Button onClick={() => setCurrentPage(page)} key={index}>
             {page !== -1 ? page : "..."}
           </Button>
         ))}
         <Button onClick={handleNextPageClick}>Далее &#62;</Button>
       </div>
       <div className={s.rows}>
-        <div className={s.rowsOnPage}>
-          Строк на странице:{" "}
-          <select className={s.selectCount} value={rowsOnPage} onChange={handleRowsOnPageChange}>
+        <div className={s.rowsPerPage}>
+          Строк на странице:
+          <select className={s.selectCount} value={rowsPerPage} onChange={handleRowsOnPageChange}>
             {[5, 10, 15, 20].map((option) => (
               <option key={option} value={option}>
                 {option}

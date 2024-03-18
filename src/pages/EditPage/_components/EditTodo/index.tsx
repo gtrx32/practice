@@ -41,7 +41,7 @@ const EditTodo: React.FC<EditTodoProps> = ({ id, edit }) => {
   };
 
   const onClickHandler = () => {
-    if (!fieldsIsValid) return;
+    if (!fieldsIsValid()) return;
 
     const method = edit ? "put" : "post";
     mainApi[method](edit ? "todos/" + id : "todos", {

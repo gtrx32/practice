@@ -1,7 +1,6 @@
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
-import Input from "../../../../components/UI/Input";
 import s from "./EditPhoto.module.scss";
 import { AlbumType, PhotoType } from "../../types";
 import mainApi from "../../../../api/api";
@@ -74,7 +73,7 @@ const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
   };
 
   const onClickHandler = () => {
-    if (!fieldsIsValid) return;
+    if (!fieldsIsValid()) return;
 
     const method = edit ? "put" : "post";
     mainApi[method](edit ? "photos/" + id : "photos", {

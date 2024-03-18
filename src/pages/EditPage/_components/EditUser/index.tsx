@@ -58,7 +58,7 @@ const EditUser: React.FC<EditUserProps> = ({ id, edit }) => {
   };
 
   const onClickHandler = () => {
-    if (!fieldsIsValid) return;
+    if (!fieldsIsValid()) return;
 
     const method = edit ? "put" : "post";
     mainApi[method](edit ? "users/" + id : "users", {

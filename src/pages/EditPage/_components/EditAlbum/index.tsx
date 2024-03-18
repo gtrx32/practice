@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
-import Input from "../../../../components/UI/Input";
 import s from "./EditAlbum.module.scss";
 import mainApi from "../../../../api/api";
 import { AlbumType, UserType } from "../../types";
@@ -17,7 +16,7 @@ const EditAlbum: React.FC<EditAlbumProps> = ({ id, edit }) => {
   const [albumResponse, setAlbumResponse] = useState<AlbumType>(initialValue);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  const { fields, fieldsIsValid } = useContext(CorrectInputContext);
+  const { fieldsIsValid } = useContext(CorrectInputContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -40,7 +39,7 @@ const EditAlbum: React.FC<EditAlbumProps> = ({ id, edit }) => {
   };
 
   const onClickHandler = () => {
-    if (!fieldsIsValid) return;
+    if (!fieldsIsValid()) return;
 
     const method = edit ? "put" : "post";
     mainApi[method](edit ? "albums/" + id : "albums", {
