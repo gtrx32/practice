@@ -59,8 +59,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const handleCustomPageSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const pageNumber = parseInt(customPage);
-    if (isNaN(pageNumber)) setShowInput(false);
-    else if (pageNumber >= 1 && pageNumber <= pagesCount) {
+    if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= pagesCount) {
       setCurrentPage(pageNumber);
       setCustomPage(currentPage.toString());
       setShowInput(false);
@@ -101,7 +100,9 @@ const Pagination: React.FC<PaginationProps> = ({
             value={customPage}
             onChange={handleCustomPageChange}
           />
-          <Button type="submit">&#10006;</Button>
+          <Button onClick={() => setShowInput(false)} type="submit">
+            &#10006;
+          </Button>
         </form>
       )}
       <div className={s.rows}>
