@@ -11,6 +11,11 @@
   font-size: 14px;
   display: flex;
 
+  .currentPage {
+    background-color: var(--accent-color-red);
+    cursor: unset;
+  }
+
   :first-child,
   :last-child {
     padding: 10px 18px;
@@ -25,6 +30,16 @@
 
   :last-child {
     border-right: 1px solid var(--secondary-color-gray);
+  }
+
+  .formInput {
+    background-color: transparent;
+    outline: none;
+    border: 1px solid var(--secondary-color-gray);
+    border-right: none;
+    width: 100px;
+    color: inherit;
+    text-align: center;
   }
 }
 
