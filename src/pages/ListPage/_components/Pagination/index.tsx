@@ -80,7 +80,7 @@ const Pagination: React.FC<PaginationProps> = ({
           </select>
         </div>
         <div className={s.showRows}>
-          {startIndex + 1}-{endIndex} из {rowCount}
+          {startIndex + 1}-{endIndex > rowCount ? rowCount : endIndex} из {rowCount}
         </div>
       </div>
     </div>
