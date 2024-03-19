@@ -47,10 +47,13 @@
   font-family: "Jost";
   font-size: 15px;
   font-weight: 500;
-  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 30px;
+  display: none;
+  @media (min-width: 1440px) {
+    display: flex;
+  }
 
   .selectCount {
     background-color: transparent;
