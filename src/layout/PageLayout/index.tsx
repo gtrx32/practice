@@ -4,6 +4,7 @@ import SideNav from "../SideNav";
 import { PropsWithChildren, useContext } from "react";
 import MenuIsOpenContext from "../../context/MenuIsOpenContext";
 import clsx from "clsx";
+import DeleteRowModal from "../../components/ModalWindow/DeleteRowModal";
 
 const PageLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const { menuIsOpen, setMenuIsOpen } = useContext(MenuIsOpenContext);
@@ -18,6 +19,7 @@ const PageLayout: React.FC<PropsWithChildren> = ({ children }) => {
         <div onClick={handleMenuClick} className={clsx(s.cover, menuIsOpen ? s.blur : s.clear)} />
         <div className={s.content}>{children}</div>
       </main>
+      <DeleteRowModal />
     </div>
   );
 };

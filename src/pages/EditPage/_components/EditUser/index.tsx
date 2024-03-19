@@ -31,29 +31,17 @@ const EditUser: React.FC<EditUserProps> = ({ id, edit }) => {
     }, []);
 
   const handleInputChange = (fieldName: keyof UserType, value: string) => {
-    setUserResponse((prevUser) => ({
-      ...prevUser,
-      [fieldName]: value,
-    }));
+    setUserResponse((prevUser) => ({ ...prevUser, [fieldName]: value }));
   };
 
-  const handleCompanyFieldChange = (fieldName: keyof UserType["company"], value: string) => {
+  const handleSubFieldChange = (
+    fieldName: keyof UserType["company"] | keyof UserType["address"],
+    value: string,
+    key: keyof Pick<UserType, "company" | "address">
+  ) => {
     setUserResponse((prevUser) => ({
       ...prevUser,
-      company: {
-        ...prevUser.company,
-        [fieldName]: value,
-      },
-    }));
-  };
-
-  const handleAddressFieldChange = (fieldName: keyof UserType["address"], value: string) => {
-    setUserResponse((prevUser) => ({
-      ...prevUser,
-      address: {
-        ...prevUser.address,
-        [fieldName]: value,
-      },
+      [key]: { ...prevUser[key], [fieldName]: value },
     }));
   };
 
@@ -127,20 +115,23 @@ const EditUser: React.FC<EditUserProps> = ({ id, edit }) => {
       <div className={s.block}>
         <h2>Адрес</h2>
         <Input
-          onChange={(value) => handleAddressFieldChange("zipcode", value)}
+          onChange={(value) => handleSubFieldChange("zipcode", value, "address")}
           defaultValue={user?.address.zipcode}
           width="440px"
         >
           Индекс
         </Input>
         <Input
-          onChange={(value) => handleAddressFieldChange("city", value)}
+          onChange={(value) => handleSubFieldChange("city", value, "address")}
           defaultValue={user?.address.city}
           width="440px"
         >
           Город
         </Input>
-        <Input onChange={(value) => handleAddressFieldChange("street", value)} defaultValue={user?.address.street}>
+        <Input
+          onChange={(value) => handleSubFieldChange("street", value, "address")}
+          defaultValue={user?.address.street}
+        >
           Улица
         </Input>
       </div>
@@ -148,13 +139,13 @@ const EditUser: React.FC<EditUserProps> = ({ id, edit }) => {
         <h2>Компания</h2>
         <ValidatedInput
           pattern="default"
-          onChange={(value) => handleCompanyFieldChange("name", value)}
+          onChange={(value) => handleSubFieldChange("name", value, "company")}
           defaultValue={user?.company.name}
         >
           Название
         </ValidatedInput>
         <TextArea
-          onChange={(value) => handleCompanyFieldChange("catchPhrase", value)}
+          onChange={(value) => handleSubFieldChange("catchPhrase", value, "company")}
           defaultValue={user?.company.catchPhrase}
         >
           Описание

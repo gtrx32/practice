@@ -1,28 +1,29 @@
 import { Link, useNavigate } from "react-router-dom";
 import s from "./TopPanel.module.scss";
 import { titles } from "./types";
-import mainApi from "../../api/api";
+import { useContext } from "react";
+import ModalIsOpenContext from "../../context/ModalIsOpenContext";
 
 interface TopPanelProps {
   dataType: string;
   pageType: "details" | "edit" | "create";
-  id?: string;
+  id: string;
 }
 
 const TopPanel: React.FC<TopPanelProps> = ({ dataType, pageType, id }) => {
   const navigate = useNavigate();
+  const { setId, setTable, setModalIsOpen } = useContext(ModalIsOpenContext);
+
+  const onDeleteHandler = () => {
+    setTable(dataType);
+    setId(id);
+    setModalIsOpen(true);
+  };
 
   const goBack = () => {
     const currentPath = window.location.pathname;
     const newPath = currentPath.substring(0, currentPath.lastIndexOf("/"));
     navigate(newPath);
-  };
-
-  const onClickHandler = () => {
-    mainApi.delete(dataType + "/" + id, { method: "DELETE" }).then((json) => {
-      console.log(json);
-      navigate("/" + dataType);
-    });
   };
 
   const title = titles[dataType]?.[pageType] || "";
@@ -42,7 +43,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ dataType, pageType, id }) => {
               <Link className={s.link} to={`/${dataType}/${id}${pageType === "details" ? "/edit" : ""}`}>
                 {pageType === "details" ? "Редактировать" : "Посмотреть"}
               </Link>
-              <button onClick={onClickHandler} className={s.link}>
+              <button onClick={onDeleteHandler} className={s.link}>
                 Удалить
               </button>
             </>

@@ -1,0 +1,16 @@
+.deleteModal {
+  flex-direction: column;
+  gap: 20px;
+  font-family: "Jost";
+  font-size: 20px;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+  font-size: 16px;
+
+  button {
+    padding: 5px 10px;
+  }
+}
