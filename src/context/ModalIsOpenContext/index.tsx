@@ -3,19 +3,15 @@ import { Dispatch, SetStateAction, createContext } from "react";
 interface ModalIsOpenContextType {
   modalIsOpen: boolean;
   setModalIsOpen: Dispatch<SetStateAction<boolean>>;
-  table: string;
-  setTable: Dispatch<SetStateAction<string>>;
-  id: string;
-  setId: Dispatch<SetStateAction<string>>;
+  target: TargetType;
+  setTarget: Dispatch<SetStateAction<TargetType>>;
 }
 
 const defaultState: ModalIsOpenContextType = {
   modalIsOpen: false,
   setModalIsOpen: () => {},
-  table: "",
-  setTable: () => {},
-  id: "",
-  setId: () => {},
+  target: { table: "", id: "" },
+  setTarget: () => {},
 };
 
 const ModalIsOpenContext = createContext<ModalIsOpenContextType>(defaultState);

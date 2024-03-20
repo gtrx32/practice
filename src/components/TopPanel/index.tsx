@@ -12,11 +12,10 @@ interface TopPanelProps {
 
 const TopPanel: React.FC<TopPanelProps> = ({ dataType, pageType, id }) => {
   const navigate = useNavigate();
-  const { setId, setTable, setModalIsOpen } = useContext(ModalIsOpenContext);
+  const { setTarget, setModalIsOpen } = useContext(ModalIsOpenContext);
 
   const onDeleteHandler = () => {
-    setTable(dataType);
-    setId(id);
+    setTarget({ table: dataType, id: id });
     setModalIsOpen(true);
   };
 

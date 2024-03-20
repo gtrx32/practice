@@ -12,11 +12,10 @@ interface ActionsBodyTemplateProps {
 }
 
 const ActionsBodyTemplate: React.FC<ActionsBodyTemplateProps> = ({ id, table }) => {
-  const { setId, setTable, setModalIsOpen } = useContext(ModalIsOpenContext);
+  const { setTarget, setModalIsOpen } = useContext(ModalIsOpenContext);
 
   const onDeleteHandler = () => {
-    setTable(table);
-    setId(id.toString());
+    setTarget({ table: table, id: id.toString() });
     setModalIsOpen(true);
   };
 

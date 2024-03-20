@@ -8,13 +8,13 @@ import ModalIsOpenContext from "../../../context/ModalIsOpenContext";
 
 const DeleteRowModal = () => {
   const navigate = useNavigate();
-  const { table, id, setModalIsOpen } = useContext(ModalIsOpenContext);
+  const { target, setModalIsOpen } = useContext(ModalIsOpenContext);
 
   const onDeleteHandler = () => {
     setModalIsOpen(false);
-    mainApi.delete(table + "/" + id, { method: "DELETE" }).then((json) => {
+    mainApi.delete(target.table + "/" + target.id, { method: "DELETE" }).then((json) => {
       console.log(json);
-      navigate("/" + table);
+      navigate("/" + target.table);
     });
   };
 
