@@ -1,5 +1,5 @@
 import s from "./ListPage.module.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Columns } from "./types";
 import { Column } from "primereact/column";
@@ -57,15 +57,18 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
   const endIndex = startIndex + rowsPerPage;
   const displayedData = data.slice(startIndex, endIndex);
 
-  const PaginationProps = {
-    rowCount: data.length,
-    startIndex: startIndex,
-    endIndex: endIndex,
-    currentPage: currentPage,
-    rowsPerPage: rowsPerPage,
-    setCurrentPage: setCurrentPage,
-    setRowsPerPage: setRowsPerPage,
-  };
+  const PaginationProps = useCallback(
+    () => ({
+      rowCount: data.length,
+      startIndex: startIndex,
+      endIndex: endIndex,
+      currentPage: currentPage,
+      rowsPerPage: rowsPerPage,
+      setCurrentPage: setCurrentPage,
+      setRowsPerPage: setRowsPerPage,
+    }),
+    [currentPage, data.length, endIndex, rowsPerPage, startIndex]
+  );
 
   const redirectToDetailPage = ({ data }: DataTableRowClickEvent) => {
     const { id } = data as { id: number };
@@ -96,7 +99,7 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
       ) : (
         <p>Произошла ошибка при загрузке данных</p>
       )}
-      <Pagination {...PaginationProps} />
+      <Pagination {...PaginationProps()} />
     </Container>
   );
 };
