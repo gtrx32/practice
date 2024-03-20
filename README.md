@@ -3,7 +3,7 @@
 1. First, install dependencies:
 
 ```bash
-npm i
+yarn install
 ```
 
 2. Create file .env based on the example file `.env.example`
@@ -11,11 +11,11 @@ npm i
 3. Then run the development server:
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 4. You can build an application for production using:
 
 ```bash
-npm run build
+yarn build
 ```
