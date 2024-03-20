@@ -6,13 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import ModalIsOpenContext from "../../../context/ModalIsOpenContext";
 
-interface DeleteRowModalProps {}
-
-const DeleteRowModal: React.FC<DeleteRowModalProps> = () => {
+const DeleteRowModal = () => {
   const navigate = useNavigate();
   const { table, id, setModalIsOpen } = useContext(ModalIsOpenContext);
 
   const onDeleteHandler = () => {
+    setModalIsOpen(false);
     mainApi.delete(table + "/" + id, { method: "DELETE" }).then((json) => {
       console.log(json);
       navigate("/" + table);

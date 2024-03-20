@@ -4,15 +4,15 @@ import CheckBox from "../../../../components/UI/CheckBox";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
 import Input from "../../../../components/UI/Input";
-import { TodoType, UserType } from "../../types";
+import { EditProps, TodoType, UserType } from "../../types";
 import s from "./EditTodo.module.scss";
-import { EditTodoProps, initialValue } from "./types";
+import { initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import ValidatedInput from "../../../../components/UI/ValidatedInput";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
 
-const EditTodo: React.FC<EditTodoProps> = ({ id, edit }) => {
+const EditTodo: React.FC<EditProps> = ({ id, edit }) => {
   const [todo, setTodo] = useState<TodoType | null>(null);
   const [users, setUsers] = useState<UserType[] | null>(null);
   const [todoResponse, setTodoResponse] = useState<TodoType>(initialValue);

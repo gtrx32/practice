@@ -3,14 +3,14 @@ import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
 import s from "./EditAlbum.module.scss";
 import mainApi from "../../../../api/api";
-import { AlbumType, UserType } from "../../types";
-import { EditAlbumProps, initialValue } from "./types";
+import { AlbumType, EditProps, UserType } from "../../types";
+import { initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
 import ValidatedInput from "../../../../components/UI/ValidatedInput";
 
-const EditAlbum: React.FC<EditAlbumProps> = ({ id, edit }) => {
+const EditAlbum: React.FC<EditProps> = ({ id, edit }) => {
   const [album, setAlbum] = useState<AlbumType | null>(null);
   const [users, setUsers] = useState<UserType[] | null>(null);
   const [albumResponse, setAlbumResponse] = useState<AlbumType>(initialValue);

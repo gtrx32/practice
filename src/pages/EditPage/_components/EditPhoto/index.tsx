@@ -2,16 +2,16 @@ import { ChangeEvent, useContext, useEffect, useState } from "react";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
 import s from "./EditPhoto.module.scss";
-import { AlbumType, PhotoType } from "../../types";
+import { AlbumType, EditProps, PhotoType } from "../../types";
 import mainApi from "../../../../api/api";
-import { EditPhotoProps, initialValue } from "./types";
+import { initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import clsx from "clsx";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
 import ValidatedInput from "../../../../components/UI/ValidatedInput";
 
-const EditPhoto: React.FC<EditPhotoProps> = ({ id, edit }) => {
+const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
   const [photo, setPhoto] = useState<PhotoType | null>(null);
   const [albums, setAlbums] = useState<AlbumType[] | null>(null);
   const [photoResponse, setPhotoResponse] = useState<PhotoType>(initialValue);

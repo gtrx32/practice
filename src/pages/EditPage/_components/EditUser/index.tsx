@@ -1,17 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import SaveButton from "../../../../components/UI/SaveButton";
 import Input from "../../../../components/UI/Input";
-import { UserType } from "../../types";
+import { EditProps, UserType } from "../../types";
 import s from "./EditUser.module.scss";
 import mainApi from "../../../../api/api";
-import { EditUserProps, initialValue } from "./types";
+import { initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
 import ValidatedInput from "../../../../components/UI/ValidatedInput";
 import TextArea from "../../../../components/UI/TextArea";
 
-const EditUser: React.FC<EditUserProps> = ({ id, edit }) => {
+const EditUser: React.FC<EditProps> = ({ id, edit }) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [userResponse, setUserResponse] = useState<UserType>(initialValue);
   const [isLoading, setIsLoading] = useState(false);

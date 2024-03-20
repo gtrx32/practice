@@ -1,3 +1,8 @@
+export interface EditProps {
+  id: number;
+  edit: boolean;
+}
+
 export type UserType = {
   id: number;
   name: string;

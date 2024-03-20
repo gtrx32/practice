@@ -9,9 +9,7 @@ import done from "@assets/images/details/done.svg";
 import notDone from "@assets/images/details/notDone.svg";
 import mainApi from "../../api/api";
 
-interface DetailsPageProps {}
-
-const DetailsPage: React.FC<DetailsPageProps> = () => {
+const DetailsPage = () => {
   const location = useLocation();
   const { pathname } = location;
   const [table, id] = pathname.split("/").slice(1);

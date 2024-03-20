@@ -1,12 +1,7 @@
 import clsx from "clsx";
-import { PropsWithChildren, useState } from "react";
+import { useState } from "react";
 import s from "./TextArea.module.scss";
-
-interface TextAreaProps extends PropsWithChildren {
-  defaultValue?: string | number;
-  width?: string;
-  onChange?: (value: string) => void;
-}
+import { TextAreaProps } from "./types";
 
 const TextArea: React.FC<TextAreaProps> = ({ defaultValue = "", width = "100%", onChange, children }) => {
   const [value, setValue] = useState(defaultValue);

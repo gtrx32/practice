@@ -1,17 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
-import { PostType, UserType } from "../../types";
+import { EditProps, PostType, UserType } from "../../types";
 import s from "./EditPost.module.scss";
 import mainApi from "../../../../api/api";
-import { EditPostProps, initialValue } from "./types";
+import { initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import TextArea from "../../../../components/UI/TextArea";
 import ValidatedInput from "../../../../components/UI/ValidatedInput";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
 
-const EditPost: React.FC<EditPostProps> = ({ id, edit }) => {
+const EditPost: React.FC<EditProps> = ({ id, edit }) => {
   const [post, setPost] = useState<PostType | null>(null);
   const [users, setUsers] = useState<UserType[] | null>(null);
   const [postResponse, setPostResponse] = useState<PostType>(initialValue);

@@ -3,16 +3,16 @@ import mainApi from "../../../../api/api";
 import ComboBox from "../../../../components/UI/ComboBox";
 import SaveButton from "../../../../components/UI/SaveButton";
 import Input from "../../../../components/UI/Input";
-import { CommentType, PostType } from "../../types";
+import { CommentType, EditProps, PostType } from "../../types";
 import s from "./EditComment.module.scss";
-import { EditCommentProps, initialValue } from "./types";
+import { initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import TextArea from "../../../../components/UI/TextArea";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
 import ValidatedInput from "../../../../components/UI/ValidatedInput";
 
-const EditComment: React.FC<EditCommentProps> = ({ id, edit }) => {
+const EditComment: React.FC<EditProps> = ({ id, edit }) => {
   const [comment, setComment] = useState<CommentType | null>(null);
   const [posts, setPosts] = useState<PostType[] | null>(null);
   const [commentResponse, setCommentResponse] = useState<CommentType>(initialValue);
