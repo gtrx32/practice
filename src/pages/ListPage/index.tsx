@@ -4,14 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { Columns } from "./types";
 import { Column } from "primereact/column";
 import { DataTable, DataTableRowClickEvent } from "primereact/datatable";
-import ActionsBodyTemplate from "./_components/ActionsBodyTemplate";
 import UpperPanel from "./_components/UpperPanel";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Container from "../../components/UI/Container";
 import mainApi from "../../api/api";
-import done from "@assets/images/details/done.svg";
-import notDone from "@assets/images/details/notDone.svg";
 import Pagination from "./_components/Pagination";
+import { AlbumType, PostType, UserType } from "../EditPage/types";
+import CustomBodyTemplate from "./_components/CustomBodyTemplate";
 
 interface ListPageProps {
   table: string;
@@ -19,25 +18,54 @@ interface ListPageProps {
 
 const ListPage: React.FC<ListPageProps> = ({ table }) => {
   const [data, setData] = useState([]);
+  const [subData, setSubData] = useState<UserType[] | AlbumType[] | PostType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
 
-  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  let subtable: string =
+    ((table === "todos" || table === "albums" || table === "posts") && "users") ||
+    (table === "photos" && "albums") ||
+    (table === "comments" && "posts") ||
+    "";
 
   useEffect(() => {
     setIsLoading(true);
-    mainApi
-      .get(table)
-      .then(({ data }) => setData(data))
+    Promise.all([mainApi.get(table), mainApi.get(subtable)])
+      .then(([data, subData]) => {
+        setData(data.data);
+        setSubData(subData.data);
+      })
       .catch(() => setIsError(true))
       .finally(() => setIsLoading(false));
   }, [table]);
 
+  const getById = (id: number) => {
+    if (Array.isArray(subData)) {
+      const dataItem = subData.find((item) => item.id === id);
+      if (dataItem) {
+        if ("name" in dataItem) return (dataItem as UserType).name;
+        else if ("title" in dataItem) return (dataItem as AlbumType | PostType).title;
+      }
+    }
+    return "";
+  };
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const displayedData = data.slice(startIndex, endIndex);
+
+  const PaginationProps = {
+    rowCount: data.length,
+    startIndex: startIndex,
+    endIndex: endIndex,
+    currentPage: currentPage,
+    rowsPerPage: rowsPerPage,
+    setCurrentPage: setCurrentPage,
+    setRowsPerPage: setRowsPerPage,
+  };
 
   const redirectToDetailPage = ({ data }: DataTableRowClickEvent) => {
     const { id } = data as { id: number };
@@ -54,27 +82,13 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
               <Column
                 key={field}
                 header={header}
-                body={
-                  field == "thumbnailUrl" || field == "completed"
-                    ? (rowData) => (
-                        <img
-                          src={field == "thumbnailUrl" ? rowData[field] : rowData[field] == true ? done : notDone}
-                          style={field == "thumbnailUrl" ? { maxHeight: "50px" } : { width: "16px" }}
-                        />
-                      )
-                    : undefined
-                }
-                field={field}
+                body={(rowData) => (
+                  <CustomBodyTemplate table={table} field={field} rowData={rowData} getById={getById} />
+                )}
                 sortable
                 style={{ width: width, maxWidth: width }}
-              ></Column>
+              />
             ))}
-            <Column
-              header="Действия"
-              body={(rowData) => <ActionsBodyTemplate id={rowData.id} table={table} />}
-              headerClassName="actions"
-              style={{ width: `90px`, maxWidth: `90px`, textAlign: `center` }}
-            />
           </DataTable>
         ) : (
           <LoadingSpinner />
@@ -82,15 +96,7 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
       ) : (
         <p>Произошла ошибка при загрузке данных</p>
       )}
-      <Pagination
-        rowCount={data.length}
-        startIndex={startIndex}
-        endIndex={endIndex}
-        currentPage={currentPage}
-        rowsPerPage={rowsPerPage}
-        setCurrentPage={setCurrentPage}
-        setRowsPerPage={setRowsPerPage}
-      />
+      <Pagination {...PaginationProps} />
     </Container>
   );
 };
