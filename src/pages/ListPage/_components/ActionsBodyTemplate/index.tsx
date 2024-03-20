@@ -27,7 +27,7 @@ const ActionsBodyTemplate: React.FC<ActionsBodyTemplateProps> = ({ id, table }) 
           <img src={pencil} alt="" />
         </Link>
       </Button>
-      <Button onClick={() => setModalIsOpen(true)} className={s.button}>
+      <Button onClick={onDeleteHandler} className={s.button}>
         <img src={trashcan} alt="" />
       </Button>
     </div>
