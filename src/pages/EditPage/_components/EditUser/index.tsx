@@ -14,7 +14,8 @@ import TextArea from "../../../../components/UI/TextArea";
 const EditUser: React.FC<EditProps> = ({ id, edit }) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [userResponse, setUserResponse] = useState<UserType>(initialValue);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const { fieldsIsValid } = useContext(CorrectInputContext);
 

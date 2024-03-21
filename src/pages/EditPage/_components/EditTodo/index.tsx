@@ -17,7 +17,7 @@ const EditTodo: React.FC<EditProps> = ({ id, edit }) => {
   const [todoResponse, setTodoResponse] = useState<TodoType>(initialValue);
   const [users, setUsers] = useState<UserType[] | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const { fieldsIsValid } = useContext(CorrectInputContext);
 

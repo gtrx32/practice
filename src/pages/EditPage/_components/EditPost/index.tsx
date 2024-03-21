@@ -16,7 +16,7 @@ const EditPost: React.FC<EditProps> = ({ id, edit }) => {
   const [postResponse, setPostResponse] = useState<PostType>(initialValue);
   const [users, setUsers] = useState<UserType[] | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const { fieldsIsValid } = useContext(CorrectInputContext);
 

@@ -16,7 +16,7 @@ const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
   const [photoResponse, setPhotoResponse] = useState<PhotoType>(initialValue);
   const [albums, setAlbums] = useState<AlbumType[] | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const { fieldsIsValid } = useContext(CorrectInputContext);
   const [imageUrl, setImageUrl] = useState<string | undefined>("");
