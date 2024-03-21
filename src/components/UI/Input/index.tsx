@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import s from "./Input.module.scss";
 import clsx from "clsx";
 import { InputProps } from "./types";
@@ -12,6 +12,7 @@ const Input: React.FC<InputProps> = ({
   validate,
 }) => {
   const [value, setValue] = useState(defaultValue);
+  const id = useId();
 
   const onHandleChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setValue(value);
@@ -21,10 +22,13 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <div className={clsx(s.wrapper)} style={{ width: width }}>
-      <div className={s.label}>{children}</div>
+      <label htmlFor={id}>
+        <div className={s.label}>{children}</div>
+      </label>
       <input
         onChange={onHandleChange}
         value={value}
+        id={id}
         className={clsx(s.input, className)}
         placeholder="Введите данные"
       ></input>

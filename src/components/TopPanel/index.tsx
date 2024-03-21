@@ -5,17 +5,17 @@ import { useContext } from "react";
 import ModalIsOpenContext from "../../context/ModalIsOpenContext";
 
 interface TopPanelProps {
-  dataType: string;
+  table: string;
   pageType: "details" | "edit" | "create";
   id: string;
 }
 
-const TopPanel: React.FC<TopPanelProps> = ({ dataType, pageType, id }) => {
+const TopPanel: React.FC<TopPanelProps> = ({ table, pageType, id }) => {
   const navigate = useNavigate();
   const { setTarget, setModalIsOpen } = useContext(ModalIsOpenContext);
 
   const onDeleteHandler = () => {
-    setTarget({ table: dataType, id: id });
+    setTarget({ table: table, id: id });
     setModalIsOpen(true);
   };
 
@@ -25,7 +25,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ dataType, pageType, id }) => {
     navigate(newPath);
   };
 
-  const title = titles[dataType]?.[pageType] || "";
+  const title = titles[table]?.[pageType] || "";
 
   return (
     <div className={s.wrapper}>
@@ -34,12 +34,12 @@ const TopPanel: React.FC<TopPanelProps> = ({ dataType, pageType, id }) => {
           &#60;&#60;&#60; Назад
         </button>
         <div className={s.rightButtons}>
-          <Link className={s.link} to={`/${dataType}`}>
+          <Link className={s.link} to={`/${table}`}>
             Список
           </Link>
           {(pageType === "details" || pageType === "edit") && (
             <>
-              <Link className={s.link} to={`/${dataType}/${id}${pageType === "details" ? "/edit" : ""}`}>
+              <Link className={s.link} to={`/${table}/${id}${pageType === "details" ? "/edit" : ""}`}>
                 {pageType === "details" ? "Редактировать" : "Посмотреть"}
               </Link>
               <button onClick={onDeleteHandler} className={s.link}>

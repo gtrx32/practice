@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import ComboBox from "../../../../components/UI/ComboBox";
+import Select from "../../../../components/UI/Select";
 import SaveButton from "../../../../components/UI/SaveButton";
 import s from "./EditAlbum.module.scss";
 import mainApi from "../../../../api/api";
@@ -60,14 +60,14 @@ const EditAlbum: React.FC<EditProps> = ({ id, edit }) => {
         <ValidatedInput pattern="id" defaultValue={album?.id} onChange={(value) => handleChange("id", value)}>
           ID
         </ValidatedInput>
-        <ComboBox
+        <Select
           defaultValue={album?.userId}
           options={users?.map((item) => item.id)}
           placeholder="Владелец"
           onChange={(value) => handleChange("userId", value)}
         >
           Выберите владельца
-        </ComboBox>
+        </Select>
         <ValidatedInput
           pattern="default"
           defaultValue={album?.title}

@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import mainApi from "../../../../api/api";
 import CheckBox from "../../../../components/UI/CheckBox";
-import ComboBox from "../../../../components/UI/ComboBox";
+import Select from "../../../../components/UI/Select";
 import SaveButton from "../../../../components/UI/SaveButton";
 import Input from "../../../../components/UI/Input";
 import { EditProps, TodoType, UserType } from "../../types";
@@ -62,14 +62,14 @@ const EditTodo: React.FC<EditProps> = ({ id, edit }) => {
         <ValidatedInput pattern="id" defaultValue={todo?.id} onChange={(value) => handleChange("id", value)}>
           ID
         </ValidatedInput>
-        <ComboBox
+        <Select
           defaultValue={todo?.userId}
           options={users?.map((item) => item.id)}
           placeholder="Автор"
           onChange={(value) => handleChange("userId", value)}
         >
           Выберите автора
-        </ComboBox>
+        </Select>
         <CheckBox defaultValue={todo?.completed} onChange={(value) => handleChange("completed", value)}>
           Выполнена
         </CheckBox>

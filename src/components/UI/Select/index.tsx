@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { useEffect, useState } from "react";
-import s from "./ComboBox.module.scss";
-import { ComboBoxProps } from "./types";
+import s from "./Select.module.scss";
+import { SelectProps } from "./types";
 
-const ComboBox: React.FC<ComboBoxProps> = ({
+const Select: React.FC<SelectProps> = ({
   options,
   placeholder,
   defaultValue = placeholder,
@@ -40,4 +40,4 @@ const ComboBox: React.FC<ComboBoxProps> = ({
   );
 };
 
-export default ComboBox;
+export default Select;

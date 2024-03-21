@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import s from "./CheckBox.module.scss";
 import clsx from "clsx";
 import { CheckBoxProps } from "./types";
 
 const CheckBox: React.FC<CheckBoxProps> = ({ defaultValue = false, className, onChange, children }) => {
   const [isChecked, setIsChecked] = useState(defaultValue);
+  const id = useId();
 
   useEffect(() => {
     setIsChecked(defaultValue);
@@ -16,9 +17,9 @@ const CheckBox: React.FC<CheckBoxProps> = ({ defaultValue = false, className, on
   };
 
   return (
-    <label className={s.wrapper} htmlFor="todocheck">
+    <label className={s.wrapper} htmlFor={id}>
       <input
-        id="todocheck"
+        id={id}
         type="checkbox"
         checked={isChecked}
         onChange={toggleCheckbox}

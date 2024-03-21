@@ -23,7 +23,7 @@ const EditPage: React.FC<EditPageProps> = ({ edit = true }) => {
 
   return (
     <Container className={s.container}>
-      <TopPanel dataType={table} pageType={edit ? "edit" : "create"} id={id} />
+      <TopPanel table={table} pageType={edit ? "edit" : "create"} id={id} />
       <Suspense fallback={<LoadingSpinner />}>
         {(() => {
           switch (table) {

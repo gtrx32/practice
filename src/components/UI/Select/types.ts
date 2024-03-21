@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 
-export interface ComboBoxProps extends PropsWithChildren {
+export interface SelectProps extends PropsWithChildren {
   options: number[] | undefined;
   placeholder: string;
   defaultValue?: number;

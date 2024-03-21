@@ -1,5 +1,5 @@
 import { ChangeEvent, useContext, useEffect, useState } from "react";
-import ComboBox from "../../../../components/UI/ComboBox";
+import Select from "../../../../components/UI/Select";
 import SaveButton from "../../../../components/UI/SaveButton";
 import s from "./EditPhoto.module.scss";
 import { AlbumType, EditProps, PhotoType } from "../../types";
@@ -107,7 +107,7 @@ const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
         >
           Название
         </ValidatedInput>
-        <ComboBox
+        <Select
           defaultValue={photo?.albumId}
           options={albums?.map((item) => item.id)}
           placeholder="Альбом"
@@ -115,7 +115,7 @@ const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
           onChange={(value) => handleChange("albumId", value)}
         >
           Выберите альбом
-        </ComboBox>
+        </Select>
       </div>
       <div className={s.formImage}>
         <h2 className={s.imageTitle}>Изображение</h2>

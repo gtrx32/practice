@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import mainApi from "../../../../api/api";
-import ComboBox from "../../../../components/UI/ComboBox";
+import Select from "../../../../components/UI/Select";
 import SaveButton from "../../../../components/UI/SaveButton";
 import Input from "../../../../components/UI/Input";
 import { CommentType, EditProps, PostType } from "../../types";
@@ -62,7 +62,7 @@ const EditComment: React.FC<EditProps> = ({ id, edit }) => {
         <ValidatedInput pattern="id" defaultValue={comment?.id} onChange={(value) => handleChange("id", value)}>
           ID
         </ValidatedInput>
-        <ComboBox
+        <Select
           defaultValue={comment?.postId}
           options={posts?.map((item) => item.id)}
           placeholder="Пост"
@@ -70,7 +70,7 @@ const EditComment: React.FC<EditProps> = ({ id, edit }) => {
           onChange={(value) => handleChange("postId", value)}
         >
           Выберите пост
-        </ComboBox>
+        </Select>
         <Input
           onChange={(value) => handleChange("email", value)}
           defaultValue={comment?.email}
