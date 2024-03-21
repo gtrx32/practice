@@ -14,22 +14,21 @@ import ValidatedInput from "../../../../components/UI/ValidatedInput";
 
 const EditComment: React.FC<EditProps> = ({ id, edit }) => {
   const [comment, setComment] = useState<CommentType | null>(null);
-  const [posts, setPosts] = useState<PostType[] | null>(null);
   const [commentResponse, setCommentResponse] = useState<CommentType>(initialValue);
-  const [isLoading, setIsLoading] = useState(true);
+  const [posts, setPosts] = useState<PostType[] | null>(null);
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const { fieldsIsValid } = useContext(CorrectInputContext);
 
   useEffect(() => {
     setIsLoading(true);
-    edit &&
-      mainApi.get("comments/" + id).then(({ data }) => {
-        setComment(data);
-        setCommentResponse(data);
-      });
-    mainApi
-      .get("posts")
-      .then(({ data }) => setPosts(data))
+    Promise.all([edit ? mainApi.get("comments/" + id) : null, mainApi.get("posts")])
+      .then(([data, relatedData]) => {
+        setComment(data?.data);
+        setCommentResponse(data?.data);
+        setPosts(relatedData?.data);
+      })
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -64,10 +63,10 @@ const EditComment: React.FC<EditProps> = ({ id, edit }) => {
         </ValidatedInput>
         <Select
           defaultValue={comment?.postId}
-          options={posts?.map((item) => item.id)}
-          placeholder="Пост"
-          className={s.half}
+          defaultLabel="Пост"
+          options={posts?.map((item) => ({ value: item.id, label: item.title }))}
           onChange={(value) => handleChange("postId", value)}
+          className={s.half}
         >
           Выберите пост
         </Select>

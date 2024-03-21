@@ -13,23 +13,22 @@ import ValidatedInput from "../../../../components/UI/ValidatedInput";
 
 const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
   const [photo, setPhoto] = useState<PhotoType | null>(null);
-  const [albums, setAlbums] = useState<AlbumType[] | null>(null);
   const [photoResponse, setPhotoResponse] = useState<PhotoType>(initialValue);
+  const [albums, setAlbums] = useState<AlbumType[] | null>(null);
+
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  const [imageUrl, setImageUrl] = useState<string | undefined>("");
   const { fieldsIsValid } = useContext(CorrectInputContext);
+  const [imageUrl, setImageUrl] = useState<string | undefined>("");
 
   useEffect(() => {
     setIsLoading(true);
-    edit &&
-      mainApi.get("photos/" + id).then(({ data }) => {
-        setPhoto(data);
-        setPhotoResponse(data);
-      });
-    mainApi
-      .get("albums")
-      .then(({ data }) => setAlbums(data))
+    Promise.all([edit ? mainApi.get("photos/" + id) : null, mainApi.get("albums")])
+      .then(([data, relatedData]) => {
+        setPhoto(data?.data);
+        setPhotoResponse(data?.data);
+        setAlbums(relatedData?.data);
+      })
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -109,10 +108,10 @@ const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
         </ValidatedInput>
         <Select
           defaultValue={photo?.albumId}
-          options={albums?.map((item) => item.id)}
-          placeholder="Альбом"
-          className={s.half}
+          defaultLabel="Альбом"
+          options={albums?.map((item) => ({ value: item.id, label: item.title }))}
           onChange={(value) => handleChange("albumId", value)}
+          className={s.half}
         >
           Выберите альбом
         </Select>

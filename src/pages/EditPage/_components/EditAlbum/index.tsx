@@ -12,22 +12,21 @@ import ValidatedInput from "../../../../components/UI/ValidatedInput";
 
 const EditAlbum: React.FC<EditProps> = ({ id, edit }) => {
   const [album, setAlbum] = useState<AlbumType | null>(null);
-  const [users, setUsers] = useState<UserType[] | null>(null);
   const [albumResponse, setAlbumResponse] = useState<AlbumType>(initialValue);
-  const [isLoading, setIsLoading] = useState(true);
+  const [users, setUsers] = useState<UserType[] | null>(null);
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const { fieldsIsValid } = useContext(CorrectInputContext);
 
   useEffect(() => {
     setIsLoading(true);
-    edit &&
-      mainApi.get("albums/" + id).then(({ data }) => {
-        setAlbum(data);
-        setAlbumResponse(data);
-      });
-    mainApi
-      .get("users")
-      .then(({ data }) => setUsers(data))
+    Promise.all([edit ? mainApi.get("albums/" + id) : null, mainApi.get("users")])
+      .then(([data, relatedData]) => {
+        setAlbum(data?.data);
+        setAlbumResponse(data?.data);
+        setUsers(relatedData?.data);
+      })
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -62,8 +61,8 @@ const EditAlbum: React.FC<EditProps> = ({ id, edit }) => {
         </ValidatedInput>
         <Select
           defaultValue={album?.userId}
-          options={users?.map((item) => item.id)}
-          placeholder="Владелец"
+          defaultLabel="Владелец"
+          options={users?.map((item) => ({ value: item.id, label: item.name }))}
           onChange={(value) => handleChange("userId", value)}
         >
           Выберите владельца

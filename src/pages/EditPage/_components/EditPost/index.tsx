@@ -13,22 +13,21 @@ import CorrectInputContext from "../../../../context/CorrectInputContext";
 
 const EditPost: React.FC<EditProps> = ({ id, edit }) => {
   const [post, setPost] = useState<PostType | null>(null);
-  const [users, setUsers] = useState<UserType[] | null>(null);
   const [postResponse, setPostResponse] = useState<PostType>(initialValue);
+  const [users, setUsers] = useState<UserType[] | null>(null);
+
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { fieldsIsValid } = useContext(CorrectInputContext);
 
   useEffect(() => {
     setIsLoading(true);
-    edit &&
-      mainApi.get("posts/" + id).then(({ data }) => {
-        setPost(data);
-        setPostResponse(data);
-      });
-    mainApi
-      .get("users")
-      .then(({ data }) => setUsers(data))
+    Promise.all([edit ? mainApi.get("posts/" + id) : null, mainApi.get("users")])
+      .then(([data, relatedData]) => {
+        setPost(data?.data);
+        setPostResponse(data?.data);
+        setUsers(relatedData?.data);
+      })
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -63,8 +62,8 @@ const EditPost: React.FC<EditProps> = ({ id, edit }) => {
         </ValidatedInput>
         <Select
           defaultValue={post?.userId}
-          options={users?.map((item) => item.id)}
-          placeholder="Автор"
+          defaultLabel="Автор"
+          options={users?.map((item) => ({ value: item.id, label: item.name }))}
           onChange={(value) => handleChange("userId", value)}
         >
           Выберите автора

@@ -14,22 +14,21 @@ import CorrectInputContext from "../../../../context/CorrectInputContext";
 
 const EditTodo: React.FC<EditProps> = ({ id, edit }) => {
   const [todo, setTodo] = useState<TodoType | null>(null);
-  const [users, setUsers] = useState<UserType[] | null>(null);
   const [todoResponse, setTodoResponse] = useState<TodoType>(initialValue);
+  const [users, setUsers] = useState<UserType[] | null>(null);
+
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { fieldsIsValid } = useContext(CorrectInputContext);
 
   useEffect(() => {
     setIsLoading(true);
-    edit &&
-      mainApi.get("todos/" + id).then(({ data }) => {
-        setTodo(data);
-        setTodoResponse(data);
-      });
-    mainApi
-      .get("users")
-      .then(({ data }) => setUsers(data))
+    Promise.all([edit ? mainApi.get("todos/" + id) : null, mainApi.get("users")])
+      .then(([data, relatedData]) => {
+        setTodo(data?.data);
+        setTodoResponse(data?.data);
+        setUsers(relatedData?.data);
+      })
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -64,8 +63,8 @@ const EditTodo: React.FC<EditProps> = ({ id, edit }) => {
         </ValidatedInput>
         <Select
           defaultValue={todo?.userId}
-          options={users?.map((item) => item.id)}
-          placeholder="Автор"
+          defaultLabel="Автор"
+          options={users?.map((item) => ({ value: item.id, label: item.name }))}
           onChange={(value) => handleChange("userId", value)}
         >
           Выберите автора

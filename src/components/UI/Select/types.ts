@@ -1,8 +1,8 @@
 import { PropsWithChildren } from "react";
 
 export interface SelectProps extends PropsWithChildren {
-  options: number[] | undefined;
-  placeholder: string;
+  options: { value: number; label: string }[] | undefined;
+  defaultLabel: string;
   defaultValue?: number;
   width?: string;
   className?: string;

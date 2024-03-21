@@ -1,38 +1,46 @@
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import s from "./Select.module.scss";
 import { SelectProps } from "./types";
+import CorrectInputContext from "../../../context/CorrectInputContext";
 
 const Select: React.FC<SelectProps> = ({
   options,
-  placeholder,
-  defaultValue = placeholder,
+  defaultLabel,
+  defaultValue,
   width = "100%",
   className,
   onChange,
   children,
 }) => {
-  const [selectedValue, setSelectedValue] = useState(defaultValue);
+  const [selectedValue, setSelectedValue] = useState<number | undefined>(defaultValue);
+  const { setFields } = useContext(CorrectInputContext);
+  const [isCorrect, setIsCorrect] = useState<boolean>(defaultValue ? true : false);
 
   useEffect(() => {
-    setSelectedValue(defaultValue);
-  }, [defaultValue]);
+    setFields((prev) => ({ ...prev, select: isCorrect }));
+  }, [isCorrect]);
 
   const onHandleChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(target.value);
+    setSelectedValue(parseInt(target.value));
     onChange?.(parseInt(target.value));
+    setIsCorrect(true);
   };
 
   return (
     <div className={clsx(s.wrapper, className)} style={{ width: width }}>
       <div className={s.label}>{children}</div>
-      <select className={s.select} value={selectedValue} onChange={onHandleChange}>
-        <option value={placeholder} disabled hidden>
-          {placeholder}
+      <select
+        className={clsx(s.select, !isCorrect && s.notCorrect)}
+        value={selectedValue || ""}
+        onChange={onHandleChange}
+      >
+        <option value="" disabled hidden>
+          {defaultLabel}
         </option>
         {options?.map((option, index) => (
-          <option key={index} value={option}>
-            {option}
+          <option key={index} value={option.value}>
+            {option.label}
           </option>
         ))}
       </select>
