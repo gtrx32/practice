@@ -1,7 +1,7 @@
 import main from "@assets/images/menu/mainItem.svg";
 import users from "@assets/images/menu/usersItem.svg";
 import todos from "@assets/images/menu/todosItem.svg";
-import photos from "@assets/images/menu/photosItem.svg";
+import graphics from "@assets/images/menu/graphicsItem.svg";
 import blog from "@assets/images/menu/blogItem.svg";
 
 export type LinkType = {
@@ -23,7 +23,7 @@ export const LINKS: LinkType[] = [
   {
     href: "/",
     text: "Графика",
-    image: photos,
+    image: graphics,
     submenu: [
       { subHref: "/photos", subText: "Картинки" },
       { subHref: "/albums", subText: "Альбомы" },
