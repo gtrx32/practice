@@ -1,7 +1,6 @@
 import Button from "../../components/UI/Button";
 import s from "./SideNav.module.scss";
-import navHide from "@assets/images/navHideButton.svg";
-import navShow from "@assets/images/navShowButton.svg";
+import navToggleArrow from "@assets/images/menu/navToggleArrow.svg";
 import Container from "../../components/UI/Container";
 import SideNavList from "./SideNavList";
 import { useContext } from "react";
@@ -19,7 +18,7 @@ const SideNav = () => {
         <div className={s.topRow}>
           <Container className={clsx(s.shrink, !menuIsOpen && s.closed)}>ADMIN</Container>
           <Button onClick={handleMenuClick} className={s.button}>
-            <img src={menuIsOpen ? navHide : navShow} alt="" />
+            <img src={navToggleArrow} className={menuIsOpen ? s.navHideButton : s.navShowButton} alt="" />
           </Button>
         </div>
         <SideNavList className={clsx(s.shrink, !menuIsOpen && s.closed)} />

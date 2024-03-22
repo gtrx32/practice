@@ -71,3 +71,12 @@
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+
+.navHideButton {
+  transition: 0.5s all ease;
+}
+
+.navShowButton {
+  transform: scale(-1, 1);
+  transition: 0.5s all ease;
+}

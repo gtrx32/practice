@@ -1,7 +1,7 @@
 import { useState } from "react";
 import s from "./SideNavLink.module.scss";
 import { LinkType } from "../types";
-import arrow from "@assets/images/menu/arrow.svg";
+import submenuArrow from "@assets/images/menu/submenuArrow.svg";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 
@@ -19,7 +19,7 @@ const SideNavLink: React.FC<SideNavLinkProps> = ({ href, text, image, submenu })
           <button className={clsx(s.link, s.subMenuButton)} onClick={handleDropdownClick}>
             <img className={s.icon} src={image} alt="" />
             {text}
-            <img className={clsx(s.arrow, !dropdownIsOpen && s.arrowClose)} src={arrow} alt="" />
+            <img className={clsx(s.arrow, !dropdownIsOpen && s.arrowClose)} src={submenuArrow} alt="" />
           </button>
           <ul className={clsx(s.subMenu, dropdownIsOpen && s.subMenuOpened)}>
             {submenu.map(({ subHref, subText }) => (
