@@ -3,6 +3,10 @@
 .wrapper {
 }
 
+.admin {
+  color: var(--text-color);
+}
+
 .sideNav {
   position: fixed;
   max-width: 100%;
@@ -62,7 +66,7 @@
 }
 
 .shrink {
-  transition: all 0.5s ease;
+  transition: width 0.5s ease, padding-left 0.5s ease, padding-right 0.5s ease;
   overflow: hidden;
 }
 

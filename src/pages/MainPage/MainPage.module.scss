@@ -31,6 +31,7 @@
     text-transform: uppercase;
     letter-spacing: -0.3px;
     white-space: pre-wrap;
+    color: var(--text-color);
 
     @media (min-width: $desktop) {
       white-space: normal;
@@ -42,5 +43,6 @@
     font-family: "Jost";
     font-weight: 400;
     font-size: 18px;
+    color: var(--subtext-color);
   }
 }

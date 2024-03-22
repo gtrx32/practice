@@ -14,12 +14,18 @@
     font-family: "Furore";
     font-size: 36px;
     font-weight: 400;
+    color: var(--text-color);
   }
 
   .search {
     width: 300px;
     background-color: var(--background-color);
     outline: 0px;
+
+    color: var(--subtext-color);
+    &::placeholder {
+      color: var(--subtext-color);
+    }
   }
 }
 .add {
@@ -30,5 +36,5 @@
   font-family: "Furore";
   font-size: 16px;
   font-weight: 400;
-  color: var(--color-gray);
+  color: var(--text-color);
 }

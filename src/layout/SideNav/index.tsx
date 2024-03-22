@@ -16,7 +16,7 @@ const SideNav = () => {
     <div className={s.wrapper}>
       <div className={clsx(s.sideNav, !menuIsOpen && s.closedNav)}>
         <div className={s.topRow}>
-          <Container className={clsx(s.shrink, !menuIsOpen && s.closed)}>ADMIN</Container>
+          <Container className={clsx(s.shrink, !menuIsOpen && s.closed, s.admin)}>ADMIN</Container>
           <Button onClick={handleMenuClick} className={s.button}>
             <img src={navToggleArrow} className={menuIsOpen ? s.navHideButton : s.navShowButton} alt="" />
           </Button>

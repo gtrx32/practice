@@ -22,6 +22,10 @@
     .buttons {
       display: none;
 
+      button {
+        border: 1px solid var(--header-button-border-color);
+      }
+
       @media (min-width: $tablet) {
         display: flex;
         gap: 7px;
@@ -34,6 +38,7 @@
       font-family: "Furore";
       font-size: 14px;
       line-height: 1px;
+      color: var(--navlink-color);
 
       @media (min-width: $tablet) {
         display: none !important;

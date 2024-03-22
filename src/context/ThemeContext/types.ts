@@ -9,14 +9,11 @@ export const themeColors = {
     "--blur-color": "rgba(16, 16, 16, 0.15)",
     "--navlink-color": "#2d2b2a",
     "--image-label-color": "#6159FC",
-    "--table-text-color": "#3C3A39",
     "--hover-color": "#A6192E",
-
-    "--logo-color": "#a6192e",
-    "--navToggle-color": "#353231",
-    "--headerButtons-color": "#2d2b2a",
-    "--doneIcon-color": "#45965F",
-    "--notDoneIcon-color": "#A4504C",
+    "--text-color": "#353231",
+    "--subtext-color": "#3C3A39",
+    "--table-text-color": "#353231",
+    "--invalid-input-color": "#fbd6d6",
   },
   dark: {
     "--header-button-border-color": "#5e5e5e",
@@ -28,14 +25,11 @@ export const themeColors = {
     "--blur-color": "rgba(255, 255, 255, 0.1)",
     "--navlink-color": "#ffffff",
     "--image-label-color": "#6DE8CE",
-    "--table-text-color": "#C8C4C0",
     "--hover-color": "#c9c9c9",
-
-    "--logo-color": "#ffffff",
-    "--navToggle-color": "#eeedec",
-    "--headerButtons-color": "#ffffff",
-    "--doneIcon-color": "#A0F8A0",
-    "--notDoneIcon-color": "#FB8E8E",
+    "--text-color": "#eeedec",
+    "--subtext-color": "#C8C4C0",
+    "--table-text-color": "#C8C4C0",
+    "--invalid-input-color": "#502727",
   },
 };
 

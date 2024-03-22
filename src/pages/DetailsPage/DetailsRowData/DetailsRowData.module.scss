@@ -9,6 +9,7 @@
   border-bottom: 1px solid var(--border-color);
   font-family: "Jost";
   font-size: 15px;
+  color: var(--text-color);
 }
 
 .rowTitle {
@@ -34,4 +35,5 @@
 
 .link {
   text-decoration: underline;
+  color: var(--text-color);
 }

@@ -62,5 +62,9 @@
     color: var(--color-gray);
     cursor: pointer;
     border-radius: 5px;
+
+    option {
+      background-color: var(--background-color);
+    }
   }
 }
