@@ -1,5 +1,5 @@
 .wrapper {
-  color: var(--primary-color-gray);
+  color: var(--color-gray);
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
@@ -12,7 +12,7 @@
   display: flex;
 
   .currentPage {
-    background-color: var(--accent-color-red);
+    background-color: var(--hover-color);
     cursor: unset;
   }
 
@@ -24,21 +24,21 @@
   Button {
     padding: 10px;
     line-height: 10px;
-    border: 1px solid var(--secondary-color-gray);
+    border: 1px solid var(--border-color);
     border-right: none;
   }
 
   :last-child {
-    border-right: 1px solid var(--secondary-color-gray);
+    border-right: 1px solid var(--border-color);
   }
 
   .formInput {
     background-color: transparent;
     outline: none;
-    border: 1px solid var(--secondary-color-gray);
+    border: 1px solid var(--border-color);
     border-right: none;
     width: 100px;
-    color: inherit;
+    color: var(--color-gray);
     text-align: center;
   }
 }
@@ -59,13 +59,8 @@
     background-color: transparent;
     border: none;
     outline: 1px transparent solid;
-    color: inherit;
+    color: var(--color-gray);
     cursor: pointer;
     border-radius: 5px;
-    transition: 0.2s all ease;
-
-    &:hover {
-      outline: 1px var(--primary-color-gray) solid;
-    }
   }
 }

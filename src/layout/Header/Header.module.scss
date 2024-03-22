@@ -1,10 +1,10 @@
 @import "@assets/styles/breakpoints/breakpoints";
 
 .header {
-  border-bottom: 1px solid var(--secondary-color-gray);
+  border-bottom: 1px solid var(--header-border-color);
   z-index: 101;
   position: fixed;
-  background-color: var(--background-color-white);
+  background-color: var(--background-color);
   width: 100vw;
 
   .wrapper {
@@ -29,7 +29,7 @@
     }
 
     .mobileMenuButton {
-      border: 1px solid var(--primary-color-gray) !important;
+      border: 1px solid var(--header-button-border-color) !important;
       padding: 10px 18px !important;
       font-family: "Furore";
       font-size: 14px;

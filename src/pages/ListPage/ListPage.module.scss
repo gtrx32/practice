@@ -21,11 +21,11 @@
   table {
     th {
       padding: 15px 10px 10px;
-      border-bottom: 1px solid var(--secondary-color-gray);
+      border-bottom: 1px solid var(--border-color);
       font-family: "Furore";
       font-size: 14px;
       font-weight: 400;
-      color: var(--primary-color-gray);
+      color: var(--color-gray);
 
       span[data-pc-section="sort"] {
         display: none;
@@ -65,7 +65,7 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      border-bottom: 1px solid var(--secondary-color-gray);
+      border-bottom: 1px solid var(--border-color);
       font-family: "Jost";
       font-size: 15px;
       font-weight: 400;
@@ -74,10 +74,6 @@
     tbody[class="p-datatable-tbody"] {
       tr {
         cursor: pointer;
-        transition: background-color 0.3s ease;
-        &:hover {
-          background-color: var(--secondary-color-gray);
-        }
       }
 
       tr:first-child {

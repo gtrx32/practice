@@ -1,5 +1,5 @@
 .wrapper {
-  background-color: var(--background-color-gray);
+  background-color: var(--ui-color);
   padding: 2px;
   display: inline-block;
   position: relative;
@@ -13,7 +13,7 @@
     width: 0;
     height: 0;
     border-left: 15px solid transparent;
-    border-top: 15px solid var(--background-color-white);
+    border-top: 15px solid var(--background-color);
   }
 
   .label {

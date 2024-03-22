@@ -100,7 +100,6 @@ html {
   min-height: 100% !important;
   display: flex;
   max-width: 100vw;
-  background-color: var(--background-color-white);
 }
 
 body {

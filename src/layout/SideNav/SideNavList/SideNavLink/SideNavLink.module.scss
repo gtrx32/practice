@@ -18,7 +18,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--font-color-black);
+  color: var(--navlink-color);
 
   &:hover .icon {
     width: 20px;
@@ -29,7 +29,7 @@
   padding-left: 25px;
   list-style: none;
   font-weight: 400;
-  color: inherit;
+  color: var(--navlink-color);
 }
 
 .link,
@@ -67,7 +67,7 @@
   padding: 0;
   border: none;
   background-color: transparent;
-  color: var(--font-color-black);
+  color: var(--navlink-color);
 }
 
 .arrow {
