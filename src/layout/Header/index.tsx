@@ -7,9 +7,11 @@ import Button from "../../components/UI/Button";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import MenuIsOpenContext from "../../context/MenuIsOpenContext";
+import ThemeContext from "../../context/ThemeContext";
 
 const Header = () => {
   const { menuIsOpen, setMenuIsOpen } = useContext(MenuIsOpenContext);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const handleMenuClick = () => setMenuIsOpen(!menuIsOpen);
 
@@ -20,7 +22,7 @@ const Header = () => {
           <img src={logo} alt="" />
         </Link>
         <div className={s.buttons}>
-          <Button aria-label="theme">
+          <Button onClick={() => setTheme(theme === "light" ? "dark" : "light")} aria-label="theme">
             <img src={themePic} alt="" />
           </Button>
           <Button aria-label="profile">
