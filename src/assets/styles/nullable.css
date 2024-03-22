@@ -112,3 +112,10 @@ body {
   display: flex;
   max-width: 100vw;
 }
+
+*,
+*::before,
+*::after,
+*::placeholder {
+  transition: all 0.5s ease !important;
+}

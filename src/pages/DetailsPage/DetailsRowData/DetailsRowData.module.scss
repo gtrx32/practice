@@ -9,11 +9,11 @@
   border-bottom: 1px solid var(--border-color);
   font-family: "Jost";
   font-size: 15px;
-  color: var(--text-color);
 }
 
 .rowTitle {
   flex: 0 0 200px;
+  color: var(--text-color);
 
   font-size: 12px;
   margin-bottom: 5px;
@@ -26,6 +26,11 @@
 
 .rowData {
   width: 100%;
+  color: var(--text-color);
+
+  span {
+    color: var(--text-color);
+  }
 
   .readyIcon {
     padding-top: 3px;

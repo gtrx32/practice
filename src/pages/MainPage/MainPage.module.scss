@@ -43,6 +43,8 @@
     font-family: "Jost";
     font-weight: 400;
     font-size: 18px;
-    color: var(--subtext-color);
+    p {
+      color: var(--subtext-color);
+    }
   }
 }
