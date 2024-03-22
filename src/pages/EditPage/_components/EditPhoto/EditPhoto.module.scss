@@ -60,6 +60,7 @@
 
 .imageContainer {
   width: 100px;
+  min-width: 100px;
   height: 100px;
   position: relative;
   background-color: red;
@@ -69,14 +70,15 @@
     top: 0;
     right: 0;
     opacity: 0;
-    transition: 0.3s all ease;
     width: 100%;
     height: 100%;
+    padding: 0;
     border: none;
     outline: none;
     font-family: "Furore";
     font-size: 14px;
     color: var(--image-label-color);
+    background-color: var(--color-gray);
   }
 }
 
@@ -84,9 +86,4 @@
   width: 100px;
   height: 100px;
   object-fit: cover;
-}
-
-.imageHover:hover .imageButton {
-  opacity: 0.8;
-  cursor: pointer;
 }
