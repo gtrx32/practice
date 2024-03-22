@@ -73,6 +73,7 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
               key={field}
               header={header}
               body={(rowData) => <CustomBodyTemplate table={table} field={field} rowData={rowData} getById={getById} />}
+              field={field}
               sortable
               style={{ width: width, maxWidth: width }}
             />
