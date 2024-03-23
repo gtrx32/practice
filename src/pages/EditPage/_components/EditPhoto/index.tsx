@@ -10,6 +10,7 @@ import LoadingSpinner from "../../../../components/LoadingSpinner";
 import clsx from "clsx";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
 import ValidatedInput from "../../../../components/UI/ValidatedInput";
+import { ImagePlaceholder } from "../../../../assets/images/icons";
 
 const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
   const [photo, setPhoto] = useState<PhotoType | null>(null);
@@ -124,7 +125,7 @@ const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
           </label>
           <input type="file" id="imageInput" className={s.imageUploader} onChange={handleImageChange} />
           <div className={clsx(s.imageContainer, imageUrl !== "" ? s.imageHover : "")}>
-            {imageUrl !== "" ? <img src={imageUrl} className={s.imagePreview} /> : null}
+            {imageUrl !== "" ? <img src={imageUrl} className={s.imagePreview} /> : <ImagePlaceholder />}
             <button onClick={imageButtonHandler} className={s.imageButton}>
               Удалить
             </button>

@@ -28,6 +28,7 @@
   font-family: "Furore";
   font-size: 28px;
   font-weight: 400;
+  color: var(--text-color);
 }
 
 .image {
@@ -63,7 +64,6 @@
   min-width: 100px;
   height: 100px;
   position: relative;
-  background-color: red;
 
   .imageButton {
     position: absolute;

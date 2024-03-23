@@ -25,6 +25,7 @@ export const themeColors = {
     "--sideMenu-buttonIcon-color": "#bcb8b8",
     "--sideMenu-arrow-color": "#353231",
     "--subMenu-arrow-color": "#2d2b2a",
+    "--imagePlaceholder-color": "#d2d0d0",
   },
   dark: {
     "--header-button-border-color": "#5e5e5e",
@@ -52,6 +53,7 @@ export const themeColors = {
     "--sideMenu-buttonIcon-color": "#5e5e5e",
     "--sideMenu-arrow-color": "#eeedec",
     "--subMenu-arrow-color": "#ffffff",
+    "--imagePlaceholder-color": "#2b2b2b",
   },
 };
 

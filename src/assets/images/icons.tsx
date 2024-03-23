@@ -210,3 +210,21 @@ export const SubMenuArrowIcon: React.FC<IconProps> = ({ className }) => (
     />
   </svg>
 );
+
+export const ImagePlaceholder: React.FC<IconProps> = ({ className }) => (
+  <svg
+    className={className}
+    width="100"
+    height="100"
+    viewBox="0 0 100 100"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="100" height="100" fill="var(--imagePlaceholder-color)" />
+    <path
+      d="M30 46C33.866 46 37 42.866 37 39C37 35.134 33.866 32 30 32C26.134 32 23 35.134 23 39C23 42.866 26.134 46 30 46Z"
+      fill="var(--background-color)"
+    />
+    <path d="M43.25 59L36.5 50L23 68H77L56.75 41L43.25 59Z" fill="var(--background-color)" />
+  </svg>
+);
