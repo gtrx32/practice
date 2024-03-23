@@ -1,13 +1,16 @@
-import main from "@assets/images/menu/mainItem.svg";
-import users from "@assets/images/menu/usersItem.svg";
-import todos from "@assets/images/menu/todosItem.svg";
-import graphics from "@assets/images/menu/graphicsItem.svg";
-import blog from "@assets/images/menu/blogItem.svg";
+import {
+  BlogItemIcon,
+  GraphicsItemIcon,
+  IconProps,
+  MainItemIcon,
+  TodosItemIcon,
+  UsersItemIcon,
+} from "../../../assets/images/icons";
 
 export type LinkType = {
   href: string;
   text: string;
-  image: string;
+  ButtonIcon: React.FC<IconProps>;
   submenu?: SubLinkType[];
 };
 
@@ -17,13 +20,13 @@ export type SubLinkType = {
 };
 
 export const LINKS: LinkType[] = [
-  { href: "/", text: "Главная", image: main },
-  { href: "/users", text: "Пользователи", image: users },
-  { href: "/todos", text: "Задания", image: todos },
+  { href: "/", text: "Главная", ButtonIcon: MainItemIcon },
+  { href: "/users", text: "Пользователи", ButtonIcon: UsersItemIcon },
+  { href: "/todos", text: "Задания", ButtonIcon: TodosItemIcon },
   {
     href: "/",
     text: "Графика",
-    image: graphics,
+    ButtonIcon: GraphicsItemIcon,
     submenu: [
       { subHref: "/photos", subText: "Картинки" },
       { subHref: "/albums", subText: "Альбомы" },
@@ -32,7 +35,7 @@ export const LINKS: LinkType[] = [
   {
     href: "/",
     text: "Блог",
-    image: blog,
+    ButtonIcon: BlogItemIcon,
     submenu: [
       { subHref: "/posts", subText: "Посты" },
       { subHref: "/comments", subText: "Комментарии" },

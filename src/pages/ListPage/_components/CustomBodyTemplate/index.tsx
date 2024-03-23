@@ -1,8 +1,7 @@
 import s from "./CustomBodyTemplate.module.scss";
-import notDone from "@assets/images/details/notDone.svg";
-import done from "@assets/images/details/done.svg";
 import ActionsBodyTemplate from "./ActionsBodyTemplate";
 import { Link } from "react-router-dom";
+import { CheckIcon, CrossIcon } from "../../../../assets/images/icons";
 
 interface CustomBodyTemplateProps {
   table: string;
@@ -16,7 +15,7 @@ const CustomBodyTemplate: React.FC<CustomBodyTemplateProps> = ({ table, field, r
     case "thumbnailUrl":
       return <img src={rowData[field]} className={s.thumbnailUrl} alt="Thumbnail" />;
     case "completed":
-      return <img src={rowData[field] ? done : notDone} className={s.completed} />;
+      return rowData[field] ? <CheckIcon className={s.completed} /> : <CrossIcon className={s.completed} />;
     case "userId":
     case "albumId":
     case "postId":

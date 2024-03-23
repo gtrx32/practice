@@ -1,13 +1,11 @@
 import s from "./Header.module.scss";
 import Container from "../../components/UI/Container";
-import themePic from "@assets/images/header/themeButton.svg";
-import profilePic from "@assets/images/header/profileButton.svg";
 import Button from "../../components/UI/Button";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import MenuIsOpenContext from "../../context/MenuIsOpenContext";
 import ThemeContext from "../../context/ThemeContext";
-import { Logo } from "../../assets/images/icons";
+import { Logo, ProfileIcon, ThemeIcon } from "../../assets/images/icons";
 
 const Header = () => {
   const { menuIsOpen, setMenuIsOpen } = useContext(MenuIsOpenContext);
@@ -23,10 +21,10 @@ const Header = () => {
         </Link>
         <div className={s.buttons}>
           <Button onClick={() => setTheme(theme === "light" ? "dark" : "light")} aria-label="theme">
-            <img src={themePic} alt="" />
+            <ThemeIcon />
           </Button>
           <Button aria-label="profile">
-            <img src={profilePic} alt="" />
+            <ProfileIcon />
           </Button>{" "}
         </div>
         <Button onClick={handleMenuClick} className={s.mobileMenuButton}>

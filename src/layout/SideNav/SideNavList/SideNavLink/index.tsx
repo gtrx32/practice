@@ -1,13 +1,13 @@
 import { useState } from "react";
 import s from "./SideNavLink.module.scss";
 import { LinkType } from "../types";
-import submenuArrow from "@assets/images/menu/submenuArrow.svg";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import { SubMenuArrowIcon } from "../../../../assets/images/icons";
 
 interface SideNavLinkProps extends LinkType {}
 
-const SideNavLink: React.FC<SideNavLinkProps> = ({ href, text, image, submenu }) => {
+const SideNavLink: React.FC<SideNavLinkProps> = ({ href, text, ButtonIcon, submenu }) => {
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
   const handleDropdownClick = () => setDropdownIsOpen(!dropdownIsOpen);
@@ -17,9 +17,9 @@ const SideNavLink: React.FC<SideNavLinkProps> = ({ href, text, image, submenu })
       {submenu ? (
         <>
           <button className={clsx(s.link, s.subMenuButton)} onClick={handleDropdownClick}>
-            <img className={s.icon} src={image} alt="" />
+            <ButtonIcon className={s.icon} />
             {text}
-            <img className={clsx(s.arrow, !dropdownIsOpen && s.arrowClose)} src={submenuArrow} alt="" />
+            <SubMenuArrowIcon className={clsx(s.arrow, !dropdownIsOpen && s.arrowClose)} />
           </button>
           <ul className={clsx(s.subMenu, dropdownIsOpen && s.subMenuOpened)}>
             {submenu.map(({ subHref, subText }) => (
@@ -33,7 +33,7 @@ const SideNavLink: React.FC<SideNavLinkProps> = ({ href, text, image, submenu })
         </>
       ) : (
         <Link to={href} className={s.link}>
-          <img className={s.icon} src={image} alt="" />
+          <ButtonIcon className={s.icon} />
           {text}
         </Link>
       )}

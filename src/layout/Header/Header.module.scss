@@ -36,7 +36,7 @@
       font-family: "Furore";
       font-size: 14px;
       line-height: 1px;
-      color: var(--navlink-color);
+      color: var(--mobileMenu-button-color);
 
       @media (min-width: $tablet) {
         display: none !important;

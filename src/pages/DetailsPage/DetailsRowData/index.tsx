@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import { UserType, AlbumType, PostType } from "../../EditPage/types";
 import { Show, DataRow } from "./types";
 import s from "./DetailsRowData.module.scss";
-import done from "@assets/images/details/done.svg";
-import notDone from "@assets/images/details/notDone.svg";
+import { CheckIcon, CrossIcon } from "../../../assets/images/icons";
 
 interface DetailsRowDataProps {
   table: string;
@@ -36,7 +35,7 @@ const DetailsRowData: React.FC<DetailsRowDataProps> = ({ table, data, relatedDat
             rowContent = <img src={data[name]} className={s.image} />;
             break;
           case "completed":
-            rowContent = <img src={data[name] ? done : notDone} className={s.readyIcon} />;
+            rowContent = data[name] ? <CheckIcon className={s.readyIcon} /> : <CrossIcon className={s.readyIcon} />;
             break;
           default:
             if (sub) {
