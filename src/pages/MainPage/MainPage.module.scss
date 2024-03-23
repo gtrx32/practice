@@ -2,7 +2,7 @@
 
 .container {
   width: 100%;
-  padding: 30px 10px !important;
+  padding: 50px 10px !important;
 
   @media (min-width: $tablet) {
     padding: 50px 30px !important;
@@ -13,13 +13,16 @@
   }
 
   .logo {
-    width: 227px;
-    height: auto;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 
-    @media (min-width: $tablet) {
-      width: 455px;
-      margin-bottom: 20px;
+    .mainLogo {
+      width: 227px;
+      height: 35px;
+
+      @media (min-width: $tablet) {
+        width: 455px;
+        height: 150px;
+      }
     }
   }
 

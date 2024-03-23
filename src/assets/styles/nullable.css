@@ -117,8 +117,7 @@ body {
 *::before,
 *::after,
 *::placeholder {
-  transition: all 0.5s ease !important;
-}
-body {
-  transition: none !important;
+  transition-property: color, background-color, border-color, fill;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
 }

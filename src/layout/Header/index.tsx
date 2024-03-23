@@ -1,6 +1,5 @@
 import s from "./Header.module.scss";
 import Container from "../../components/UI/Container";
-import logo from "@assets/images/header/logo.png";
 import themePic from "@assets/images/header/themeButton.svg";
 import profilePic from "@assets/images/header/profileButton.svg";
 import Button from "../../components/UI/Button";
@@ -8,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import MenuIsOpenContext from "../../context/MenuIsOpenContext";
 import ThemeContext from "../../context/ThemeContext";
+import { Logo } from "../../assets/images/icons";
 
 const Header = () => {
   const { menuIsOpen, setMenuIsOpen } = useContext(MenuIsOpenContext);
@@ -19,7 +19,7 @@ const Header = () => {
     <Container as="header" className={s.header}>
       <div className={s.wrapper}>
         <Link to="/" className={s.logo}>
-          <img src={logo} alt="" />
+          <Logo className={s.headerLogo} />
         </Link>
         <div className={s.buttons}>
           <Button onClick={() => setTheme(theme === "light" ? "dark" : "light")} aria-label="theme">

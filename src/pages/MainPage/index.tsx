@@ -1,11 +1,11 @@
 import s from "./MainPage.module.scss";
-import logo from "@assets/images/header/logo.png";
 import Container from "../../components/UI/Container";
+import { Logo } from "../../assets/images/icons";
 
 const MainPage = () => (
   <Container className={s.container}>
     <div className={s.logo}>
-      <img src={logo} alt="" />
+      <Logo className={s.mainLogo} />
     </div>
     <h1 className={s.welcome}>
       Добро пожаловать{"\n"}в админ-панель{"\n"}M-SOCIAL!

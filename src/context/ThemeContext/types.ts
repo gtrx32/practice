@@ -14,6 +14,7 @@ export const themeColors = {
     "--subtext-color": "#3C3A39",
     "--table-text-color": "#353231",
     "--invalid-input-color": "#fbd6d6",
+    "--logo-color": "#A6192E",
   },
   dark: {
     "--header-button-border-color": "#5e5e5e",
@@ -30,6 +31,7 @@ export const themeColors = {
     "--subtext-color": "#C8C4C0",
     "--table-text-color": "#C8C4C0",
     "--invalid-input-color": "#502727",
+    "--logo-color": "#ffffff",
   },
 };
 
