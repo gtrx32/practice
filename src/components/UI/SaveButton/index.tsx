@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 import s from "./SaveButton.module.scss";
 import clsx from "clsx";
+import Button from "../Button";
 
 interface SaveButtonProps extends PropsWithChildren {
   className?: string;
@@ -12,9 +13,9 @@ const SaveButton: React.FC<SaveButtonProps> = ({ children, className, onClick })
     onClick?.();
   };
   return (
-    <button onClick={onHandleClick} className={clsx(s.button, className)}>
+    <Button onClick={onHandleClick} className={clsx(s.button, className)}>
       {children}
-    </button>
+    </Button>
   );
 };
 

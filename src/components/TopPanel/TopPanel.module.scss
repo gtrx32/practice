@@ -35,4 +35,9 @@
   color: var(--color-gray);
   background-color: transparent;
   cursor: pointer;
+
+  &:hover {
+    background-color: transparent;
+    color: var(--hover-color);
+  }
 }

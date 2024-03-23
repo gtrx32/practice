@@ -4,4 +4,8 @@
   font-size: 15px;
   font-weight: 400;
   border: 1px solid var(--border-color);
+
+  &:focus {
+    outline: 1px solid var(--hover-color) !important;
+  }
 }

@@ -121,3 +121,14 @@ body {
   transition-duration: 0.5s;
   transition-timing-function: ease;
 }
+
+button,
+a,
+select {
+  cursor: pointer;
+}
+
+input,
+textarea {
+  cursor: text;
+}

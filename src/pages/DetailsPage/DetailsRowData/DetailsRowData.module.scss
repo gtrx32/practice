@@ -42,4 +42,9 @@
 .link {
   text-decoration: underline;
   color: var(--text-color);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--hover-color);
+  }
 }

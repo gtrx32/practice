@@ -71,8 +71,12 @@
     border: none;
     outline: 1px transparent solid;
     color: var(--color-gray);
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--hover-color);
+    }
 
     option {
       background-color: var(--background-color);

@@ -4,6 +4,14 @@
   font-family: "Jost";
   font-weight: 500;
   font-size: 15px;
+
+  &:has(ul > li:hover) {
+    button {
+      .icon {
+        width: 20px;
+      }
+    }
+  }
 }
 
 .link {
@@ -11,6 +19,14 @@
   align-items: center;
   gap: 10px;
   color: var(--navlink-color);
+  transition: all 0.2s ease;
+
+  &:hover {
+    font-weight: 700;
+    .icon {
+      width: 20px;
+    }
+  }
 }
 
 .subLink {
@@ -18,12 +34,18 @@
   list-style: none;
   font-weight: 400;
   color: var(--navsublink-color);
+  transition: all 0.2s ease;
+
+  &:hover {
+    font-weight: 700;
+  }
 }
 
 .icon {
   width: 15px;
   min-width: 15px;
   height: auto;
+  transition: all 0.2s ease;
 }
 
 .subMenu {

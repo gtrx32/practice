@@ -126,9 +126,11 @@ const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
           <input type="file" id="imageInput" className={s.imageUploader} onChange={handleImageChange} />
           <div className={clsx(s.imageContainer, imageUrl !== "" ? s.imageHover : "")}>
             {imageUrl !== "" ? <img src={imageUrl} className={s.imagePreview} /> : <ImagePlaceholder />}
-            <button onClick={imageButtonHandler} className={s.imageButton}>
-              Удалить
-            </button>
+            {imageUrl !== "" ? (
+              <button onClick={imageButtonHandler} className={s.imageButton}>
+                Удалить
+              </button>
+            ) : null}
           </div>
         </div>
       </div>
