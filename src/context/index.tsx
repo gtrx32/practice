@@ -2,8 +2,7 @@ import { PropsWithChildren, useState } from "react";
 import MenuIsOpenContext from "./MenuIsOpenContext";
 import ModalIsOpenContext from "./ModalIsOpenContext";
 import CorrectInputContext from "./CorrectInputContext";
-import ThemeContext from "./ThemeContext";
-import { Theme } from "./ThemeContext/types";
+import ThemeContext, { Theme } from "./ThemeContext";
 
 interface AppContextProvider extends PropsWithChildren {}
 

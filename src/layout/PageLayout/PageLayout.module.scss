@@ -5,6 +5,64 @@
   display: flex;
   flex-direction: column;
   background-color: var(--background-color);
+
+  &[data-theme="light"] {
+    --header-button-border-color: #bcb8b8;
+    --background-color: #f3f2f2;
+    --border-color: #d2d0d0;
+    --header-border-color: #d2d0d0;
+    --color-gray: #bcb8b8;
+    --ui-color: #ebeaea;
+    --blur-color: rgba(16; 16; 16; 0.15);
+    --mobileMenu-button-color: #2d2b2a;
+    --navlink-color: #2d2b2a;
+    --navsublink-color: #3c3a39;
+    --image-label-color: #6159fc;
+    --hover-color: #a6192e;
+    --text-color: #353231;
+    --subtext-color: #3c3a39;
+    --table-text-color: #353231;
+    --invalid-input-color: #fbd6d6;
+    --logo-color: #a6192e;
+    --checkIcon-color: #45965f;
+    --crossIcon-color: #a4504c;
+    --header-buttonIcon-color: #2d2b2a;
+    --table-buttonIcon-color: #bcb8b8;
+    --spinner-color: #000000;
+    --sideMenu-buttonIcon-color: #bcb8b8;
+    --sideMenu-arrow-color: #353231;
+    --subMenu-arrow-color: #2d2b2a;
+    --imagePlaceholder-color: #d2d0d0;
+  }
+
+  &[data-theme="dark"] {
+    --header-button-border-color: #5e5e5e;
+    --background-color: #101010;
+    --border-color: #2b2b2b;
+    --header-border-color: #5e5e5e;
+    --color-gray: #5e5e5e;
+    --ui-color: #191919;
+    --blur-color: rgba(255; 255; 255; 0.1);
+    --mobileMenu-button-color: #ffffff;
+    --navlink-color: #eeedec;
+    --navsublink-color: #c8c4c0;
+    --image-label-color: #6de8ce;
+    --hover-color: #c9c9c9;
+    --text-color: #eeedec;
+    --subtext-color: #c8c4c0;
+    --table-text-color: #c8c4c0;
+    --invalid-input-color: #502727;
+    --logo-color: #ffffff;
+    --checkIcon-color: #a0f8a0;
+    --crossIcon-color: #fb8e8e;
+    --header-buttonIcon-color: #5e5e5e;
+    --table-buttonIcon-color: #5e5e5e;
+    --spinner-color: #ffffff;
+    --sideMenu-buttonIcon-color: #5e5e5e;
+    --sideMenu-arrow-color: #eeedec;
+    --subMenu-arrow-color: #ffffff;
+    --imagePlaceholder-color: #2b2b2b;
+  }
 }
 
 .main {
