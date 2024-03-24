@@ -24,7 +24,7 @@ export const LINKS: LinkType[] = [
   { href: "/users", text: "Пользователи", ButtonIcon: UsersItemIcon },
   { href: "/todos", text: "Задания", ButtonIcon: TodosItemIcon },
   {
-    href: "/",
+    href: "/photos/albums",
     text: "Графика",
     ButtonIcon: GraphicsItemIcon,
     submenu: [
@@ -33,7 +33,7 @@ export const LINKS: LinkType[] = [
     ],
   },
   {
-    href: "/",
+    href: "/posts/comments",
     text: "Блог",
     ButtonIcon: BlogItemIcon,
     submenu: [
