@@ -28,6 +28,45 @@
         display: flex;
         gap: 7px;
       }
+
+      .loginButton {
+        position: relative;
+
+        .logout {
+          position: absolute;
+          transform: translate(-100%, 0);
+          top: 0px;
+          left: -7px;
+          font-size: 15.5px;
+          font-family: "Jost";
+          background-color: var(--background-color);
+          border: 1px solid var(--color-gray);
+          opacity: 1;
+          transition: 0.5s all ease;
+
+          a {
+            color: var(--text-color);
+            width: 100%;
+            display: block;
+            padding: 5px 20px;
+
+            &:hover {
+              color: var(--hover-color);
+            }
+          }
+        }
+
+        .open {
+          transform: translate(-100%, 0);
+          opacity: 1;
+        }
+
+        .close {
+          transform: translate(-50%, 0);
+          opacity: 0;
+          pointer-events: none;
+        }
+      }
     }
 
     .mobileMenuButton {
