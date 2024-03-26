@@ -1,5 +1,5 @@
 import { DataTableRowClickEvent } from "primereact/datatable";
-import { UserType, AlbumType, PostType } from "../EditPage/types";
+import { UserType, AlbumType, PostType, CommentType, PhotoType, TodoType } from "../EditPage/types";
 import { Option } from "react-multi-select-component";
 
 export enum Tables {
@@ -81,4 +81,36 @@ export const getItemById = (id: number, data: UserType[] | AlbumType[] | PostTyp
     }
   }
   return "";
+};
+
+export const getSelectPlaceholder = (table: string): string => {
+  switch (table) {
+    case "todos":
+      return "Автор";
+    case "albums":
+      return "Владелец";
+    case "posts":
+      return "Автор";
+    case "photos":
+      return "Альбом";
+    case "comments":
+      return "Пост";
+    default:
+      return "";
+  }
+};
+
+export const AreEqual = (table: string, item: any, option: Option): boolean => {
+  switch (table) {
+    case "todos":
+    case "albums":
+    case "posts":
+      return option.value === (item as TodoType).userId;
+    case "photos":
+      return option.value === (item as PhotoType).albumId;
+    case "comments":
+      return option.value === (item as CommentType).postId;
+    default:
+      return false;
+  }
 };

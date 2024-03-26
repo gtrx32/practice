@@ -1,7 +1,7 @@
 import s from "./ListPage.module.scss";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Columns, getItemById, getOptions, getDetailsPagePath } from "./types";
+import { Columns, getItemById, getOptions, getDetailsPagePath, getSelectPlaceholder, AreEqual } from "./types";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import UpperPanel from "./_components/UpperPanel";
@@ -9,7 +9,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import Container from "../../components/UI/Container";
 import mainApi from "../../api/api";
 import Pagination from "./_components/Pagination";
-import { AlbumType, CommentType, PhotoType, PostType, TodoType, UserType } from "../EditPage/types";
+import { AlbumType, PostType, UserType } from "../EditPage/types";
 import CustomBodyTemplate from "./_components/CustomBodyTemplate";
 import { getRelatedTable } from "../DetailsPage/types";
 import { Option } from "react-multi-select-component";
@@ -52,20 +52,7 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
     setFilteredData(
       selectedData.length > 0
         ? data.filter((item) => {
-            return selectedData.some((option) => {
-              switch (table) {
-                case "todos":
-                case "albums":
-                case "posts":
-                  return option.value === (item as TodoType).userId;
-                case "photos":
-                  return option.value === (item as PhotoType).albumId;
-                case "comments":
-                  return option.value === (item as CommentType).postId;
-                default:
-                  return false;
-              }
-            });
+            return selectedData.some((option) => AreEqual(table, item, option));
           })
         : data
     );
@@ -91,7 +78,7 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
           {table !== "users" && (
             <FilterSelect
               options={getOptions(table, relatedData)}
-              placeholder="test"
+              placeholder={getSelectPlaceholder(table)}
               onChange={(selected: Option[]) => setSelectedData(selected)}
             />
           )}

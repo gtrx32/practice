@@ -32,7 +32,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({ options, placeholder, onCha
         disableSearch
       />
       {selected.length > 0 && (
-        <Button onClick={() => setSelected([])}>
+        <Button onClick={() => onChangeHandler([])}>
           <CloseFilterIcon />
         </Button>
       )}
