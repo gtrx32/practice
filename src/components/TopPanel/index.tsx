@@ -4,6 +4,7 @@ import { titles } from "./types";
 import { useContext } from "react";
 import ModalIsOpenContext from "../../context/ModalIsOpenContext";
 import Button from "../UI/Button";
+import UserLinks from "../UserLinks";
 
 interface TopPanelProps {
   table: string;
@@ -51,6 +52,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ table, pageType, id }) => {
         </div>
       </div>
       <h1 className={s.title}>{title}</h1>
+      {table === "users" && pageType === "details" && <UserLinks id={id} />}
     </div>
   );
 };

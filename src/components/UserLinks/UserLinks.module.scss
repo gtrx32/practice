@@ -1,0 +1,17 @@
+.wrapper {
+  display: flex;
+  gap: 6px;
+  margin-top: 20px;
+
+  .link {
+    padding: 3px 10px;
+    color: var(--navlink-color);
+    border: 1px solid var(--header-border-color);
+    font-family: "Furore";
+    font-size: 14px;
+
+    &:hover {
+      background-color: var(--hover-color);
+    }
+  }
+}
