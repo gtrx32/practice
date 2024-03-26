@@ -1,3 +1,7 @@
+import { DataTableRowClickEvent } from "primereact/datatable";
+import { UserType, AlbumType, PostType } from "../EditPage/types";
+import { Option } from "react-multi-select-component";
+
 export enum Tables {
   users = "Пользователи",
   todos = "Задания",
@@ -49,4 +53,32 @@ export const Columns = {
     { field: "body", header: "Текст комментария", width: "330px" },
     { field: "actions", header: "Действия", width: "90px" },
   ],
+};
+
+export const getDetailsPagePath = (table: string, { data }: DataTableRowClickEvent): string => {
+  const { id } = data as { id: number };
+  return `/${table}/${id}`;
+};
+
+export const getOptions = (table: string, data: UserType[] | AlbumType[] | PostType[]): Option[] => {
+  if (Array.isArray(data))
+    if (table === "todos" || table === "albums" || table === "posts") {
+      return (data as UserType[])?.map((item) => ({ value: item.id, label: item.name }));
+    } else if (table === "photos") {
+      return (data as AlbumType[])?.map((item) => ({ value: item.id, label: item.title }));
+    } else if (table === "comments") {
+      return (data as PostType[])?.map((item) => ({ value: item.id, label: item.title }));
+    }
+  return [];
+};
+
+export const getItemById = (id: number, data: UserType[] | AlbumType[] | PostType[]) => {
+  if (Array.isArray(data)) {
+    const dataItem = data.find((item) => item.id === id);
+    if (dataItem) {
+      if ("name" in dataItem) return (dataItem as UserType).name;
+      else if ("title" in dataItem) return (dataItem as AlbumType | PostType).title;
+    }
+  }
+  return "";
 };

@@ -228,3 +228,12 @@ export const ImagePlaceholder: React.FC<IconProps> = ({ className }) => (
     <path d="M43.25 59L36.5 50L23 68H77L56.75 41L43.25 59Z" fill="var(--background-color)" />
   </svg>
 );
+
+export const CloseFilterIcon: React.FC<IconProps> = ({ className }) => (
+  <svg className={className} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M2.80839 11.7602V9.45623L5.3582 7.16869H6.64227L9.21043 9.45623V11.7602H11.7602V8.32069L9.21043 6.01669L11.7602 3.71269V0.240234H9.21043V2.56069L6.64227 4.86469H5.3582L2.80839 2.56069V0.240234H0.240234V3.71269L2.80839 6.01669L0.240234 8.32069V11.7602H2.80839Z"
+      fill="var(--closeFilterIcon-color)"
+    />
+  </svg>
+);

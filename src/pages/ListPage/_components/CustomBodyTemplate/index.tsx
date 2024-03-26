@@ -7,10 +7,10 @@ interface CustomBodyTemplateProps {
   table: string;
   field: string;
   rowData: any;
-  getById?: (id: number) => string;
+  getItemById?: (id: number) => string;
 }
 
-const CustomBodyTemplate: React.FC<CustomBodyTemplateProps> = ({ table, field, rowData, getById }) => {
+const CustomBodyTemplate: React.FC<CustomBodyTemplateProps> = ({ table, field, rowData, getItemById }) => {
   switch (field) {
     case "thumbnailUrl":
       return <img src={rowData[field]} className={s.thumbnailUrl} alt="Thumbnail" />;
@@ -22,7 +22,7 @@ const CustomBodyTemplate: React.FC<CustomBodyTemplateProps> = ({ table, field, r
       const path = `/${field === "userId" ? "users/" : field === "albumId" ? "albums/" : "posts/"}${rowData[field]}`;
       return (
         <Link to={path} className={s.link}>
-          {getById?.(rowData[field])}
+          {getItemById?.(rowData[field])}
         </Link>
       );
     case "actions":
