@@ -85,7 +85,7 @@
       tr {
         cursor: default;
         &:hover {
-          background-color: var(--border-color);
+          background-color: var(--table-hover-color);
         }
 
         &:first-child {
@@ -93,6 +93,20 @@
             padding-top: 30px;
           }
         }
+      }
+
+      & > tr:has(+ tr[data-pc-section="rowexpansion"]) {
+        td {
+          border-bottom: 0px solid var(--border-color);
+        }
+      }
+
+      & > tr:hover + tr[data-pc-section="rowexpansion"] {
+        background-color: var(--table-hover-color);
+      }
+
+      & > tr:has(+ tr[data-pc-section="rowexpansion"]:hover) {
+        background-color: var(--table-hover-color);
       }
     }
   }

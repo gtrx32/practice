@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Columns, getItemById, getFilters, getDetailsPagePath, getSelectPlaceholder, AreEqual } from "./types";
 import { Column } from "primereact/column";
-import { DataTable } from "primereact/datatable";
+import { DataTable, DataTableExpandedRows, DataTableValueArray } from "primereact/datatable";
 import UpperPanel from "./_components/UpperPanel";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Container from "../../components/UI/Container";
@@ -14,6 +14,7 @@ import CustomBodyTemplate from "./_components/CustomBodyTemplate";
 import { getRelatedTable } from "../DetailsPage/types";
 import { Option } from "react-multi-select-component";
 import FilterSelect from "./_components/FilterSelect";
+import UserLinks from "../../components/UserLinks";
 
 interface ListPageProps {
   table: string;
@@ -38,8 +39,11 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
   const navigate = useNavigate();
   const [selectedFilters, setSelectedFilters] = useState<Option[]>([]);
 
+  const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows | DataTableValueArray | undefined>(undefined);
+
   useEffect(() => {
     setIsLoading(true);
+    setExpandedRows(undefined);
     Promise.all([mainApi.get(table), mainApi.get(relatedTable)])
       .then(([data, relatedData]) => {
         setData(data.data);
@@ -84,7 +88,11 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
             value={displayedData}
             scrollable
             onRowClick={(event) => navigate(getDetailsPagePath(table, event))}
+            expandedRows={expandedRows}
+            onRowToggle={(e) => setExpandedRows(e.data)}
+            rowExpansionTemplate={(rowData) => <UserLinks id={rowData["id"]} />}
           >
+            {table === "users" && <Column expander={true} style={{ width: "5px" }} />}
             {Columns[table as keyof typeof Columns].map(({ field, header, width }) => (
               <Column
                 key={field}
