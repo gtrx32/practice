@@ -1,26 +1,23 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
-import Select from "../../../../components/UI/Select";
+import React, { useContext, useEffect, useState } from "react";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
 import SaveButton from "../../../../components/UI/SaveButton";
-import s from "./EditPhoto.module.scss";
+import Select from "../../../../components/UI/Select";
+import ValidatedInput from "../../../../components/UI/ValidatedInput";
 import { AlbumType, EditProps, PhotoType } from "../../types";
 import mainApi from "../../../../api/api";
-import { initialValue } from "./types";
-import { useNavigate } from "react-router-dom";
-import LoadingSpinner from "../../../../components/LoadingSpinner";
-import clsx from "clsx";
+import s from "./EditPhoto.module.scss";
+import { useNavigate } from "react-router";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
-import ValidatedInput from "../../../../components/UI/ValidatedInput";
-import { ImagePlaceholder } from "../../../../assets/images/icons";
+import { initialValue } from "./types";
+import ImageUploader from "./ImageUploader";
 
 const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
   const [photo, setPhoto] = useState<PhotoType | null>(null);
   const [photoResponse, setPhotoResponse] = useState<PhotoType>(initialValue);
   const [albums, setAlbums] = useState<AlbumType[] | null>(null);
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
   const { fieldsIsValid } = useContext(CorrectInputContext);
-  const [imageUrl, setImageUrl] = useState<string | undefined>("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -33,43 +30,11 @@ const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  edit == true &&
-    useEffect(() => {
-      setImageUrl(photo?.thumbnailUrl);
-    }, [photo]);
-
   const handleChange = (fieldName: keyof PhotoType, value: number | string) => {
     setPhotoResponse((prevPhoto) => ({
       ...prevPhoto,
       [fieldName]: value,
     }));
-  };
-
-  const handleImageChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    const file = target.files?.[0];
-    if (file) {
-      const allowedTypes = ["image/png", "image/jpeg", "image/webp"];
-      if (!allowedTypes.includes(file.type)) {
-        alert("Пожалуйста, загрузите изображение в формате PNG, JPEG или WEBP.");
-        return;
-      }
-      const maxSize = 5 * 1024 * 1024;
-      if (file.size > maxSize) {
-        alert("Максимальный размер файла - 5 МБ.");
-        return;
-      }
-      setImageUrl(URL.createObjectURL(file));
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64String = reader.result as string;
-        setPhotoResponse((prevPhoto) => ({
-          ...prevPhoto,
-          url: base64String,
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   const onClickHandler = () => {
@@ -86,10 +51,6 @@ const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
       console.log(json);
       edit ? navigate("/photos/" + id) : navigate("/photos/");
     });
-  };
-
-  const imageButtonHandler = () => {
-    setImageUrl("");
   };
 
   return !isLoading ? (
@@ -117,23 +78,7 @@ const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
           Выберите альбом
         </Select>
       </div>
-      <div className={s.formImage}>
-        <h2 className={s.imageTitle}>Изображение</h2>
-        <div className={s.image}>
-          <label className={s.imageLabel} htmlFor="imageInput">
-            Перетащите сюда или нажмите для выбора
-          </label>
-          <input type="file" id="imageInput" className={s.imageUploader} onChange={handleImageChange} />
-          <div className={clsx(s.imageContainer, imageUrl !== "" ? s.imageHover : "")}>
-            {imageUrl !== "" ? <img src={imageUrl} className={s.imagePreview} /> : <ImagePlaceholder />}
-            {imageUrl !== "" ? (
-              <button onClick={imageButtonHandler} className={s.imageButton}>
-                Удалить
-              </button>
-            ) : null}
-          </div>
-        </div>
-      </div>
+      <ImageUploader setPhotoResponse={setPhotoResponse} defaultImageUrl={photo?.thumbnailUrl} />
       <SaveButton onClick={onClickHandler}>Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </div>
   ) : (
