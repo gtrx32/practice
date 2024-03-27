@@ -60,7 +60,7 @@ export const getDetailsPagePath = (table: string, { data }: DataTableRowClickEve
   return `/${table}/${id}`;
 };
 
-export const getOptions = (table: string, data: UserType[] | AlbumType[] | PostType[]): Option[] => {
+export const getFilters = (table: string, data: UserType[] | AlbumType[] | PostType[]): Option[] => {
   if (Array.isArray(data))
     if (table === "todos" || table === "albums" || table === "posts") {
       return (data as UserType[])?.map((item) => ({ value: item.id, label: item.name }));

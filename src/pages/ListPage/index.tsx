@@ -1,7 +1,7 @@
 import s from "./ListPage.module.scss";
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Columns, getItemById, getOptions, getDetailsPagePath, getSelectPlaceholder, AreEqual } from "./types";
+import { useNavigate } from "react-router-dom";
+import { Columns, getItemById, getFilters, getDetailsPagePath, getSelectPlaceholder, AreEqual } from "./types";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import UpperPanel from "./_components/UpperPanel";
@@ -35,16 +35,11 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
 
-  const location = useLocation();
-  const myParam = Number(new URLSearchParams(location.search).get("id"));
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>(
-    myParam && table !== "users" ? [{ value: myParam, label: "" }] : []
-  );
   const navigate = useNavigate();
+  const [selectedFilters, setSelectedFilters] = useState<Option[]>([]);
 
   useEffect(() => {
     setIsLoading(true);
-    table !== "users" && setSelectedOptions(myParam && table !== "users" ? [{ value: myParam, label: "" }] : []);
     Promise.all([mainApi.get(table), mainApi.get(relatedTable)])
       .then(([data, relatedData]) => {
         setData(data.data);
@@ -55,11 +50,11 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
 
   useEffect(() => {
     setFilteredData(
-      selectedOptions.length > 0 && table !== "users"
-        ? data.filter((item) => selectedOptions.some((option) => AreEqual(table, item, option)))
+      selectedFilters.length > 0 && table !== "users"
+        ? data.filter((item) => selectedFilters.some((option) => AreEqual(table, item, option)))
         : data
     );
-  }, [data, selectedOptions]);
+  }, [data, selectedFilters]);
 
   useEffect(() => {
     setDisplayedData(filteredData.slice(startIndex, endIndex));
@@ -80,9 +75,9 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
         <>
           {table !== "users" && (
             <FilterSelect
-              options={getOptions(table, relatedData)}
+              filters={getFilters(table, relatedData)}
               placeholder={getSelectPlaceholder(table)}
-              onChange={(selected: Option[]) => setSelectedOptions(selected)}
+              onChange={(selected: Option[]) => setSelectedFilters(selected)}
             />
           )}
           <DataTable
