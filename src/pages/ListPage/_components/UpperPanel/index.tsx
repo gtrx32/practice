@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import SearchField from "../../../../components/UI/SearchField";
-import { Tables } from "../../types";
 import s from "./UpperPanel.module.scss";
 import Button from "../../../../components/UI/Button";
+import { Tables } from "./types";
 
 interface UpperPanelProps {
   table: string;

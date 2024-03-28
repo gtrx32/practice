@@ -14,8 +14,7 @@ interface EditPageProps {
 }
 
 const EditPage: React.FC<EditPageProps> = ({ edit = true }) => {
-  const location = useLocation();
-  const { pathname } = location;
+  const { pathname } = useLocation();
   const [table, id] = pathname.split("/").slice(1);
 
   return (

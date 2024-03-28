@@ -3,8 +3,8 @@ import { Dispatch, SetStateAction, createContext } from "react";
 interface ModalIsOpenContextType {
   modalIsOpen: boolean;
   setModalIsOpen: Dispatch<SetStateAction<boolean>>;
-  target: TargetType;
-  setTarget: Dispatch<SetStateAction<TargetType>>;
+  target: { id: string; table: string };
+  setTarget: Dispatch<SetStateAction<{ id: string; table: string }>>;
 }
 
 const defaultState: ModalIsOpenContextType = {

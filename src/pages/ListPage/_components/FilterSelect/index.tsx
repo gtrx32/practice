@@ -13,8 +13,7 @@ interface FilterSelectProps {
 
 const FilterSelect: React.FC<FilterSelectProps> = ({ filters, placeholder, onChange }) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const idParam = new URLSearchParams(location.search).get("id");
+  const idParam = new URLSearchParams(useLocation().search).get("id");
 
   const [selectedFilters, setSelectedFilters] = useState<Option[]>(
     idParam ? idParam.split(",").map((id) => ({ value: Number(id), label: "" })) : []

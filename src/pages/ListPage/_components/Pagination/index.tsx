@@ -12,10 +12,10 @@ const Pagination: React.FC<PaginationProps> = ({
   setCurrentPage,
   setRowsPerPage,
 }) => {
-  const [pagesCount, setPagesCount] = useState<number>(1);
+  const [pagesCount, setPagesCount] = useState(1);
   const [displayedPages, setDisplayedPages] = useState<number[]>([]);
-  const [showInput, setShowInput] = useState<boolean>(false);
-  const [customPage, setCustomPage] = useState<string>(currentPage.toString());
+  const [showInput, setShowInput] = useState(false);
+  const [customPage, setCustomPage] = useState(currentPage.toString());
 
   const generateDisplayedPages = (currentPage: number, pageCount: number) => {
     const firstPage = 1;
@@ -52,10 +52,8 @@ const Pagination: React.FC<PaginationProps> = ({
   const handlePrevPageClick = () => currentPage > 1 && setCurrentPage(currentPage - 1);
   const handleNextPageClick = () => currentPage < pagesCount && setCurrentPage(currentPage + 1);
 
-  const handleRowsPerPageChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) =>
-    setRowsPerPage(Number(value));
-
   const handleCustomPageChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => setCustomPage(value);
+
   const handleCustomPageSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const pageNumber = parseInt(customPage);
@@ -65,6 +63,9 @@ const Pagination: React.FC<PaginationProps> = ({
       setShowInput(false);
     }
   };
+
+  const handleRowsPerPageChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) =>
+    setRowsPerPage(Number(value));
 
   return (
     <div className={s.wrapper}>

@@ -1,15 +1,15 @@
 import s from "./ListPage.module.scss";
 import React, { useState, useEffect } from "react";
-import { getFilters, getSelectPlaceholder, AreEqual, DataType, RelatedDataType } from "./types";
+import { getFilters, AreEqual, SelectPlaceholders } from "./types";
 import UpperPanel from "./_components/UpperPanel";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Container from "../../components/UI/Container";
 import mainApi from "../../api/api";
 import Pagination from "./_components/Pagination";
-import { getRelatedTable } from "../DetailsPage/types";
 import { Option } from "react-multi-select-component";
 import FilterSelect from "./_components/FilterSelect";
 import DesktopData from "./_components/DesktopData";
+import getRelatedTable from "../../utils/getRelatedTable";
 
 interface ListPageProps {
   table: string;
@@ -19,19 +19,18 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
   const [data, setData] = useState<DataType[]>([]);
   const [filteredData, setFilteredData] = useState<DataType[]>([]);
   const [displayedData, setDisplayedData] = useState<DataType[]>([]);
+  const [selectedFilters, setSelectedFilters] = useState<Option[]>([]);
 
   const [relatedData, setRelatedData] = useState<RelatedDataType[]>([]);
   const relatedTable = getRelatedTable(table);
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
-
-  const [selectedFilters, setSelectedFilters] = useState<Option[]>([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -71,7 +70,7 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
           {table !== "users" && (
             <FilterSelect
               filters={getFilters(table, relatedData)}
-              placeholder={getSelectPlaceholder(table)}
+              placeholder={SelectPlaceholders[table as keyof typeof SelectPlaceholders]}
               onChange={(selected: Option[]) => setSelectedFilters(selected)}
             />
           )}

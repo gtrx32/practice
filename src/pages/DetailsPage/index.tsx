@@ -4,19 +4,18 @@ import s from "./DetailsPage.module.scss";
 import Container from "../../components/UI/Container";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import { getRelatedId, getRelatedTable } from "./types";
 import mainApi from "../../api/api";
-import { UserType, AlbumType, PostType } from "../EditPage/types";
 import DetailsRowData from "./DetailsRowData";
+import getRelatedTable from "../../utils/getRelatedTable";
+import { getRelatedId } from "./types";
 
 const DetailsPage = () => {
-  const location = useLocation();
-  const { pathname } = location;
+  const { pathname } = useLocation();
   const [table, id] = pathname.split("/").slice(1);
 
-  const [data, setData] = useState<any>(null);
-  const [relatedData, setRelatedData] = useState<UserType | AlbumType | PostType>();
-  const [relatedPath, setRelatedPath] = useState<string>("");
+  const [data, setData] = useState<DataType | null>(null);
+  const [relatedData, setRelatedData] = useState<RelatedDataType | null>(null);
+  const [relatedPath, setRelatedPath] = useState("");
 
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);

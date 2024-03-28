@@ -13,9 +13,9 @@ const Select: React.FC<SelectProps> = ({
   onChange,
   children,
 }) => {
-  const [selectedValue, setSelectedValue] = useState<number | undefined>(defaultValue);
+  const [selectedValue, setSelectedValue] = useState(defaultValue);
   const { setFields } = useContext(CorrectInputContext);
-  const [isCorrect, setIsCorrect] = useState<boolean>(defaultValue ? true : false);
+  const [isCorrect, setIsCorrect] = useState(!!defaultValue);
 
   useEffect(() => {
     setFields((prev) => ({ ...prev, select: isCorrect }));

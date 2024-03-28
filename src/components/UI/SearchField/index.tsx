@@ -7,7 +7,7 @@ interface SearchFieldProps {
 }
 
 const SearchField: React.FC<SearchFieldProps> = ({ className }) => {
-  const [input, setInput] = useState<string>("");
+  const [input, setInput] = useState("");
 
   const searchFieldChangeHandler = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
     setInput(value);

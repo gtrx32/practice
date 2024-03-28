@@ -4,22 +4,22 @@ import CheckBox from "../../../../components/UI/CheckBox";
 import Select from "../../../../components/UI/Select";
 import SaveButton from "../../../../components/UI/SaveButton";
 import Input from "../../../../components/UI/Input";
-import { EditProps, TodoType, UserType } from "../../types";
 import s from "./EditTodo.module.scss";
 import { initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import ValidatedInput from "../../../../components/UI/ValidatedInput";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
+import { EditProps } from "../../types";
 
 const EditTodo: React.FC<EditProps> = ({ id, edit }) => {
   const [todo, setTodo] = useState<TodoType | null>(null);
   const [todoResponse, setTodoResponse] = useState<TodoType>(initialValue);
-  const [users, setUsers] = useState<UserType[] | null>(null);
-
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
+  const [users, setUsers] = useState<UserType[]>([]);
   const { fieldsIsValid } = useContext(CorrectInputContext);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);

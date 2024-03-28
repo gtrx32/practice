@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { UserType, AlbumType, PostType } from "../../EditPage/types";
 import { Show, DataRow } from "./types";
 import s from "./DetailsRowData.module.scss";
 import { CheckIcon, CrossIcon } from "../../../assets/images/icons";
@@ -7,7 +6,7 @@ import { CheckIcon, CrossIcon } from "../../../assets/images/icons";
 interface DetailsRowDataProps {
   table: string;
   data: any;
-  relatedData: UserType | AlbumType | PostType | undefined;
+  relatedData: RelatedDataType | null;
   relatedPath: string;
 }
 

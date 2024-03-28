@@ -1,7 +1,6 @@
 import { ImagePlaceholder } from "../../../../../assets/images/icons";
 import s from "./ImageUploader.module.scss";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
-import { PhotoType } from "../../../types";
 import { checkImage } from "./types";
 import clsx from "clsx";
 
@@ -11,7 +10,7 @@ interface ImageUploaderProps {
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({ setPhotoResponse, defaultImageUrl }) => {
-  const [imageUrl, setImageUrl] = useState<string | undefined>(defaultImageUrl);
+  const [imageUrl, setImageUrl] = useState(defaultImageUrl);
   const [isDragOver, setIsDragOver] = useState(false);
 
   const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {

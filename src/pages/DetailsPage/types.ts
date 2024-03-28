@@ -1,20 +1,4 @@
-import { TodoType, AlbumType, PostType, PhotoType, CommentType } from "../EditPage/types";
-
-type table = TodoType | AlbumType | PostType | PhotoType | CommentType;
-
-const tableRelations: Record<string, string> = {
-  todos: "users",
-  albums: "users",
-  posts: "users",
-  photos: "albums",
-  comments: "posts",
-};
-
-export function getRelatedTable(table: string): string {
-  return tableRelations[table] || "";
-}
-
-export function getRelatedId(table: string, data: table): string | undefined {
+export function getRelatedId(table: string, data: DataType): string | undefined {
   switch (table) {
     case "todos":
       return isTodoType(data) ? data.userId?.toString() : undefined;
@@ -31,22 +15,22 @@ export function getRelatedId(table: string, data: table): string | undefined {
   }
 }
 
-function isTodoType(data: table): data is TodoType {
+function isTodoType(data: DataType): data is TodoType {
   return "userId" in data && (data as TodoType).userId !== undefined;
 }
 
-function isAlbumType(data: table): data is AlbumType {
+function isAlbumType(data: DataType): data is AlbumType {
   return "userId" in data && (data as AlbumType).userId !== undefined;
 }
 
-function isPostType(data: table): data is PostType {
+function isPostType(data: DataType): data is PostType {
   return "userId" in data && (data as PostType).userId !== undefined;
 }
 
-function isPhotoType(data: table): data is PhotoType {
+function isPhotoType(data: DataType): data is PhotoType {
   return "albumId" in data && (data as PhotoType).albumId !== undefined;
 }
 
-function isCommentType(data: table): data is CommentType {
+function isCommentType(data: DataType): data is CommentType {
   return "postId" in data && (data as CommentType).postId !== undefined;
 }

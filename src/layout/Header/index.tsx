@@ -15,7 +15,7 @@ const Header = () => {
   const handleMenuClick = () => setMenuIsOpen(!menuIsOpen);
 
   const { pathname } = useLocation();
-  const [profileMenuIsOpen, setProfileMenuIsOpen] = useState<boolean>(false);
+  const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
 
   useEffect(() => {
     setProfileMenuIsOpen(false);

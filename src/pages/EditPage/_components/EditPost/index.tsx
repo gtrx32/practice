@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Select from "../../../../components/UI/Select";
 import SaveButton from "../../../../components/UI/SaveButton";
-import { EditProps, PostType, UserType } from "../../types";
 import s from "./EditPost.module.scss";
 import mainApi from "../../../../api/api";
 import { initialValue } from "./types";
@@ -10,15 +9,16 @@ import LoadingSpinner from "../../../../components/LoadingSpinner";
 import TextArea from "../../../../components/UI/TextArea";
 import ValidatedInput from "../../../../components/UI/ValidatedInput";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
+import { EditProps } from "../../types";
 
 const EditPost: React.FC<EditProps> = ({ id, edit }) => {
   const [post, setPost] = useState<PostType | null>(null);
   const [postResponse, setPostResponse] = useState<PostType>(initialValue);
-  const [users, setUsers] = useState<UserType[] | null>(null);
-
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
+  const [users, setUsers] = useState<UserType[]>([]);
   const { fieldsIsValid } = useContext(CorrectInputContext);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);

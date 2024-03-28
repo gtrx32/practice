@@ -3,20 +3,21 @@ import LoadingSpinner from "../../../../components/LoadingSpinner";
 import SaveButton from "../../../../components/UI/SaveButton";
 import Select from "../../../../components/UI/Select";
 import ValidatedInput from "../../../../components/UI/ValidatedInput";
-import { AlbumType, EditProps, PhotoType } from "../../types";
 import mainApi from "../../../../api/api";
 import s from "./EditPhoto.module.scss";
 import { useNavigate } from "react-router";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
 import { initialValue } from "./types";
 import ImageUploader from "./ImageUploader";
+import { EditProps } from "../../types";
 
 const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
   const [photo, setPhoto] = useState<PhotoType | null>(null);
   const [photoResponse, setPhotoResponse] = useState<PhotoType>(initialValue);
-  const [albums, setAlbums] = useState<AlbumType[] | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [albums, setAlbums] = useState<AlbumType[]>([]);
   const { fieldsIsValid } = useContext(CorrectInputContext);
+
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {

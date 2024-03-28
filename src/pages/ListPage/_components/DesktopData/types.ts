@@ -1,6 +1,4 @@
 import { DataTableRowClickEvent } from "primereact/datatable";
-import { UserType, AlbumType, PostType } from "../../../EditPage/types";
-import { RelatedDataType } from "../../types";
 
 export const Columns = {
   users: [
@@ -49,15 +47,4 @@ export const Columns = {
 export const getDetailsPagePath = (table: string, { data }: DataTableRowClickEvent): string => {
   const { id } = data as { id: number };
   return `/${table}/${id}`;
-};
-
-export const getItemById = (id: number, data: RelatedDataType[]) => {
-  if (Array.isArray(data)) {
-    const dataItem = data.find((item) => item.id === id);
-    if (dataItem) {
-      if ("name" in dataItem) return (dataItem as UserType).name;
-      else if ("title" in dataItem) return (dataItem as AlbumType | PostType).title;
-    }
-  }
-  return "";
 };

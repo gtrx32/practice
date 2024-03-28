@@ -3,21 +3,21 @@ import Select from "../../../../components/UI/Select";
 import SaveButton from "../../../../components/UI/SaveButton";
 import s from "./EditAlbum.module.scss";
 import mainApi from "../../../../api/api";
-import { AlbumType, EditProps, UserType } from "../../types";
 import { initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
 import ValidatedInput from "../../../../components/UI/ValidatedInput";
+import { EditProps } from "../../types";
 
 const EditAlbum: React.FC<EditProps> = ({ id, edit }) => {
   const [album, setAlbum] = useState<AlbumType | null>(null);
   const [albumResponse, setAlbumResponse] = useState<AlbumType>(initialValue);
-  const [users, setUsers] = useState<UserType[] | null>(null);
-
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
+  const [users, setUsers] = useState<UserType[]>([]);
   const { fieldsIsValid } = useContext(CorrectInputContext);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);

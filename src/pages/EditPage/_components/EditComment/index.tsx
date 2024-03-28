@@ -3,7 +3,6 @@ import mainApi from "../../../../api/api";
 import Select from "../../../../components/UI/Select";
 import SaveButton from "../../../../components/UI/SaveButton";
 import Input from "../../../../components/UI/Input";
-import { CommentType, EditProps, PostType } from "../../types";
 import s from "./EditComment.module.scss";
 import { initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
@@ -11,15 +10,16 @@ import LoadingSpinner from "../../../../components/LoadingSpinner";
 import TextArea from "../../../../components/UI/TextArea";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
 import ValidatedInput from "../../../../components/UI/ValidatedInput";
+import { EditProps } from "../../types";
 
 const EditComment: React.FC<EditProps> = ({ id, edit }) => {
   const [comment, setComment] = useState<CommentType | null>(null);
   const [commentResponse, setCommentResponse] = useState<CommentType>(initialValue);
-  const [posts, setPosts] = useState<PostType[] | null>(null);
-
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
+  const [posts, setPosts] = useState<PostType[]>([]);
   const { fieldsIsValid } = useContext(CorrectInputContext);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);

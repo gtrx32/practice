@@ -1,5 +1,3 @@
-import { UserType } from "../../types";
-
 export const initialValue: UserType = {
   id: 0,
   name: "",

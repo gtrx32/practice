@@ -4,8 +4,11 @@
   font-size: 15px;
   font-weight: 400;
   border: 1px solid var(--border-color);
+  outline: 1px solid transparent !important;
+  transition: 0.5s all ease;
 
   &:focus {
+    border: 1px solid transparent;
     outline: 1px solid var(--hover-color) !important;
   }
 }

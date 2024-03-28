@@ -5,7 +5,12 @@ import {
   MainItemIcon,
   TodosItemIcon,
   UsersItemIcon,
-} from "../../../assets/images/icons";
+} from "../../assets/images/icons";
+
+type SubLinkType = {
+  subHref: string;
+  subText: string;
+};
 
 export type LinkType = {
   href: string;
@@ -14,12 +19,7 @@ export type LinkType = {
   submenu?: SubLinkType[];
 };
 
-export type SubLinkType = {
-  subHref: string;
-  subText: string;
-};
-
-export const LINKS: LinkType[] = [
+export const links: LinkType[] = [
   { href: "/", text: "Главная", ButtonIcon: MainItemIcon },
   { href: "/users", text: "Пользователи", ButtonIcon: UsersItemIcon },
   { href: "/todos", text: "Задания", ButtonIcon: TodosItemIcon },

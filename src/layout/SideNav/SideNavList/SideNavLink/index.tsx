@@ -1,6 +1,6 @@
 import { useState } from "react";
 import s from "./SideNavLink.module.scss";
-import { LinkType } from "../types";
+import { LinkType } from "../../types";
 import clsx from "clsx";
 import { Link, useLocation } from "react-router-dom";
 import { SubMenuArrowIcon } from "../../../../assets/images/icons";

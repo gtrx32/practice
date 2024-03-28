@@ -5,8 +5,8 @@ import CustomBodyTemplate from "./CustomBodyTemplate";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import s from "./DesktopData.module.scss";
-import { getDetailsPagePath, Columns, getItemById } from "./types";
-import { DataType, RelatedDataType } from "../../types";
+import { getDetailsPagePath, Columns } from "./types";
+import getItemById from "../../../../utils/getItemById";
 
 interface DesktopDataProps {
   table: string;
@@ -15,11 +15,11 @@ interface DesktopDataProps {
 }
 
 const DesktopData: React.FC<DesktopDataProps> = ({ table, displayedData, relatedData }) => {
-  const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows | DataTableValueArray | undefined>(undefined);
+  const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows | DataTableValueArray>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setExpandedRows(undefined);
+    setExpandedRows([]);
   }, [table]);
 
   return (
