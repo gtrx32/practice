@@ -10,6 +10,7 @@ import { Option } from "react-multi-select-component";
 import FilterSelect from "./_components/FilterSelect";
 import DesktopData from "./_components/DesktopData";
 import getRelatedTable from "../../utils/getRelatedTable";
+import MobileData from "./_components/MobileData";
 
 interface ListPageProps {
   table: string;
@@ -74,6 +75,12 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
               onChange={(selected: Option[]) => setSelectedFilters(selected)}
             />
           )}
+          <MobileData
+            className={s.mobileData}
+            table={table}
+            displayedData={displayedData}
+            relatedData={relatedData}
+          ></MobileData>
           <DesktopData
             className={s.desktopData}
             table={table}
