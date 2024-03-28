@@ -5,6 +5,7 @@ import { useContext } from "react";
 import ModalIsOpenContext from "../../context/ModalIsOpenContext";
 import Button from "../UI/Button";
 import UserLinks from "../UserLinks";
+import clsx from "clsx";
 
 interface TopPanelProps {
   table: string;
@@ -32,7 +33,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ table, pageType, id }) => {
   return (
     <div className={s.wrapper}>
       <div className={s.buttons}>
-        <Button onClick={goBack} className={s.link}>
+        <Button onClick={goBack} className={clsx(s.link, s.backlink)}>
           &#60;&#60;&#60; Назад
         </Button>
         <div className={s.rightButtons}>
