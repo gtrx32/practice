@@ -17,4 +17,18 @@
   @media (min-width: $desktop) {
     padding: 50px 50px !important;
   }
+
+  .desktopData {
+    display: none;
+    @media (min-width: $tablet) {
+      display: block;
+    }
+  }
+
+  .mobileData {
+    display: block;
+    @media (min-width: $tablet) {
+      display: none;
+    }
+  }
 }

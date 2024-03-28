@@ -7,14 +7,16 @@ import { useNavigate } from "react-router-dom";
 import s from "./DesktopData.module.scss";
 import { getDetailsPagePath, Columns } from "./types";
 import getItemById from "../../../../utils/getItemById";
+import clsx from "clsx";
 
 interface DesktopDataProps {
   table: string;
   displayedData: DataType[];
   relatedData: RelatedDataType[];
+  className: string;
 }
 
-const DesktopData: React.FC<DesktopDataProps> = ({ table, displayedData, relatedData }) => {
+const DesktopData: React.FC<DesktopDataProps> = ({ table, displayedData, relatedData, className }) => {
   const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows | DataTableValueArray>([]);
   const navigate = useNavigate();
 
@@ -24,7 +26,7 @@ const DesktopData: React.FC<DesktopDataProps> = ({ table, displayedData, related
 
   return (
     <DataTable
-      className={s.datatable}
+      className={clsx(s.datatable, className)}
       value={displayedData}
       scrollable
       onRowClick={(event) => navigate(getDetailsPagePath(table, event))}

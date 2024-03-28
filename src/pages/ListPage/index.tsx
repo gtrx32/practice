@@ -74,7 +74,12 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
               onChange={(selected: Option[]) => setSelectedFilters(selected)}
             />
           )}
-          <DesktopData table={table} displayedData={displayedData} relatedData={relatedData}></DesktopData>
+          <DesktopData
+            className={s.desktopData}
+            table={table}
+            displayedData={displayedData}
+            relatedData={relatedData}
+          ></DesktopData>
         </>
       )}
       <Pagination
