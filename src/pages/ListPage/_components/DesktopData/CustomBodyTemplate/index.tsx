@@ -1,7 +1,7 @@
 import s from "./CustomBodyTemplate.module.scss";
 import ActionsBodyTemplate from "./ActionsBodyTemplate";
 import { Link } from "react-router-dom";
-import { CheckIcon, CrossIcon } from "../../../../assets/images/icons";
+import { CheckIcon, CrossIcon } from "../../../../../assets/images/icons";
 
 interface CustomBodyTemplateProps {
   table: string;

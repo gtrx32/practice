@@ -1,49 +1,40 @@
 import s from "./ListPage.module.scss";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Columns, getItemById, getFilters, getDetailsPagePath, getSelectPlaceholder, AreEqual } from "./types";
-import { Column } from "primereact/column";
-import { DataTable, DataTableExpandedRows, DataTableValueArray } from "primereact/datatable";
+import { getFilters, getSelectPlaceholder, AreEqual, DataType, RelatedDataType } from "./types";
 import UpperPanel from "./_components/UpperPanel";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Container from "../../components/UI/Container";
 import mainApi from "../../api/api";
 import Pagination from "./_components/Pagination";
-import { AlbumType, PostType, UserType } from "../EditPage/types";
-import CustomBodyTemplate from "./_components/CustomBodyTemplate";
 import { getRelatedTable } from "../DetailsPage/types";
 import { Option } from "react-multi-select-component";
 import FilterSelect from "./_components/FilterSelect";
-import UserLinks from "../../components/UserLinks";
+import DesktopData from "./_components/DesktopData";
 
 interface ListPageProps {
   table: string;
 }
 
 const ListPage: React.FC<ListPageProps> = ({ table }) => {
-  const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [displayedData, setDisplayedData] = useState([]);
+  const [data, setData] = useState<DataType[]>([]);
+  const [filteredData, setFilteredData] = useState<DataType[]>([]);
+  const [displayedData, setDisplayedData] = useState<DataType[]>([]);
 
-  const [relatedData, setRelatedData] = useState<UserType[] | AlbumType[] | PostType[]>([]);
+  const [relatedData, setRelatedData] = useState<RelatedDataType[]>([]);
   const relatedTable = getRelatedTable(table);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
 
-  const navigate = useNavigate();
   const [selectedFilters, setSelectedFilters] = useState<Option[]>([]);
-
-  const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows | DataTableValueArray | undefined>(undefined);
 
   useEffect(() => {
     setIsLoading(true);
-    setExpandedRows(undefined);
     Promise.all([mainApi.get(table), mainApi.get(relatedTable)])
       .then(([data, relatedData]) => {
         setData(data.data);
@@ -84,33 +75,7 @@ const ListPage: React.FC<ListPageProps> = ({ table }) => {
               onChange={(selected: Option[]) => setSelectedFilters(selected)}
             />
           )}
-          <DataTable
-            value={displayedData}
-            scrollable
-            onRowClick={(event) => navigate(getDetailsPagePath(table, event))}
-            expandedRows={expandedRows}
-            onRowToggle={(e) => setExpandedRows(e.data)}
-            rowExpansionTemplate={(rowData) => <UserLinks id={rowData["id"]} />}
-          >
-            {table === "users" && <Column expander={true} style={{ width: "5px" }} />}
-            {Columns[table as keyof typeof Columns].map(({ field, header, width }) => (
-              <Column
-                key={field}
-                header={header}
-                body={(rowData) => (
-                  <CustomBodyTemplate
-                    table={table}
-                    field={field}
-                    rowData={rowData}
-                    getItemById={(id: number) => getItemById(id, relatedData)}
-                  />
-                )}
-                field={field}
-                sortable
-                style={{ width: width, maxWidth: width }}
-              />
-            ))}
-          </DataTable>
+          <DesktopData table={table} displayedData={displayedData} relatedData={relatedData}></DesktopData>
         </>
       )}
       <Pagination

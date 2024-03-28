@@ -1,9 +1,9 @@
 import s from "./ActionsBodyTemplate.module.scss";
-import Button from "../../../../../components/UI/Button";
+import Button from "../../../../../../components/UI/Button";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import ModalIsOpenContext from "../../../../../context/ModalIsOpenContext";
-import { PencilIcon, TrashcanIcon } from "../../../../../assets/images/icons";
+import ModalIsOpenContext from "../../../../../../context/ModalIsOpenContext";
+import { PencilIcon, TrashcanIcon } from "../../../../../../assets/images/icons";
 
 interface ActionsBodyTemplateProps {
   table: string;
