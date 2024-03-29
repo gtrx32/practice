@@ -1,11 +1,13 @@
 .input {
-  padding: 12px;
+  padding: 10px;
   font-family: "Jost";
   font-size: 15px;
   font-weight: 400;
   border: 1px solid var(--border-color);
   outline: 1px solid transparent !important;
   transition: 0.5s all ease;
+  height: 35px;
+  width: 300px;
 
   &:focus {
     border: 1px solid transparent;
