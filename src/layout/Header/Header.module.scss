@@ -22,6 +22,12 @@
 
       button {
         border: 1px solid var(--header-button-border-color);
+
+        &:hover {
+          path {
+            fill: var(--color-gray);
+          }
+        }
       }
 
       @media (min-width: $tablet) {
