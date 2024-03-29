@@ -23,9 +23,14 @@ const CheckBox: React.FC<CheckBoxProps> = ({ defaultValue = false, className, on
         type="checkbox"
         checked={isChecked}
         onChange={toggleCheckbox}
-        className={clsx(s.checkbox, className)}
+        className={clsx(s.input, className)}
       />
-      {children}
+      <label className={s.checkbox} htmlFor={id}>
+        <div className={s.dot} />
+      </label>
+      <label className={s.label} htmlFor={id}>
+        {children}
+      </label>
     </label>
   );
 };
