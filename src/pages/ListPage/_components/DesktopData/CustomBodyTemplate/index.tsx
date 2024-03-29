@@ -43,7 +43,7 @@ const CustomBodyTemplate: React.FC<CustomBodyTemplateProps> = ({ table, field, r
       return <ActionsBodyTemplate id={rowData.id} table={table} />;
     case "email":
       return (
-        <a href={clsx("mailto:", (rowData as UserType | CommentType)[field])} className={s.email}>
+        <a href={`mailto:${(rowData as UserType | CommentType)[field]}`} className={s.email}>
           {(rowData as UserType | CommentType)[field]}
         </a>
       );
