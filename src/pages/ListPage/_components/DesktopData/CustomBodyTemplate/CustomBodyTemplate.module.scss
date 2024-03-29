@@ -21,4 +21,8 @@
 .email {
   text-decoration: underline;
   color: var(--table-text-color);
+
+  &:hover {
+    color: var(--hover-color);
+  }
 }

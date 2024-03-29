@@ -2,6 +2,7 @@ import s from "./CustomBodyTemplate.module.scss";
 import ActionsBodyTemplate from "./ActionsBodyTemplate";
 import { Link } from "react-router-dom";
 import { CheckIcon, CrossIcon } from "../../../../../assets/images/icons";
+import clsx from "clsx";
 
 interface CustomBodyTemplateProps {
   table: string;
@@ -41,7 +42,11 @@ const CustomBodyTemplate: React.FC<CustomBodyTemplateProps> = ({ table, field, r
     case "actions":
       return <ActionsBodyTemplate id={rowData.id} table={table} />;
     case "email":
-      return <span className={s.email}>{(rowData as UserType | CommentType)[field]}</span>;
+      return (
+        <a href={clsx("mailto:", (rowData as UserType | CommentType)[field])} className={s.email}>
+          {(rowData as UserType | CommentType)[field]}
+        </a>
+      );
     default:
       return <>{rowData[field as keyof DataType]}</>;
   }

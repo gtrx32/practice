@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import { Show, DataRow } from "./types";
 import s from "./DetailsRowData.module.scss";
 import { CheckIcon, CrossIcon } from "../../../assets/images/icons";
+import clsx from "clsx";
 
 interface DetailsRowDataProps {
   table: string;
-  data: any;
+  data: DataType | null;
   relatedData: RelatedDataType | null;
   relatedPath: string;
 }
@@ -31,21 +32,32 @@ const DetailsRowData: React.FC<DetailsRowDataProps> = ({ table, data, relatedDat
             break;
           case "url":
           case "thumbnailUrl":
-            rowContent = <img src={data[name]} className={s.image} />;
+            rowContent = <img src={(data as PhotoType)[name]} className={s.image} />;
             break;
           case "completed":
-            rowContent = data[name] ? <CheckIcon className={s.readyIcon} /> : <CrossIcon className={s.readyIcon} />;
+            rowContent = (data as TodoType)[name] ? (
+              <CheckIcon className={s.readyIcon} />
+            ) : (
+              <CrossIcon className={s.readyIcon} />
+            );
+            break;
+          case "email":
+            rowContent = (
+              <a href={clsx("mailto:", (data as UserType | CommentType)[name])} className={s.email}>
+                {(data as UserType | CommentType)[name]}
+              </a>
+            );
             break;
           default:
             if (sub) {
               rowContent = sub.map((subField: any, index: number) => (
                 <span key={subField.name}>
                   {index > 0 && ", "}
-                  {data[name]?.[subField?.name]}
+                  {(data as any)[name]?.[subField?.name]}
                 </span>
               ));
             } else {
-              rowContent = data[name];
+              rowContent = data && data[name as keyof DataType];
             }
         }
 

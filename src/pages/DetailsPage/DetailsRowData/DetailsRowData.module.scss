@@ -32,6 +32,15 @@
     color: var(--text-color);
   }
 
+  a {
+    color: var(--text-color);
+    text-decoration: underline;
+
+    &:hover {
+      color: var(--hover-color);
+    }
+  }
+
   .readyIcon {
     padding-top: 3px;
     width: 16px;
