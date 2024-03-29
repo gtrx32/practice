@@ -7,9 +7,7 @@ const MainPage = () => (
     <div className={s.logo}>
       <Logo className={s.mainLogo} />
     </div>
-    <h1 className={s.welcome}>
-      Добро пожаловать{"\n"}в админ-панель{"\n"}M-SOCIAL!
-    </h1>
+    <h1 className={s.welcome}>Добро пожаловать в админ-панель M-SOCIAL!</h1>
     <div className={s.tip}>
       <p>Используйте боковое меню, чтобы перейти к нужному разделу</p>
     </div>
