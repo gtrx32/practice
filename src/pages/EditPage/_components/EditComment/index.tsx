@@ -58,9 +58,6 @@ const EditComment: React.FC<EditProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <ValidatedInput pattern="id" defaultValue={comment?.id} onChange={(value) => handleChange("id", value)}>
-          ID
-        </ValidatedInput>
         <Select
           defaultValue={comment?.postId}
           defaultLabel="Пост"

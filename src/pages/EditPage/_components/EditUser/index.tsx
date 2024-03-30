@@ -65,9 +65,6 @@ const EditUser: React.FC<EditProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <ValidatedInput pattern="id" defaultValue={user?.id} onChange={(value) => handleInputChange("id", value)}>
-          ID
-        </ValidatedInput>
         <ValidatedInput
           pattern="default"
           onChange={(value) => handleInputChange("name", value)}

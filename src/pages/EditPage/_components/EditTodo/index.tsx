@@ -58,9 +58,6 @@ const EditTodo: React.FC<EditProps> = ({ id, edit }) => {
   return !isLoading ? (
     <div className={s.form}>
       <div className={s.block}>
-        <ValidatedInput pattern="id" defaultValue={todo?.id} onChange={(value) => handleChange("id", value)}>
-          ID
-        </ValidatedInput>
         <Select
           defaultValue={todo?.userId}
           defaultLabel="Автор"
