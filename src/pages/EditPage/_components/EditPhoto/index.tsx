@@ -41,10 +41,12 @@ const EditPhoto: React.FC<EditProps> = ({ id, edit }) => {
   const onClickHandler = () => {
     if (!fieldsIsValid()) return;
 
+    const { id, ...photoWithoutId } = photoResponse;
     const method = edit ? "put" : "post";
+
     mainApi[method](edit ? "photos/" + id : "photos", {
       method: method.toUpperCase(),
-      body: JSON.stringify(photoResponse),
+      body: JSON.stringify(photoWithoutId),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },

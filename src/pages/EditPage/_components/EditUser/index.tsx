@@ -49,10 +49,12 @@ const EditUser: React.FC<EditProps> = ({ id, edit }) => {
   const onClickHandler = () => {
     if (!fieldsIsValid()) return;
 
+    const { id, ...userWithoutId } = userResponse;
     const method = edit ? "put" : "post";
+
     mainApi[method](edit ? "users/" + id : "users", {
       method: method.toUpperCase(),
-      body: JSON.stringify(userResponse),
+      body: JSON.stringify(userWithoutId),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },

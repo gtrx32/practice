@@ -42,10 +42,12 @@ const EditComment: React.FC<EditProps> = ({ id, edit }) => {
   const onClickHandler = () => {
     if (!fieldsIsValid()) return;
 
+    const { id, ...commentWithoutId } = commentResponse;
     const method = edit ? "put" : "post";
+
     mainApi[method](edit ? "comments/" + id : "comments", {
       method: method.toUpperCase(),
-      body: JSON.stringify(commentResponse),
+      body: JSON.stringify(commentWithoutId),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },

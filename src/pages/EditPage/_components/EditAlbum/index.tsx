@@ -40,10 +40,12 @@ const EditAlbum: React.FC<EditProps> = ({ id, edit }) => {
   const onClickHandler = () => {
     if (!fieldsIsValid()) return;
 
+    const { id, ...albumWithoutId } = albumResponse;
     const method = edit ? "put" : "post";
+
     mainApi[method](edit ? "albums/" + id : "albums", {
       method: method.toUpperCase(),
-      body: JSON.stringify(albumResponse),
+      body: JSON.stringify(albumWithoutId),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },

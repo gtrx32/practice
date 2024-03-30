@@ -42,10 +42,12 @@ const EditTodo: React.FC<EditProps> = ({ id, edit }) => {
   const onClickHandler = () => {
     if (!fieldsIsValid()) return;
 
+    const { id, ...todoWithoutId } = todoResponse;
     const method = edit ? "put" : "post";
+
     mainApi[method](edit ? "todos/" + id : "todos", {
       method: method.toUpperCase(),
-      body: JSON.stringify(todoResponse),
+      body: JSON.stringify(todoWithoutId),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
