@@ -1,5 +1,5 @@
 import s from "./ListPage.module.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getFilters, AreEqual, SelectPlaceholders } from "./types";
 import UpperPanel from "./_components/UpperPanel";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -11,17 +11,16 @@ import FilterSelect from "./_components/FilterSelect";
 import DesktopData from "./_components/DesktopData";
 import getRelatedTable from "../../utils/getRelatedTable";
 import MobileData from "./_components/MobileData";
+import { ResourceNameContext } from "../../AppRouter";
 
-interface ListPageProps {
-  table: string;
-}
+interface ListPageProps {}
 
-const ListPage: React.FC<ListPageProps> = ({ table }) => {
+const ListPage: React.FC<ListPageProps> = () => {
   const [data, setData] = useState<DataType[]>([]);
   const [filteredData, setFilteredData] = useState<DataType[]>([]);
   const [displayedData, setDisplayedData] = useState<DataType[]>([]);
   const [selectedFilters, setSelectedFilters] = useState<Option[]>([]);
-
+  const table = useContext(ResourceNameContext);
   const [relatedData, setRelatedData] = useState<RelatedDataType[]>([]);
   const relatedTable = getRelatedTable(table);
 
