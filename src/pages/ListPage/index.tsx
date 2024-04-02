@@ -1,104 +1,20 @@
-import s from "./ListPage.module.scss";
-import React, { useState, useEffect, useContext } from "react";
-import { getFilters, AreEqual, SelectPlaceholders } from "./types";
-import UpperPanel from "./_components/UpperPanel";
+import { PropsWithChildren } from "react";
+import useDataTable from "../../hooks/useDataTable";
+import ListPageLayout from "./ListPageLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import Container from "../../components/UI/Container";
-import mainApi from "../../api/api";
-import Pagination from "./_components/Pagination";
-import { Option } from "react-multi-select-component";
-import FilterSelect from "./_components/FilterSelect";
-import DesktopData from "./_components/DesktopData";
-import getRelatedTable from "../../utils/getRelatedTable";
-import MobileData from "./_components/MobileData";
-import { ResourceNameContext } from "../../AppRouter";
 
-interface ListPageProps {}
+export interface ListProps extends PropsWithChildren {
+  title: string;
+}
 
-const ListPage: React.FC<ListPageProps> = () => {
-  const [data, setData] = useState<DataType[]>([]);
-  const [filteredData, setFilteredData] = useState<DataType[]>([]);
-  const [displayedData, setDisplayedData] = useState<DataType[]>([]);
-  const [selectedFilters, setSelectedFilters] = useState<Option[]>([]);
-  const table = useContext(ResourceNameContext);
-  const [relatedData, setRelatedData] = useState<RelatedDataType[]>([]);
-  const relatedTable = getRelatedTable(table);
+const ListPage: React.FC<ListProps> = (props: ListProps) => {
+  const { data, isLoading, isError } = useDataTable();
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  if (isError) return <div>error</div>;
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const endIndex = startIndex + rowsPerPage;
+  if (isLoading) return <LoadingSpinner />;
 
-  useEffect(() => {
-    setIsLoading(true);
-    Promise.all([mainApi.get(table), mainApi.get(relatedTable)])
-      .then(([data, relatedData]) => {
-        setData(data.data);
-        setRelatedData(relatedData.data);
-      })
-      .catch(() => setIsError(true));
-  }, [table]);
-
-  useEffect(() => {
-    setFilteredData(
-      selectedFilters.length > 0 && table !== "users"
-        ? data.filter((item) => selectedFilters.some((option) => AreEqual(table, item, option)))
-        : data
-    );
-  }, [data, selectedFilters]);
-
-  useEffect(() => {
-    setDisplayedData(filteredData.slice(startIndex, endIndex));
-  }, [filteredData, startIndex, endIndex]);
-
-  useEffect(() => {
-    if (displayedData.length > 0) setIsLoading(false);
-  }, [displayedData]);
-
-  return (
-    <Container className={s.container}>
-      <UpperPanel table={table} />
-      {isError ? (
-        <p>Произошла ошибка при загрузке данных</p>
-      ) : isLoading ? (
-        <LoadingSpinner />
-      ) : (
-        <>
-          {table !== "users" && (
-            <FilterSelect
-              filters={getFilters(table, relatedData)}
-              placeholder={SelectPlaceholders[table as keyof typeof SelectPlaceholders]}
-              onChange={(selected: Option[]) => setSelectedFilters(selected)}
-            />
-          )}
-          <MobileData
-            className={s.mobileData}
-            table={table}
-            displayedData={displayedData}
-            relatedData={relatedData}
-          ></MobileData>
-          <DesktopData
-            className={s.desktopData}
-            table={table}
-            displayedData={displayedData}
-            relatedData={relatedData}
-          ></DesktopData>
-        </>
-      )}
-      <Pagination
-        rowCount={filteredData.length}
-        startIndex={startIndex}
-        endIndex={endIndex}
-        currentPage={currentPage}
-        rowsPerPage={rowsPerPage}
-        setCurrentPage={setCurrentPage}
-        setRowsPerPage={setRowsPerPage}
-      />
-    </Container>
-  );
+  return <ListPageLayout {...props} data={data} />;
 };
 
 export default ListPage;

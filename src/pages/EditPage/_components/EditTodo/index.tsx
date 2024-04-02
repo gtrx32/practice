@@ -8,7 +8,6 @@ import s from "./EditTodo.module.scss";
 import { initialValue } from "./types";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
-import ValidatedInput from "../../../../components/UI/ValidatedInput";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
 import { EditProps } from "../../types";
 

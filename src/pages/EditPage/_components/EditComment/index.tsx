@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import TextArea from "../../../../components/UI/TextArea";
 import CorrectInputContext from "../../../../context/CorrectInputContext";
-import ValidatedInput from "../../../../components/UI/ValidatedInput";
 import { EditProps } from "../../types";
 
 const EditComment: React.FC<EditProps> = ({ id, edit }) => {
