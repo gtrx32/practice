@@ -7,7 +7,7 @@ interface TodosListPageProps {}
 
 const TodosListPage: React.FC<TodosListPageProps> = () => {
   return (
-    <ListPage title="Задания">
+    <ListPage>
       <ListDataTable>
         <Column field="id" header="ID" />
         <Column field="userId" header="Автор" />

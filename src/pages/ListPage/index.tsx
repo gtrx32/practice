@@ -3,18 +3,14 @@ import useDataTable from "../../hooks/useDataTable";
 import ListPageLayout from "./ListPageLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
-export interface ListProps extends PropsWithChildren {
-  title: string;
-}
-
-const ListPage: React.FC<ListProps> = (props: ListProps) => {
+const ListPage: React.FC<PropsWithChildren> = ({ children }) => {
   const { data, relatedData, isLoading, isError } = useDataTable();
 
   if (isError) return <div>error</div>;
 
   if (isLoading) return <LoadingSpinner />;
 
-  return <ListPageLayout {...props} data={data} relatedData={relatedData as RelatedDataType[]} />;
+  return <ListPageLayout children={children} data={data} relatedData={relatedData} />;
 };
 
 export default ListPage;

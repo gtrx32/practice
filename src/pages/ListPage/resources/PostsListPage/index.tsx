@@ -7,7 +7,7 @@ interface PostsListPageProps {}
 
 const PostsListPage: React.FC<PostsListPageProps> = () => {
   return (
-    <ListPage title="Посты">
+    <ListPage>
       <ListDataTable>
         <Column field="id" header="ID" />
         <Column field="userId" header="Автор" />

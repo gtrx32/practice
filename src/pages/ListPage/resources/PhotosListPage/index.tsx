@@ -7,7 +7,7 @@ interface PhotosListPageProps {}
 
 const PhotosListPage: React.FC<PhotosListPageProps> = () => {
   return (
-    <ListPage title="Картинки">
+    <ListPage>
       <ListDataTable>
         <Column field="id" header="ID" />
         <Column field="thumbnailUrl" header="Превью" />

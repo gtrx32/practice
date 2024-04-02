@@ -7,7 +7,7 @@ interface CommentsListPageProps {}
 
 const CommentsListPage: React.FC<CommentsListPageProps> = () => {
   return (
-    <ListPage title="Комментарии">
+    <ListPage>
       <ListDataTable>
         <Column field="id" header="ID" />
         <Column field="postId" header="Пост" />

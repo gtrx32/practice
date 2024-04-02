@@ -8,17 +8,17 @@ export const useDataTable = () => {
   const relatedResourceName = getRelatedTable(resourceName);
 
   const [data, setData] = useState<DataType[]>([]);
-  const [relatedData, setRelatedData] = useState<DataType[]>([]);
+  const [relatedData, setRelatedData] = useState<RelatedDataType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    Promise.all([mainApi.get(resourceName), mainApi.get(relatedResourceName)])
 
-      .then(([data, relatedData]) => {
-        setData(data.data);
-        setRelatedData(relatedData.data);
+    Promise.all([mainApi.get(resourceName), mainApi.get(relatedResourceName)])
+      .then(([{ data: data }, { data: relatedData }]) => {
+        setData(data);
+        setRelatedData(relatedData);
       })
       .catch(() => setIsError(true))
       .finally(() => setIsLoading(false));
