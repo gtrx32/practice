@@ -8,13 +8,13 @@ export interface ListProps extends PropsWithChildren {
 }
 
 const ListPage: React.FC<ListProps> = (props: ListProps) => {
-  const { data, isLoading, isError } = useDataTable();
+  const { data, relatedData, isLoading, isError } = useDataTable();
 
   if (isError) return <div>error</div>;
 
   if (isLoading) return <LoadingSpinner />;
 
-  return <ListPageLayout {...props} data={data} />;
+  return <ListPageLayout {...props} data={data} relatedData={relatedData as RelatedDataType[]} />;
 };
 
 export default ListPage;
