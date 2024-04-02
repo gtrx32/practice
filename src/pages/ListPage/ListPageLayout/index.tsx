@@ -8,6 +8,7 @@ import RelatedFilter from "./RelatedFilter";
 import { SelectPlaceholders, getFilters } from "./types";
 import { ResourceNameContext } from "../../../AppRouter";
 import { Option } from "react-multi-select-component";
+import { useFilteredData } from "../../../hooks/useFilteredData";
 
 interface ListPageLayoutProps extends ListProps {
   data: DataType[];
@@ -20,14 +21,15 @@ const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, related
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
 
-  const _data = data.slice(startIndex, endIndex);
-
-  const resourceName = useContext(ResourceNameContext);
   const [selectedFilters, setSelectedFilters] = useState<Option[]>([]);
+  const resourceName = useContext(ResourceNameContext);
+
+  const filteredData = useFilteredData({ data, selectedFilters });
+  const _data = filteredData.slice(startIndex, endIndex);
 
   return (
     <div className={s.wrapper}>
-      <UpperPanel title={title} />
+      <UpperPanel QQQQQQQQQQQ />
 
       <RelatedFilter
         filters={getFilters(resourceName, relatedData)}
