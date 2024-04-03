@@ -2,12 +2,12 @@ import { useContext } from "react";
 import { ResourceNameContext } from "../AppRouter";
 import { Option } from "react-multi-select-component";
 
-interface useFilteredDataProps {
+interface useFilteredDataTableProps {
   data: DataType[];
   selectedFilters: Option[];
 }
 
-export const useFilteredData = ({ data, selectedFilters }: useFilteredDataProps) => {
+export const useFilteredDataTable = ({ data, selectedFilters }: useFilteredDataTableProps) => {
   const resourceName = useContext(ResourceNameContext);
 
   return selectedFilters.length > 0 && resourceName !== "users"

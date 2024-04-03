@@ -1,7 +1,8 @@
 import { Column } from "primereact/column";
 import ListPage from "../..";
-import s from "./AlbumsListPage.module.scss";
+import s from "../OverallStyles.module.scss";
 import ListDataTable from "../../ListDataTable";
+import CustomBodyTemplate from "../../_components/CustomBodyTemplate";
 
 interface AlbumsListPageProps {}
 
@@ -9,10 +10,19 @@ const AlbumsListPage: React.FC<AlbumsListPageProps> = () => {
   return (
     <ListPage>
       <ListDataTable>
-        <Column field="id" header="ID" />
-        <Column field="userId" header="Владелец" />
-        <Column field="title" header="Название" />
-        <Column field="actions" header="Действия" />
+        <Column field="id" header="ID" style={{ maxWidth: "70px" }} />
+        <Column
+          header="Владелец"
+          body={(rowData) => <CustomBodyTemplate field="userId" rowData={rowData} />}
+          style={{ maxWidth: "310px" }}
+        />
+        <Column field="title" header="Название" style={{ maxWidth: "530px" }} />
+        <Column
+          header="Действия"
+          headerClassName={s.actionsHeader}
+          body={(rowData) => <CustomBodyTemplate field="actions" rowData={rowData} />}
+          style={{ maxWidth: "90px" }}
+        />
       </ListDataTable>
     </ListPage>
   );

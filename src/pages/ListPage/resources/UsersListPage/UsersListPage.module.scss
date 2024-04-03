@@ -1,0 +1,12 @@
+.expander {
+  width: 30px;
+  button {
+    background-color: transparent;
+    border: none;
+    svg {
+      path {
+        fill: var(--userExpand-color);
+      }
+    }
+  }
+}

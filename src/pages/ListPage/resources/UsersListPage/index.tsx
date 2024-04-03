@@ -1,7 +1,8 @@
 import ListPage from "../..";
 import { Column } from "primereact/column";
-import s from "./UsersListPage.module.scss";
+import s from "../OverallStyles.module.scss";
 import ListDataTable from "../../ListDataTable";
+import CustomBodyTemplate from "../../_components/CustomBodyTemplate";
 
 interface UsersListPageProps {}
 
@@ -9,13 +10,18 @@ const UsersListPage: React.FC<UsersListPageProps> = () => {
   return (
     <ListPage>
       <ListDataTable>
-        <Column expander={true} />
-        <Column field="id" header="ID" />
-        <Column field="name" header="Имя" />
-        <Column field="username" header="Никнейм" />
-        <Column field="email" header="E-mail" />
-        <Column field="phone" header="Телефон" />
-        <Column field="actions" header="Действия" />
+        <Column expander={true} className={s.expander} />
+        <Column header="ID" field="id" style={{ maxWidth: "70px" }} />
+        <Column header="Имя" field="name" style={{ maxWidth: "190px" }} />
+        <Column header="Никнейм" field="username" style={{ maxWidth: "190px" }} />
+        <Column header="E-mail" field="email" style={{ maxWidth: "260px" }} />
+        <Column header="Телефон" field="phone" style={{ maxWidth: "190px" }} />
+        <Column
+          header="Действия"
+          headerClassName={s.actionsHeader}
+          body={(rowData) => <CustomBodyTemplate field="actions" rowData={rowData} />}
+          style={{ maxWidth: "90px" }}
+        />
       </ListDataTable>
     </ListPage>
   );

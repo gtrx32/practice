@@ -1,13 +1,14 @@
 import s from "./ListPageLayout.module.scss";
 import DataTableContext from "../../../context/DataTableContext/DataTableContext";
-import Pagination from "./Pagination";
+import Pagination from "../_components/Pagination";
 import { PropsWithChildren, useContext, useState } from "react";
-import UpperPanel from "./UpperPanel";
-import RelatedFilter from "./RelatedFilter";
+import UpperPanel from "../_components/UpperPanel";
+import RelatedFilter from "../_components/RelatedFilter";
 import { SelectPlaceholders, getFilters } from "./types";
 import { ResourceNameContext } from "../../../AppRouter";
 import { Option } from "react-multi-select-component";
-import { useFilteredData } from "../../../hooks/useFilteredData";
+import { useFilteredDataTable } from "../../../hooks/useFilteredDataTable";
+import Container from "../../../components/UI/Container";
 
 interface ListPageLayoutProps extends PropsWithChildren {
   data: DataType[];
@@ -23,11 +24,11 @@ const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, related
   const resourceName = useContext(ResourceNameContext);
   const [selectedFilters, setSelectedFilters] = useState<Option[]>([]);
 
-  const filteredData = useFilteredData({ data, selectedFilters });
+  const filteredData = useFilteredDataTable({ data, selectedFilters });
   const displayedData = filteredData.slice(startIndex, endIndex);
 
   return (
-    <div className={s.wrapper}>
+    <Container className={s.container}>
       <UpperPanel />
 
       {resourceName !== "users" && (
@@ -38,7 +39,9 @@ const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, related
         />
       )}
 
-      <DataTableContext.Provider value={{ data: displayedData }}>{children}</DataTableContext.Provider>
+      <DataTableContext.Provider value={{ data: displayedData, relatedData: relatedData }}>
+        {children}
+      </DataTableContext.Provider>
 
       <Pagination
         rowCount={filteredData.length}
@@ -49,7 +52,7 @@ const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, related
         setCurrentPage={setCurrentPage}
         setRowsPerPage={setRowsPerPage}
       />
-    </div>
+    </Container>
   );
 };
 

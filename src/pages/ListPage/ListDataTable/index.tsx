@@ -15,6 +15,7 @@ const ListDataTable: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <DataTable
+      className={s.datatable}
       value={data}
       scrollable
       onRowClick={(event) => navigate(getDetailsPagePath(resourceName, event))}

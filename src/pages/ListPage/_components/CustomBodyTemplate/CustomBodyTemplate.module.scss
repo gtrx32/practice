@@ -1,0 +1,32 @@
+.thumbnailUrl {
+  max-height: 50px;
+}
+
+.completedWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.completed {
+  width: 16px;
+  height: auto;
+}
+
+.link {
+  color: var(--table-text-color);
+  text-decoration: underline;
+  transition: all 0.5s ease;
+
+  &:hover {
+    color: var(--hover-color);
+  }
+}
+
+.email {
+  text-decoration: underline;
+  color: var(--table-text-color);
+
+  &:hover {
+    color: var(--hover-color);
+  }
+}
