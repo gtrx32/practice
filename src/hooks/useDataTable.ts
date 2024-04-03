@@ -14,7 +14,6 @@ export const useDataTable = () => {
 
   useEffect(() => {
     setIsLoading(true);
-
     Promise.all([mainApi.get(resourceName), mainApi.get(relatedResourceName)])
       .then(([{ data: data }, { data: relatedData }]) => {
         setData(data);
