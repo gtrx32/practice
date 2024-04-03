@@ -1,6 +1,6 @@
 import { Column } from "primereact/column";
 import ListPage from "../..";
-import s from "../OverallStyles.module.scss";
+import s from "../overall.module.scss";
 import ListDataTable from "../../ListDataTable";
 import CustomBodyTemplate from "../../_components/CustomBodyTemplate";
 
@@ -10,18 +10,18 @@ const PostsListPage: React.FC<PostsListPageProps> = () => {
   return (
     <ListPage>
       <ListDataTable>
-        <Column header="ID" field="id" style={{ width: "70px", maxWidth: "70px" }} />
+        <Column header="ID" field="id" style={{ maxWidth: "70px" }} />
         <Column
           header="Автор"
           body={(rowData) => <CustomBodyTemplate field="userId" rowData={rowData} />}
-          style={{ width: "250px", maxWidth: "250px" }}
+          style={{ maxWidth: "250px" }}
         />
-        <Column header="Заголовок" field="title" style={{ width: "600px", maxWidth: "600px" }} />
+        <Column header="Заголовок" field="title" style={{ maxWidth: "600px" }} />
         <Column
           header="Действия"
           headerClassName={s.actionsHeader}
           body={(rowData) => <CustomBodyTemplate field="actions" rowData={rowData} />}
-          style={{ width: "90px", maxWidth: "90px" }}
+          style={{ maxWidth: "90px" }}
         />
       </ListDataTable>
     </ListPage>

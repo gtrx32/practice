@@ -16,7 +16,7 @@ const AppContextProvider: React.FC<AppContextProvider> = ({ children }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [target, setTarget] = useState({ table: "", id: "" });
+  const [target, setTarget] = useState({ resourceName: "", id: "" });
 
   const [fields, setFields] = useState({});
   const fieldsIsValid = () => Object.values(fields).every((value) => value);

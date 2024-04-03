@@ -53,7 +53,7 @@ const DetailsPage = () => {
 
   return (
     <Container className={s.container}>
-      <TopPanel table={table} pageType="details" id={id} />
+      <TopPanel pageType="details" id={id} />
       {isError ? (
         <p>Произошла ошибка при загрузке данных</p>
       ) : isLoading ? (

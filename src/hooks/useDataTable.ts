@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import mainApi from "../api/api";
-import { ResourceNameContext } from "../AppRouter";
 import getRelatedTable from "../utils/getRelatedTable";
+import ResourceNameContext from "../context/ResourceNameContext";
 
 export const useDataTable = () => {
   const resourceName = useContext(ResourceNameContext);

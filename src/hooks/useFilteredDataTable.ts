@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { ResourceNameContext } from "../AppRouter";
 import { Option } from "react-multi-select-component";
+import ResourceNameContext from "../context/ResourceNameContext";
 
 interface useFilteredDataTableProps {
   data: DataType[];

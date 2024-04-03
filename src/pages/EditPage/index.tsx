@@ -19,7 +19,7 @@ const EditPage: React.FC<EditPageProps> = ({ edit = true }) => {
 
   return (
     <Container className={s.container}>
-      <TopPanel table={table} pageType={edit ? "edit" : "create"} id={id} />
+      <TopPanel pageType={edit ? "edit" : "create"} id={id} />
       {(() => {
         switch (table) {
           case "users":

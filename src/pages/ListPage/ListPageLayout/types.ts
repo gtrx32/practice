@@ -1,12 +1,12 @@
 import { Option } from "react-multi-select-component";
 
-export const getFilters = (table: string, data: RelatedDataType[]): Option[] => {
+export const getFilters = (resourceName: string, data: RelatedDataType[]): Option[] => {
   if (Array.isArray(data))
-    if (table === "todos" || table === "albums" || table === "posts") {
+    if (resourceName === "todos" || resourceName === "albums" || resourceName === "posts") {
       return (data as UserType[])?.map((item) => ({ value: item.id, label: item.name }));
-    } else if (table === "photos") {
+    } else if (resourceName === "photos") {
       return (data as AlbumType[])?.map((item) => ({ value: item.id, label: item.title }));
-    } else if (table === "comments") {
+    } else if (resourceName === "comments") {
       return (data as PostType[])?.map((item) => ({ value: item.id, label: item.title }));
     }
   return [];

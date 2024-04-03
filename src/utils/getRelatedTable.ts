@@ -6,8 +6,8 @@ const tableRelations: Record<string, string> = {
   comments: "posts",
 };
 
-const getRelatedTable = (table: string): string => {
-  return tableRelations[table] || "";
+const getRelatedTable = (resourceName: string): string => {
+  return tableRelations[resourceName] || "";
 };
 
 export default getRelatedTable;

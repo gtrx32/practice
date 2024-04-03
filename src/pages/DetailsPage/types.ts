@@ -1,5 +1,5 @@
-export function getRelatedId(table: string, data: DataType): string | undefined {
-  switch (table) {
+export function getRelatedId(resourceName: string, data: DataType): string | undefined {
+  switch (resourceName) {
     case "todos":
       return isTodoType(data) ? data.userId?.toString() : undefined;
     case "albums":

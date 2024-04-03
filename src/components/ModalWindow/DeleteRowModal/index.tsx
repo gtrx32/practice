@@ -12,9 +12,9 @@ const DeleteRowModal = () => {
 
   const onDeleteHandler = () => {
     setModalIsOpen(false);
-    mainApi.delete(target.table + "/" + target.id, { method: "DELETE" }).then((json) => {
+    mainApi.delete(target.resourceName + "/" + target.id, { method: "DELETE" }).then((json) => {
       console.log(json);
-      navigate("/" + target.table);
+      navigate("/" + target.resourceName);
     });
   };
 

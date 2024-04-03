@@ -1,4 +1,3 @@
-import { lazy } from "react";
 import AlbumsListPage from "../pages/ListPage/resources/AlbumsListPage";
 import CommentsListPage from "../pages/ListPage/resources/CommentsListPage";
 import PhotosListPage from "../pages/ListPage/resources/PhotosListPage";

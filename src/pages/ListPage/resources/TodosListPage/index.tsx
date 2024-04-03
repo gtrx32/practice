@@ -2,7 +2,7 @@ import { Column } from "primereact/column";
 import ListPage from "../..";
 import ListDataTable from "../../ListDataTable";
 import CustomBodyTemplate from "../../_components/CustomBodyTemplate";
-import s from "../OverallStyles.module.scss";
+import s from "../overall.module.scss";
 
 interface TodosListPageProps {}
 

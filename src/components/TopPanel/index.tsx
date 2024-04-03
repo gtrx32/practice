@@ -6,19 +6,20 @@ import ModalIsOpenContext from "../../context/ModalIsOpenContext";
 import Button from "../UI/Button";
 import UserLinks from "../UserLinks";
 import clsx from "clsx";
+import ResourceNameContext from "../../context/ResourceNameContext";
 
 interface TopPanelProps {
-  table: string;
   pageType: "details" | "edit" | "create";
   id: string;
 }
 
-const TopPanel: React.FC<TopPanelProps> = ({ table, pageType, id }) => {
+const TopPanel: React.FC<TopPanelProps> = ({ pageType, id }) => {
   const navigate = useNavigate();
   const { setTarget, setModalIsOpen } = useContext(ModalIsOpenContext);
+  const resourceName = useContext(ResourceNameContext);
 
   const onDeleteHandler = () => {
-    setTarget({ table: table, id: id });
+    setTarget({ resourceName, id: id });
     setModalIsOpen(true);
   };
 
@@ -28,7 +29,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ table, pageType, id }) => {
     navigate(newPath);
   };
 
-  const title = titles[table]?.[pageType] || "";
+  const title = titles[resourceName]?.[pageType] || "";
 
   return (
     <div className={s.wrapper}>
@@ -37,12 +38,12 @@ const TopPanel: React.FC<TopPanelProps> = ({ table, pageType, id }) => {
           &#60;&#60;&#60; Назад
         </Button>
         <div className={s.rightButtons}>
-          <Link className={s.link} to={`/${table}`}>
+          <Link className={s.link} to={`/${resourceName}`}>
             Список
           </Link>
           {(pageType === "details" || pageType === "edit") && (
             <>
-              <Link className={s.link} to={`/${table}/${id}${pageType === "details" ? "/edit" : ""}`}>
+              <Link className={s.link} to={`/${resourceName}/${id}${pageType === "details" ? "/edit" : ""}`}>
                 {pageType === "details" ? "Редактировать" : "Посмотреть"}
               </Link>
               <button onClick={onDeleteHandler} className={s.link}>
@@ -53,7 +54,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ table, pageType, id }) => {
         </div>
       </div>
       <h1 className={s.title}>{title}</h1>
-      {table === "users" && pageType === "details" && <UserLinks id={id} />}
+      {resourceName === "users" && pageType === "details" && <UserLinks id={id} />}
     </div>
   );
 };

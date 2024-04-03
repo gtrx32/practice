@@ -5,10 +5,10 @@ import { PropsWithChildren, useContext, useState } from "react";
 import UpperPanel from "../_components/UpperPanel";
 import RelatedFilter from "../_components/RelatedFilter";
 import { SelectPlaceholders, getFilters } from "./types";
-import { ResourceNameContext } from "../../../AppRouter";
 import { Option } from "react-multi-select-component";
 import { useFilteredDataTable } from "../../../hooks/useFilteredDataTable";
 import Container from "../../../components/UI/Container";
+import ResourceNameContext from "../../../context/ResourceNameContext";
 
 interface ListPageLayoutProps extends PropsWithChildren {
   data: DataType[];

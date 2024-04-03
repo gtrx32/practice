@@ -4,8 +4,8 @@ import LoginPage from "../pages/LoginPage";
 import DetailsPage from "../pages/DetailsPage";
 import CreatePage from "../pages/CreatePage";
 import EditPage from "../pages/EditPage";
-import { createContext } from "react";
 import { resourceListPages } from "./types";
+import ResourceNameContext from "../context/ResourceNameContext";
 
 const AppRouter = () => (
   <Routes>
@@ -22,8 +22,6 @@ const AppRouter = () => (
 );
 
 export default AppRouter;
-
-export const ResourceNameContext = createContext<string>("");
 
 export const defineResource = (resourceName: string) => {
   const ResourceListPage = resourceListPages[resourceName];

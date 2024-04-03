@@ -4,8 +4,8 @@ import { DataTable, DataTableExpandedRows, DataTableValueArray } from "primereac
 import { useNavigate } from "react-router-dom";
 import UserLinks from "../../../components/UserLinks";
 import { getDetailsPagePath } from "./types";
-import { ResourceNameContext } from "../../../AppRouter";
 import s from "./ListDataTable.module.scss";
+import ResourceNameContext from "../../../context/ResourceNameContext";
 
 const ListDataTable: React.FC<PropsWithChildren> = ({ children }) => {
   const { data } = useContext(DataTableContext);

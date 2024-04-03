@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import SearchField from "../../../../components/UI/SearchField";
 import s from "./UpperPanel.module.scss";
 import { useContext } from "react";
-import { ResourceNameContext } from "../../../../AppRouter";
 import { listPageTitleEnum } from "./types";
+import ResourceNameContext from "../../../../context/ResourceNameContext";
 
 const UpperPanel = () => {
   const resourceName = useContext(ResourceNameContext);

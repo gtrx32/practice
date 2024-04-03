@@ -5,7 +5,6 @@ import ActionsBodyTemplate from "./ActionsBodyTemplate";
 import getItemById from "../../../../utils/getItemById";
 import { useContext } from "react";
 import DataTableContext from "../../../../context/DataTableContext/DataTableContext";
-import { table } from "console";
 
 interface CustomBodyTemplateProps {
   field: string;
