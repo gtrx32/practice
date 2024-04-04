@@ -2,7 +2,7 @@ import s from "./Header.module.scss";
 import Container from "../../components/UI/Container";
 import Button from "../../components/UI/Button";
 import { Link, useLocation } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import MenuIsOpenContext from "../../context/MenuIsOpenContext";
 import ThemeContext from "../../context/ThemeContext";
 import { Logo, ProfileIcon, ThemeIcon } from "../../assets/images/icons";
@@ -10,16 +10,10 @@ import clsx from "clsx";
 
 const Header = () => {
   const { theme, setTheme } = useContext(ThemeContext);
-
   const { menuIsOpen, setMenuIsOpen } = useContext(MenuIsOpenContext);
-  const handleMenuClick = () => setMenuIsOpen(!menuIsOpen);
-
-  const { pathname } = useLocation();
   const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
 
-  useEffect(() => {
-    setProfileMenuIsOpen(false);
-  }, [pathname]);
+  const { pathname } = useLocation();
 
   return (
     <Container as="header" className={s.header}>
@@ -42,7 +36,7 @@ const Header = () => {
             </div>
           )}
         </div>
-        <Button onClick={handleMenuClick} className={s.mobileMenuButton}>
+        <Button onClick={() => setMenuIsOpen(!menuIsOpen)} className={s.mobileMenuButton}>
           {menuIsOpen ? "Закрыть" : "Меню"}
         </Button>
       </div>
