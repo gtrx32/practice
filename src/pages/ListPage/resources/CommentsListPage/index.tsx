@@ -1,7 +1,7 @@
 import { Column } from "primereact/column";
 import ListPage from "../..";
 import s from "../overall.module.scss";
-import ListDataTable from "../../ListDataTable";
+import ListDataTable from "../../_components/ListDataTable";
 import CustomBodyTemplate from "../../_components/CustomBodyTemplate";
 
 interface CommentsListPageProps {}

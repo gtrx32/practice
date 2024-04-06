@@ -1,11 +1,11 @@
 import { PropsWithChildren, useContext, useState } from "react";
-import DataTableContext from "../../../context/DataTableContext/DataTableContext";
+import DataTableContext from "../../../../context/DataTableContext/DataTableContext";
 import { DataTable, DataTableExpandedRows, DataTableValueArray } from "primereact/datatable";
 import { useNavigate } from "react-router-dom";
-import UserLinks from "../../../components/UserLinks";
+import UserLinks from "../../../../components/UserLinks";
 import { getDetailsPagePath } from "./types";
 import s from "./ListDataTable.module.scss";
-import ResourceNameContext from "../../../context/ResourceNameContext";
+import ResourceNameContext from "../../../../context/ResourceNameContext";
 
 const ListDataTable: React.FC<PropsWithChildren> = ({ children }) => {
   const { data } = useContext(DataTableContext);

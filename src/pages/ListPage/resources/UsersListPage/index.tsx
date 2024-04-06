@@ -1,7 +1,7 @@
 import ListPage from "../..";
 import { Column } from "primereact/column";
 import s from "../overall.module.scss";
-import ListDataTable from "../../ListDataTable";
+import ListDataTable from "../../_components/ListDataTable";
 import CustomBodyTemplate from "../../_components/CustomBodyTemplate";
 
 interface UsersListPageProps {}
