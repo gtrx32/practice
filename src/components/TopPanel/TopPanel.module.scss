@@ -37,8 +37,8 @@
   cursor: pointer;
 
   &:hover {
-    background-color: transparent;
-    color: var(--hover-color);
+    background-color: transparent !important;
+    color: var(--hover-color) !important;
   }
 }
 
