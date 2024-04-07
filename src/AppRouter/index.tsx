@@ -40,7 +40,7 @@ export const defineResource = (resourceName: string) => {
         path=":id"
         element={
           <ResourceNameContext.Provider value={resourceName}>
-            <DetailsPage />
+            <DetailsPage key={resourceName} />
           </ResourceNameContext.Provider>
         }
       />
