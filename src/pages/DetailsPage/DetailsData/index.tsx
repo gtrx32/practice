@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { CheckIcon, CrossIcon } from "../../../../assets/images/icons";
+import { CheckIcon, CrossIcon } from "../../../assets/images/icons";
 import s from "./DetailsData.module.scss";
 
 interface DetailsDataProps {
