@@ -3,9 +3,9 @@ import MainPage from "../pages/MainPage";
 import LoginPage from "../pages/LoginPage";
 import CreatePage from "../pages/CreatePage";
 import EditPage from "../pages/EditPage";
+import DetailsPage from "../pages/DetailsPage";
 import { resourceListPages } from "./types";
 import ResourceNameContext from "../context/ResourceNameContext";
-import UsersDetailsPage from "../pages/DetailsPage/resources/UsersDetailsPage";
 
 const AppRouter = () => (
   <Routes>
@@ -40,7 +40,7 @@ export const defineResource = (resourceName: string) => {
         path=":id"
         element={
           <ResourceNameContext.Provider value={resourceName}>
-            <UsersDetailsPage />
+            <DetailsPage />
           </ResourceNameContext.Provider>
         }
       />

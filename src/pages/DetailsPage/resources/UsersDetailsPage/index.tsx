@@ -1,16 +1,57 @@
-import { useContext } from "react";
 import s from "./UsersDetailsPage.module.scss";
-import DetailsDataContext from "../../../../context/DetailsDataContext";
+import DetailsData from "../../_components/DetailsData";
 
-interface UsersDetailsPageProps {}
+interface UsersDetailsPageProps {
+  data: UserType;
+}
 
-const UsersDetailsPage: React.FC<UsersDetailsPageProps> = () => {
-  const { data, relatedData, relatedPath } = useContext(DetailsDataContext);
-
-  console.log(data);
-  console.log(relatedData);
-  console.log(relatedPath);
-  return <div>aaaaaaaaaaaaaaaaaaaaa</div>;
+const UsersDetailsPage: React.FC<UsersDetailsPageProps> = ({ data }) => {
+  return (
+    <DetailsData
+      rows={[
+        {
+          name: "id:",
+          content: data.id,
+          type: "text",
+        },
+        {
+          name: "ФИО:",
+          content: data.name,
+          type: "text",
+        },
+        {
+          name: "Никнейм:",
+          content: data.username,
+          type: "text",
+        },
+        {
+          name: "E-mail:",
+          content: data.email,
+          type: "email",
+        },
+        {
+          name: "Телефон:",
+          content: data.phone,
+          type: "text",
+        },
+        {
+          name: "Адрес:",
+          content: data.address.street + ", " + data.address.city + ", " + data.address.zipcode,
+          type: "text",
+        },
+        {
+          name: "Название компании:",
+          content: data.company.name,
+          type: "text",
+        },
+        {
+          name: "Веб-сайт:",
+          content: data.website,
+          type: "link",
+        },
+      ]}
+    />
+  );
 };
 
 export default UsersDetailsPage;
