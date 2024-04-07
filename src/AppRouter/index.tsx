@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import MainPage from "../pages/MainPage";
 import LoginPage from "../pages/LoginPage";
-import DetailsPage from "../pages/DetailsPage";
 import CreatePage from "../pages/CreatePage";
 import EditPage from "../pages/EditPage";
 import { resourceListPages } from "./types";
 import ResourceNameContext from "../context/ResourceNameContext";
+import UsersDetailsPage from "../pages/DetailsPage/resources/UsersDetailsPage";
 
 const AppRouter = () => (
   <Routes>
@@ -40,7 +40,7 @@ export const defineResource = (resourceName: string) => {
         path=":id"
         element={
           <ResourceNameContext.Provider value={resourceName}>
-            <DetailsPage />
+            <UsersDetailsPage />
           </ResourceNameContext.Provider>
         }
       />

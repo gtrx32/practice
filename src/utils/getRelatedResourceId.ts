@@ -1,4 +1,4 @@
-export function getRelatedId(resourceName: string, data: DataType): string | undefined {
+export function getRelatedResourceId(resourceName: string, data: DataType): string | undefined {
   switch (resourceName) {
     case "todos":
       return isTodoType(data) ? data.userId?.toString() : undefined;
