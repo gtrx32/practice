@@ -1,9 +1,9 @@
-import DetailsData from "../../_components/DetailsData";
+import DetailsData from "../../DetailsData";
 import s from "./AlbumsDetailsPage.module.scss";
 
 interface AlbumsDetailsPageProps {
   data: AlbumType;
-  relatedData: RelatedDataType;
+  relatedData: RelatedDataType | null;
   relatedPath: string;
 }
 
@@ -17,10 +17,10 @@ const AlbumsDetailsPage: React.FC<AlbumsDetailsPageProps> = ({ data, relatedData
       },
       {
         name: "Владелец:",
-        content: data.userId,
+        content: (relatedData as UserType).name,
         type: "link",
+        url: relatedPath,
       },
-
       {
         name: "Название:",
         content: data.title,

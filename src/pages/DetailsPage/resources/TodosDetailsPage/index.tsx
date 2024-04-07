@@ -1,9 +1,9 @@
 import s from "./TodosDetailsPage.module.scss";
-import DetailsData from "../../_components/DetailsData";
+import DetailsData from "../../DetailsData";
 
 interface TodosDetailsPageProps {
   data: TodoType;
-  relatedData: RelatedDataType;
+  relatedData: RelatedDataType | null;
   relatedPath: string;
 }
 
@@ -17,8 +17,9 @@ const TodosDetailsPage: React.FC<TodosDetailsPageProps> = ({ data, relatedData, 
       },
       {
         name: "Автор:",
-        content: data.userId,
+        content: (relatedData as UserType).name,
         type: "link",
+        url: relatedPath,
       },
       {
         name: "Текст:",

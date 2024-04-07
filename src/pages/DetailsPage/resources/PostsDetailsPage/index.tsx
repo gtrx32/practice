@@ -1,9 +1,9 @@
 import s from "./PostsDetailsPage.module.scss";
-import DetailsData from "../../_components/DetailsData";
+import DetailsData from "../../DetailsData";
 
 interface PostsDetailsPageProps {
   data: PostType;
-  relatedData: RelatedDataType;
+  relatedData: RelatedDataType | null;
   relatedPath: string;
 }
 
@@ -17,8 +17,9 @@ const PostsDetailsPage: React.FC<PostsDetailsPageProps> = ({ data, relatedData, 
       },
       {
         name: "Автор:",
-        content: data.userId,
+        content: (relatedData as UserType).name,
         type: "link",
+        url: relatedPath,
       },
       {
         name: "Заголовок:",

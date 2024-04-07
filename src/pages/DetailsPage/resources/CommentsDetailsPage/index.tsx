@@ -1,9 +1,11 @@
 import s from "./CommentsDetailsPage.module.scss";
-import DetailsData from "../../_components/DetailsData";
+import DetailsData from "../../DetailsData";
+import { url } from "inspector";
+import { type } from "os";
 
 interface CommentsDetailsPageProps {
   data: CommentType;
-  relatedData: RelatedDataType;
+  relatedData: RelatedDataType | null;
   relatedPath: string;
 }
 
@@ -17,8 +19,9 @@ const CommentsDetailsPage: React.FC<CommentsDetailsPageProps> = ({ data, related
       },
       {
         name: "Пост:",
-        content: data.postId,
+        content: (relatedData as PostType).title,
         type: "link",
+        url: relatedPath,
       },
       {
         name: "Email автора:",

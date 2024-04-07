@@ -1,9 +1,9 @@
 import s from "./PhotosDetailsPage.module.scss";
-import DetailsData from "../../_components/DetailsData";
+import DetailsData from "../../DetailsData";
 
 interface PhotosDetailsPageProps {
   data: PhotoType;
-  relatedData: RelatedDataType;
+  relatedData: RelatedDataType | null;
   relatedPath: string;
 }
 
@@ -22,8 +22,9 @@ const PhotosDetailsPage: React.FC<PhotosDetailsPageProps> = ({ data, relatedData
       },
       {
         name: "Альбом:",
-        content: data.albumId,
+        content: (relatedData as AlbumType).title,
         type: "link",
+        url: relatedPath,
       },
       {
         name: "Превью:",
@@ -31,7 +32,7 @@ const PhotosDetailsPage: React.FC<PhotosDetailsPageProps> = ({ data, relatedData
         type: "image",
       },
       {
-        name: "Превью:",
+        name: "Изображение:",
         content: data.url,
         type: "image",
       },

@@ -26,7 +26,7 @@ export const useDetailsData = () => {
       .finally(() => {
         resourceName == "users" && setIsLoading(false);
       });
-  }, []);
+  }, [resourceName]);
 
   useEffect(() => {
     if (!data) return;

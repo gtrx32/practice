@@ -54,7 +54,6 @@ const TopPanel: React.FC<TopPanelProps> = ({ pageType, id }) => {
         </div>
       </div>
       <h1 className={s.title}>{title}</h1>
-      {resourceName === "users" && pageType === "details" && <UserLinks id={id} />}
     </div>
   );
 };
