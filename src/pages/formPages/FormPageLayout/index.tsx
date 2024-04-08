@@ -2,7 +2,6 @@ import React, { ReactNode } from "react";
 import TopPanel from "../../../components/TopPanel";
 import Container from "../../../components/UI/Container";
 import s from "./FormPageLayout.module.scss";
-import SaveButton from "../../../components/UI/SaveButton";
 
 interface FormPageLayoutProps {
   pageType: "edit" | "create";
@@ -16,7 +15,10 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({ pageType, children }) =
 
       <>{children}</>
 
-      <SaveButton onClick={() => {}}>Сохранить изменения &#62;&#62;&#62;</SaveButton>
+      {/* 
+        это нужно убрать в формы
+        <SaveButton type="submit" onClick={onSave}>Сохранить изменения &#62;&#62;&#62;</SaveButton>
+      */}
     </Container>
   );
 };
