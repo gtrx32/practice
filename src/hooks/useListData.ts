@@ -3,7 +3,7 @@ import mainApi from "../api/api";
 import getRelatedTable from "../utils/getRelatedTable";
 import ResourceNameContext from "../context/ResourceNameContext";
 
-export const useDataTable = () => {
+export const useListData = () => {
   const resourceName = useContext(ResourceNameContext);
   const relatedResourceName = getRelatedTable(resourceName);
 
@@ -26,4 +26,4 @@ export const useDataTable = () => {
   return { data, relatedData, isLoading, isError };
 };
 
-export default useDataTable;
+export default useListData;

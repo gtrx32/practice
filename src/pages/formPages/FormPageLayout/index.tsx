@@ -16,7 +16,7 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({ pageType, children }) =
 
       <>{children}</>
 
-      <SaveButton onClick={() => {}} />
+      <SaveButton onClick={() => {}}>Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </Container>
   );
 };
