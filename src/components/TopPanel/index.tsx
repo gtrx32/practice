@@ -1,25 +1,24 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import s from "./TopPanel.module.scss";
 import { titles } from "./types";
 import { useContext } from "react";
 import ModalIsOpenContext from "../../context/ModalIsOpenContext";
 import Button from "../UI/Button";
-import UserLinks from "../UserLinks";
 import clsx from "clsx";
 import ResourceNameContext from "../../context/ResourceNameContext";
 
 interface TopPanelProps {
   pageType: "details" | "edit" | "create";
-  id: string;
 }
 
-const TopPanel: React.FC<TopPanelProps> = ({ pageType, id }) => {
+const TopPanel: React.FC<TopPanelProps> = ({ pageType }) => {
   const navigate = useNavigate();
   const { setTarget, setModalIsOpen } = useContext(ModalIsOpenContext);
   const resourceName = useContext(ResourceNameContext);
+  const { id } = useParams();
 
   const onDeleteHandler = () => {
-    setTarget({ resourceName, id: id });
+    setTarget({ resourceName, id: id as string });
     setModalIsOpen(true);
   };
 

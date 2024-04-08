@@ -5,7 +5,7 @@ import DetailsPageLayout from "./DetailsPageLayout";
 import ResourceNameContext from "../../context/ResourceNameContext";
 
 const DetailsPage = () => {
-  const { data, resourceId, relatedData, relatedPath, isLoading, isError } = useDetailsData();
+  const { data, relatedData, relatedPath, isLoading, isError } = useDetailsData();
   const resourceName = useContext(ResourceNameContext);
 
   if (isError) return <div>error</div>;
@@ -15,7 +15,7 @@ const DetailsPage = () => {
   return (
     data &&
     (resourceName === "users" || relatedData) && (
-      <DetailsPageLayout data={data} resourceId={resourceId} relatedData={relatedData} relatedPath={relatedPath} />
+      <DetailsPageLayout data={data} relatedData={relatedData} relatedPath={relatedPath} />
     )
   );
 };

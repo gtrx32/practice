@@ -46,7 +46,7 @@ export const useDetailsData = () => {
     }
   }, [data]);
 
-  return { data, resourceId, relatedData, relatedPath, isLoading, isError };
+  return { data, relatedData, relatedPath, isLoading, isError };
 };
 
 export default useDetailsData;

@@ -21,7 +21,7 @@ const ListDataTable: React.FC<PropsWithChildren> = ({ children }) => {
       onRowClick={(event) => navigate(getDetailsPagePath(resourceName, event))}
       expandedRows={expandedRows}
       onRowToggle={(e) => setExpandedRows(e.data)}
-      rowExpansionTemplate={(rowData) => <UserLinks id={rowData["id"].toString()} />}
+      rowExpansionTemplate={() => <UserLinks />}
     >
       {children}
     </DataTable>

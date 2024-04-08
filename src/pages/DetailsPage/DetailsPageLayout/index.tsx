@@ -13,21 +13,20 @@ import TodosDetailsPage from "../resources/TodosDetailsPage";
 
 interface DetailsPageLayoutProps {
   data: DataType;
-  resourceId: string;
   relatedData: RelatedDataType | null;
   relatedPath: string;
 }
 
-const DetailsPageLayout: React.FC<DetailsPageLayoutProps> = ({ data, resourceId, relatedData, relatedPath }) => {
+const DetailsPageLayout: React.FC<DetailsPageLayoutProps> = ({ data, relatedData, relatedPath }) => {
   const resourceName = useContext(ResourceNameContext);
 
   return (
     <Container className={s.container}>
-      <TopPanel pageType="details" id={resourceId} />
+      <TopPanel pageType="details" />
 
       {resourceName === "users" && (
         <>
-          <UserLinks id={resourceId} />
+          <UserLinks />
           <UsersDetailsPage data={data as UserType} />
         </>
       )}

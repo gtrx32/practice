@@ -1,7 +1,5 @@
 import s from "./CommentsDetailsPage.module.scss";
 import DetailsData from "../../DetailsData";
-import { url } from "inspector";
-import { type } from "os";
 
 interface CommentsDetailsPageProps {
   data: CommentType;
