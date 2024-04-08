@@ -1,43 +1,18 @@
-import clsx from "clsx";
-import { useContext, useEffect, useState } from "react";
+import { PropsWithChildren } from "react";
 import s from "./Select.module.scss";
-import { SelectProps } from "./types";
-import CorrectInputContext from "../../../context/CorrectInputContext";
+import clsx from "clsx";
 
-const Select: React.FC<SelectProps> = ({
-  options,
-  defaultLabel,
-  defaultValue,
-  width = "100%",
-  className,
-  onChange,
-  children,
-}) => {
-  const [selectedValue, setSelectedValue] = useState(defaultValue);
-  const { setFields } = useContext(CorrectInputContext);
-  const [isCorrect, setIsCorrect] = useState(!!defaultValue);
+interface SelectProps extends PropsWithChildren {
+  options: { value: number; label: string }[];
+  width?: string;
+  className?: string;
+}
 
-  useEffect(() => {
-    setFields((prev) => ({ ...prev, select: isCorrect }));
-  }, [isCorrect]);
-
-  const onHandleChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(parseInt(target.value));
-    onChange?.(parseInt(target.value));
-    setIsCorrect(true);
-  };
-
+const Select: React.FC<SelectProps> = ({ options, width = "100%", className, children }) => {
   return (
     <div className={clsx(s.wrapper, className)} style={{ width: width }}>
       <div className={s.label}>{children}</div>
-      <select
-        className={clsx(s.select, !isCorrect && s.notCorrect)}
-        value={selectedValue || ""}
-        onChange={onHandleChange}
-      >
-        <option value="" disabled hidden>
-          {defaultLabel}
-        </option>
+      <select className={s.select}>
         {options?.map((option, index) => (
           <option key={index} value={option.value}>
             {option.label}
