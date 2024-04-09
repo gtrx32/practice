@@ -1,9 +1,9 @@
 import { createContext } from "react";
-import { FieldValues, FormState, UseFormRegister } from "react-hook-form";
+import { FormState, UseFormRegister } from "react-hook-form";
 
 interface FormRegisterContextType {
-  register: UseFormRegister<FieldValues> | null;
-  formState: FormState<FieldValues> | null;
+  register: UseFormRegister<DataType> | null;
+  formState: FormState<DataType> | null;
 }
 
 const defaultState: FormRegisterContextType = {

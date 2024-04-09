@@ -10,9 +10,10 @@ import FormPageLayout from "../FormPageLayout";
 const CreatePage: React.FC<PropsWithChildren> = ({ children }) => {
   const { relatedData, isLoading, isError } = useFormData({});
 
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState } = useForm<DataType>();
 
   const onSave = handleSubmit((data) => {
+    console.log(data);
     /* отправка запроса */
   });
 
