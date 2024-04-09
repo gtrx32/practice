@@ -1,6 +1,4 @@
-import { Option } from "react-multi-select-component";
-
-export const getFilters = (resourceName: string, data: RelatedDataType[]): Option[] => {
+export const getFilters = (resourceName: string, data: RelatedDataType[]): SelectOption[] => {
   if (Array.isArray(data))
     if (resourceName === "todos" || resourceName === "albums" || resourceName === "posts") {
       return (data as UserType[])?.map((item) => ({ value: item.id, label: item.name }));

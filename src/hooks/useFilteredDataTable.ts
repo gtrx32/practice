@@ -1,10 +1,9 @@
 import { useContext } from "react";
-import { Option } from "react-multi-select-component";
 import ResourceNameContext from "../context/ResourceNameContext";
 
 interface useFilteredDataTableProps {
   data: DataType[];
-  selectedFilters: Option[];
+  selectedFilters: SelectOption[];
 }
 
 export const useFilteredDataTable = ({ data, selectedFilters }: useFilteredDataTableProps) => {
@@ -15,7 +14,7 @@ export const useFilteredDataTable = ({ data, selectedFilters }: useFilteredDataT
     : data;
 };
 
-const AreEqual = (resourceName: string, item: any, option: Option): boolean => {
+const AreEqual = (resourceName: string, item: any, option: SelectOption): boolean => {
   switch (resourceName) {
     case "todos":
     case "albums":

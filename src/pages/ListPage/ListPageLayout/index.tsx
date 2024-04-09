@@ -5,7 +5,6 @@ import { PropsWithChildren, useContext, useState } from "react";
 import UpperPanel from "../_components/UpperPanel";
 import RelatedFilter from "../_components/RelatedFilter";
 import { SelectPlaceholders, getFilters } from "./types";
-import { Option } from "react-multi-select-component";
 import { useFilteredDataTable } from "../../../hooks/useFilteredDataTable";
 import Container from "../../../components/UI/Container";
 import ResourceNameContext from "../../../context/ResourceNameContext";
@@ -22,7 +21,7 @@ const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, related
   const endIndex = startIndex + rowsPerPage;
 
   const resourceName = useContext(ResourceNameContext);
-  const [selectedFilters, setSelectedFilters] = useState<Option[]>([]);
+  const [selectedFilters, setSelectedFilters] = useState<SelectOption[]>([]);
 
   const filteredData = useFilteredDataTable({ data, selectedFilters });
   const displayedData = filteredData.slice(startIndex, endIndex);
@@ -35,7 +34,7 @@ const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, related
         <RelatedFilter
           filters={getFilters(resourceName, relatedData)}
           placeholder={SelectPlaceholders[resourceName as keyof typeof SelectPlaceholders]}
-          onChange={(selected: Option[]) => setSelectedFilters(selected)}
+          onChange={(selected: SelectOption[]) => setSelectedFilters(selected)}
         />
       )}
 
