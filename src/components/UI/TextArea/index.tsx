@@ -1,17 +1,12 @@
-import { PropsWithChildren, useContext, useId } from "react";
 import s from "./TextArea.module.scss";
 import clsx from "clsx";
-import FormRegisterContext from "../../../context/FormRegisterContext/FormRegisterContext";
-
-interface TextAreaProps extends PropsWithChildren {
-  width?: string;
-  className?: string;
-  registerName?: string;
-}
+import { useId } from "react";
+import { TextAreaProps } from "./types";
+import { useFormContext } from "react-hook-form";
 
 const TextArea: React.FC<TextAreaProps> = ({ width = "100%", className, children, registerName }) => {
   const id = useId();
-  const { register } = useContext(FormRegisterContext);
+  const { control } = useFormContext();
 
   return (
     <div className={clsx(s.wrapper)} style={{ width: width }}>
@@ -20,11 +15,12 @@ const TextArea: React.FC<TextAreaProps> = ({ width = "100%", className, children
       </label>
       <textarea
         id={id}
-        {...(register && register(registerName as keyof DataType))}
+        {...(control && control.register(registerName as keyof DataType))}
         className={clsx(s.input, className)}
         placeholder="Введите данные"
-        style={{ height: "100px" }}
+        style={{ height: "100px" }} /*убрать в стили */
       ></textarea>
+      /* нужно дописать валидацию*/
     </div>
   );
 };

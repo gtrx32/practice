@@ -1,17 +1,12 @@
-import { PropsWithChildren, useContext, useId } from "react";
 import s from "./Input.module.scss";
 import clsx from "clsx";
-import FormRegisterContext from "../../../context/FormRegisterContext/FormRegisterContext";
-
-interface InputProps extends PropsWithChildren {
-  width?: string;
-  className?: string;
-  registerName?: string;
-}
+import { useId } from "react";
+import { InputProps } from "./types";
+import { useFormContext } from "react-hook-form";
 
 const Input: React.FC<InputProps> = ({ width = "100%", className, children, registerName }) => {
   const id = useId();
-  const { register } = useContext(FormRegisterContext);
+  const { control } = useFormContext();
 
   return (
     <div className={clsx(s.wrapper)} style={{ width: width }}>
@@ -20,10 +15,11 @@ const Input: React.FC<InputProps> = ({ width = "100%", className, children, regi
       </label>
       <input
         id={id}
-        {...(register && register(registerName as keyof DataType))}
+        {...(control && control.register(registerName as keyof DataType))}
         className={clsx(s.input, className)}
         placeholder="Введите данные"
       ></input>
+      /* нужно дописать валидацию*/
     </div>
   );
 };

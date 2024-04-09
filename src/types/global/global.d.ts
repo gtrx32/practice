@@ -54,3 +54,8 @@ declare type CommentType = {
   email: string;
   body: string;
 };
+
+declare type SelectOption = {
+  value: number;
+  label: string;
+};

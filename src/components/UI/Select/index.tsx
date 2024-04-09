@@ -1,28 +1,30 @@
-import { PropsWithChildren, useContext } from "react";
 import s from "./Select.module.scss";
 import clsx from "clsx";
-import FormRegisterContext from "../../../context/FormRegisterContext/FormRegisterContext";
+import ReactSelect from "react-select";
+import { Controller, useFormContext } from "react-hook-form";
+import { SelectProps, getValue } from "./types";
 
-interface SelectProps extends PropsWithChildren {
-  options: { value: number; label: string }[];
-  width?: string;
-  className?: string;
-  registerName?: string;
-}
-
-const Select: React.FC<SelectProps> = ({ options, width = "100%", className, children, registerName }) => {
-  const { register } = useContext(FormRegisterContext);
+const Select: React.FC<SelectProps> = ({ options, registerName, placeholder, width = "100%", className, children }) => {
+  const { control } = useFormContext();
 
   return (
     <div className={clsx(s.wrapper, className)} style={{ width: width }}>
       <div className={s.label}>{children}</div>
-      <select className={s.select} {...(register && register(registerName as keyof DataType))}>
-        {options?.map((option, index) => (
-          <option key={index} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+      <Controller
+        name={registerName}
+        control={control}
+        rules={{ required: "Это обязательное поле" }}
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
+          <ReactSelect
+          className={s.select}
+          options={options}
+          placeholder={placeholder}
+          value={getValue(value, options)}
+          onChange={(newValue) => onChange((newValue as SelectOption).value)}
+          ></ReactSelect>
+          /* нужно дописать валидацию*/
+        )}
+      />
     </div>
   );
 };

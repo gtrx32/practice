@@ -1,22 +1,18 @@
-import { PropsWithChildren, useContext, useId } from "react";
 import s from "./CheckBox.module.scss";
 import clsx from "clsx";
-import FormRegisterContext from "../../../context/FormRegisterContext/FormRegisterContext";
+import { useId } from "react";
+import { useFormContext } from "react-hook-form";
+import { CheckBoxProps } from "./types";
 
-interface CheckBoxProps extends PropsWithChildren {
-  className?: string;
-  registerName?: string;
-}
-
-const CheckBox: React.FC<CheckBoxProps> = ({ className, children, registerName }) => {
+const CheckBox: React.FC<CheckBoxProps> = ({ className, registerName, children }) => {
   const id = useId();
-  const { register } = useContext(FormRegisterContext);
+  const { control } = useFormContext();
 
   return (
     <label className={s.wrapper} htmlFor={id}>
       <input
         id={id}
-        {...(register && register(registerName as keyof DataType))}
+        {...(control && control.register(registerName as keyof DataType))}
         type="checkbox"
         className={clsx(s.input, className)}
       />

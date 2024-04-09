@@ -7,6 +7,7 @@ import Input from "../../../components/UI/Input";
 import CheckBox from "../../../components/UI/CheckBox";
 import TextArea from "../../../components/UI/TextArea";
 import Select from "../../../components/UI/Select";
+import FormDataContext from "../../../context/FormDataContext/FormDataContext";
 
 interface FormPageLayoutProps {
   pageType: "edit" | "create";
@@ -15,6 +16,7 @@ interface FormPageLayoutProps {
 
 const FormPageLayout: React.FC<FormPageLayoutProps> = ({ pageType, children }) => {
   const { onSave } = useContext(FormSubmitContext);
+  const { relatedData } = useContext(FormDataContext);
 
   return (
     <Container className={s.container}>
@@ -33,12 +35,9 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({ pageType, children }) =
         <CheckBox registerName="completed">helo</CheckBox>
         <TextArea registerName="body">bade</TextArea>
         <Select
+          placeholder="Автор"
           registerName="userId"
-          options={[
-            { value: 1, label: "odin" },
-            { value: 2, label: "dva" },
-            { value: 3, label: "tri" },
-          ]}
+          options={(relatedData as UserType[]).map((item) => ({ value: item.id, label: item.name }))}
         ></Select>
         <button type="submit">asgasg</button>
       </form>

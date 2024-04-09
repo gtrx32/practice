@@ -22,7 +22,8 @@
     "react-hook-form": "^7.51.2",
     "react-multi-select-component": "^4.3.4",
     "react-router-dom": "^6.22.1",
-    "react-scrolllock": "^5.0.1"
+    "react-scrolllock": "^5.0.1",
+    "react-select": "^5.8.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
