@@ -6,6 +6,7 @@ import FormSubmitContext from "../../../context/FormSubmitContext/FormSubmitCont
 import Input from "../../../components/UI/Input";
 import CheckBox from "../../../components/UI/CheckBox";
 import TextArea from "../../../components/UI/TextArea";
+import Select from "../../../components/UI/Select";
 
 interface FormPageLayoutProps {
   pageType: "edit" | "create";
@@ -31,6 +32,14 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({ pageType, children }) =
         <Input registerName="title">имя</Input>
         <CheckBox registerName="completed">helo</CheckBox>
         <TextArea registerName="body">bade</TextArea>
+        <Select
+          registerName="userId"
+          options={[
+            { value: 1, label: "odin" },
+            { value: 2, label: "dva" },
+            { value: 3, label: "tri" },
+          ]}
+        ></Select>
         <button type="submit">asgasg</button>
       </form>
     </Container>
