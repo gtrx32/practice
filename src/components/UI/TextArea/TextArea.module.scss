@@ -26,6 +26,7 @@
   }
 
   .input {
+    display: block;
     max-width: 100%;
     min-width: 100%;
     resize: none;
@@ -35,6 +36,7 @@
     padding: 8px;
     border: none;
     background-color: var(--background-color);
+    height: 100px;
 
     color: var(--text-color);
     &::placeholder {

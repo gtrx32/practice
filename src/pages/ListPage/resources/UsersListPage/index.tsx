@@ -10,7 +10,7 @@ const UsersListPage: React.FC<UsersListPageProps> = () => {
   return (
     <ListPage>
       <ListDataTable>
-        <Column expander={true} className={s.expander} />
+        <Column expander={true} />
         <Column header="ID" field="id" style={{ maxWidth: "70px" }} />
         <Column header="Имя" field="name" style={{ maxWidth: "190px" }} />
         <Column header="Никнейм" field="username" style={{ maxWidth: "190px" }} />

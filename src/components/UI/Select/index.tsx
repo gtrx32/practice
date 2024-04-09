@@ -22,7 +22,6 @@ const Select: React.FC<SelectProps> = ({ options, registerName, placeholder, wid
             value={getValue(value, options)}
             onChange={(newValue) => onChange((newValue as SelectOption).value)}
           ></ReactSelect>
-          /* нужно дописать валидацию*/
         )}
       />
     </div>

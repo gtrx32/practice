@@ -19,7 +19,6 @@ const Input: React.FC<InputProps> = ({ width = "100%", className, children, regi
         className={clsx(s.input, className)}
         placeholder="Введите данные"
       ></input>
-      /* нужно дописать валидацию*/
     </div>
   );
 };

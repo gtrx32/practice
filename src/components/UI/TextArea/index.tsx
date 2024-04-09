@@ -18,9 +18,7 @@ const TextArea: React.FC<TextAreaProps> = ({ width = "100%", className, children
         {...(control && control.register(registerName as keyof DataType))}
         className={clsx(s.input, className)}
         placeholder="Введите данные"
-        style={{ height: "100px" }} /*убрать в стили */
       ></textarea>
-      /* нужно дописать валидацию*/
     </div>
   );
 };

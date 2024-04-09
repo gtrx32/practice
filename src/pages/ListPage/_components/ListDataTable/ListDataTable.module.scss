@@ -60,6 +60,10 @@
     font-size: 15px;
     font-weight: 400;
     color: var(--table-text-color);
+
+    svg[class="p-icon p-row-toggler-icon"] > path {
+      fill: var(--userExpand-color);
+    }
   }
 
   tbody[class="p-datatable-tbody"] {
