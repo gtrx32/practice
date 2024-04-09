@@ -38,7 +38,9 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({ pageType, children }) =
           placeholder="Автор"
           registerName="userId"
           options={(relatedData as UserType[]).map((item) => ({ value: item.id, label: item.name }))}
-        ></Select>
+        >
+          asgasgadg
+        </Select>
         <button type="submit">asgasg</button>
       </form>
     </Container>

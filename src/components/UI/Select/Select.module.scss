@@ -25,22 +25,63 @@
   }
 
   .select {
-    max-width: 100%;
-    min-width: 100%;
     font-family: "Jost";
     font-size: 15px;
-    outline: none;
-    padding: 5.5px;
-    border: none;
+    padding: 1px;
+    color: var(--text-color) !important;
     background-color: var(--background-color);
-    color: var(--text-color);
 
-    option {
-      color: var(--text-color);
+    div[class=" css-t3ipsp-control"],
+    div[class=" css-13cymwt-control"] {
+      box-shadow: none;
+      transition-property: color, background-color, border-color, fill;
+      transition-duration: 0.5s;
+      transition-timing-function: ease;
+      background-color: var(--background-color);
+      border: none;
+      border-radius: 0;
+
+      div[class=" css-art2ul-ValueContainer2"] {
+        cursor: text;
+
+        div[class=" css-1dimb5e-singleValue"] {
+          color: var(--text-color) !important;
+        }
+
+        input {
+          color: var(--text-color) !important;
+        }
+      }
+
+      div[class=" css-4xgw5l-IndicatorsContainer2"] {
+        cursor: pointer;
+
+        span[class=" css-1u9des2-indicatorSeparator"] {
+          display: none;
+        }
+
+        svg > path {
+          fill: var(--form-select-color);
+        }
+      }
     }
 
-    &::placeholder {
-      color: var(--color-gray);
+    div[class=" css-1nmdiq5-menu"] {
+      background-color: var(--ui-color);
+
+      div[role="listbox"] {
+        padding: 0;
+
+        div[role="option"] {
+          color: var(--text-color) !important;
+          background-color: var(--background-color);
+          cursor: pointer;
+
+          &:hover {
+            background-color: var(--form-selectHover-color);
+          }
+        }
+      }
     }
   }
 }

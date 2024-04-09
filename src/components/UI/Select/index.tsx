@@ -16,11 +16,11 @@ const Select: React.FC<SelectProps> = ({ options, registerName, placeholder, wid
         rules={{ required: "Это обязательное поле" }}
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <ReactSelect
-          className={s.select}
-          options={options}
-          placeholder={placeholder}
-          value={getValue(value, options)}
-          onChange={(newValue) => onChange((newValue as SelectOption).value)}
+            className={s.select}
+            options={options}
+            placeholder={placeholder}
+            value={getValue(value, options)}
+            onChange={(newValue) => onChange((newValue as SelectOption).value)}
           ></ReactSelect>
           /* нужно дописать валидацию*/
         )}

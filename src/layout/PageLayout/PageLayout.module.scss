@@ -37,6 +37,8 @@
     --closeFilterIcon-color: #2d2b2a;
     --userExpand-color: #2d2b2a;
     --checkbox-color: #2d2b2a;
+    --form-select-color: #2d2b2a;
+    --form-selectHover-color: #bcb8b8;
   }
 
   &[data-theme="dark"] {
@@ -70,6 +72,8 @@
     --closeFilterIcon-color: #ffffff;
     --userExpand-color: #ffffff;
     --checkbox-color: #ffffff;
+    --form-select-color: #ffffff;
+    --form-selectHover-color: #5e5e5e;
   }
 }
 
