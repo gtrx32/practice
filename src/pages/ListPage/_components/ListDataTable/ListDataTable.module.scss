@@ -61,8 +61,13 @@
     font-weight: 400;
     color: var(--table-text-color);
 
-    svg[class="p-icon p-row-toggler-icon"] > path {
-      fill: var(--userExpand-color);
+    button[class="p-row-toggler p-link"] {
+      border: none;
+      background-color: transparent;
+
+      svg[class="p-icon p-row-toggler-icon"] > path {
+        fill: var(--userExpand-color);
+      }
     }
   }
 
