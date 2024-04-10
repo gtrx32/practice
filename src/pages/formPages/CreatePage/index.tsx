@@ -5,11 +5,12 @@ import FormDataContext from "../../../context/FormDataContext/FormDataContext";
 import { FormProvider, useForm } from "react-hook-form";
 import FormSubmitContext from "../../../context/FormSubmitContext/FormSubmitContext";
 import FormPageLayout from "../FormPageLayout";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const CreatePage: React.FC<PropsWithChildren> = ({ children }) => {
   const { relatedData, isLoading, isError } = useFormData({});
 
-  const form = useForm<DataType>();
+  const form = useForm<DataType>(/* resolver: zodResolver(getResourceSchema()) */);
 
   const onSave = form.handleSubmit((data) => {
     console.log(data);

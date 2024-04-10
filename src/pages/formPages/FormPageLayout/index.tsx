@@ -9,6 +9,14 @@ import TextArea from "../../../components/UI/TextArea";
 import Select from "../../../components/UI/Select";
 import FormDataContext from "../../../context/FormDataContext/FormDataContext";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
+export const schema = z.object({
+  title: z.string().min(5, { message: "Required" }),
+  userId: z.number().min(1, { message: "Required" }),
+});
+
 interface FormPageLayoutProps {
   pageType: "edit" | "create";
   children: ReactNode;

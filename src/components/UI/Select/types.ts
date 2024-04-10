@@ -5,7 +5,6 @@ export interface SelectProps extends PropsWithChildren {
   registerName: string;
   placeholder: string;
   width?: string;
-  className?: string;
 }
 
 export const getValue = (value: string, options: SelectOption[]) =>

@@ -15,16 +15,25 @@
     border-left: 15px solid transparent;
     border-top: 15px solid var(--background-color);
   }
-
   .label {
-    font-family: "Furore";
-    font-size: 14px;
-    padding: 10px;
-    width: 100%;
-    cursor: pointer;
-    color: var(--text-color);
-  }
+    display: flex;
+    justify-content: left;
+    align-items: center;
 
+    .labelText {
+      font-family: "Furore";
+      font-size: 14px;
+      padding: 10px;
+      cursor: pointer;
+      color: var(--text-color);
+    }
+
+    .error {
+      color: rgb(223, 24, 24);
+      font-family: "Jost";
+      padding: 3px;
+    }
+  }
   .input {
     display: block;
     max-width: 100%;

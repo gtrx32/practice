@@ -1,20 +1,25 @@
 import s from "./Select.module.scss";
-import clsx from "clsx";
 import ReactSelect from "react-select";
 import { Controller, useFormContext } from "react-hook-form";
 import { SelectProps, getValue } from "./types";
 
-const Select: React.FC<SelectProps> = ({ options, registerName, placeholder, width = "100%", className, children }) => {
-  const { control } = useFormContext();
+const Select: React.FC<SelectProps> = ({ options, registerName, placeholder, width = "100%", children }) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
 
   return (
-    <div className={clsx(s.wrapper, className)} style={{ width: width }}>
-      <div className={s.label}>{children}</div>
+    <div className={s.wrapper} style={{ width: width }}>
+      <div className={s.label}>
+        <div className={s.labelText}>{children}</div>
+        {errors[registerName]?.message && <p className={s.error}>{errors[registerName]?.message as string}</p>}
+      </div>
       <Controller
         name={registerName}
         control={control}
         rules={{ required: "Это обязательное поле" }}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
+        render={({ field: { onChange, value } }) => (
           <ReactSelect
             className={s.select}
             options={options}
