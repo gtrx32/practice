@@ -10,20 +10,27 @@ export const usersSchema = z.object({
   name: z.string().min(1, { message: "Это обязательное поле" }),
   username: z.string().min(1, { message: "Это обязательное поле" }),
   email: z.string().min(1, { message: "Это обязательное поле" }).email("Некорректный адрес электронной почты"),
-  website: z.string().min(1, { message: "Это обязательное поле" }).url("Некорректный URL-адрес"),
+  website: z
+    .string()
+    .min(1, { message: "Это обязательное поле" })
+    .regex(/^((ftp|http|https):\/\/)?(www\.)?([A-z]+)\.([A-z]{2,})/, { message: "Некорректный URL-адрес" }),
   phone: z
     .string()
     .min(1, { message: "Это обязательное поле" })
     .regex(/^(?:(?:\d{1,2}-)?\(?\d{3}\)?[-. ]?)?\d{3}[-. ]?\d{4}(?:\s*(?:x|ext)\s*\d+)?$/, {
       message: "Некорректный номер телефона",
     }),
-  "address.zipcode": z
-    .string()
-    .min(1, { message: "Это обязательное поле" })
-    .regex(/^\d{5}-?\d{0,4}$/, { message: "Некорректный индекс" }),
-  "address.city": z.string().min(1, { message: "Это обязательное поле" }),
-  "address.street": z.string().min(1, { message: "Это обязательное поле" }),
-  "company.name": z.string().min(1, { message: "Это обязательное поле" }),
+  address: z.object({
+    zipcode: z
+      .string()
+      .min(1, { message: "Это обязательное поле" })
+      .regex(/^\d{5}-?\d{0,4}$/, { message: "Некорректный индекс" }),
+    city: z.string().min(1, { message: "Это обязательное поле" }),
+    street: z.string().min(1, { message: "Это обязательное поле" }),
+  }),
+  company: z.object({
+    name: z.string().min(1, { message: "Это обязательное поле" }),
+  }),
 });
 
 const UsersForm = () => {
