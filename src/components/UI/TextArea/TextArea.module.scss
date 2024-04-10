@@ -4,6 +4,7 @@
   display: inline-block;
   position: relative;
   max-width: 890px;
+  width: 100%;
 
   &::after {
     content: "";
@@ -15,6 +16,7 @@
     border-left: 15px solid transparent;
     border-top: 15px solid var(--background-color);
   }
+
   .label {
     display: flex;
     justify-content: left;
@@ -45,7 +47,7 @@
     padding: 8px;
     border: none;
     background-color: var(--background-color);
-    height: 100px;
+    height: 170px;
 
     color: var(--text-color);
     &::placeholder {

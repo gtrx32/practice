@@ -3,14 +3,14 @@ import ReactSelect from "react-select";
 import { Controller, useFormContext } from "react-hook-form";
 import { SelectProps, getValue } from "./types";
 
-const Select: React.FC<SelectProps> = ({ options, registerName, placeholder, width = "100%", children }) => {
+const Select: React.FC<SelectProps> = ({ options, registerName, placeholder, children }) => {
   const {
     control,
     formState: { errors },
   } = useFormContext();
 
   return (
-    <div className={s.wrapper} style={{ width: width }}>
+    <div className={s.wrapper}>
       <div className={s.label}>
         <div className={s.labelText}>{children}</div>
         {errors[registerName]?.message && <p className={s.error}>{errors[registerName]?.message as string}</p>}

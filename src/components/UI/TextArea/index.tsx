@@ -3,7 +3,7 @@ import { useId } from "react";
 import { TextAreaProps } from "./types";
 import { useFormContext } from "react-hook-form";
 
-const TextArea: React.FC<TextAreaProps> = ({ width = "100%", children, registerName }) => {
+const TextArea: React.FC<TextAreaProps> = ({ children, registerName }) => {
   const id = useId();
   const {
     control,
@@ -11,7 +11,7 @@ const TextArea: React.FC<TextAreaProps> = ({ width = "100%", children, registerN
   } = useFormContext();
 
   return (
-    <div className={s.wrapper} style={{ width: width }}>
+    <div className={s.wrapper}>
       <label className={s.label} htmlFor={id}>
         <div className={s.labelText}>{children}</div>
         {errors[registerName]?.message && <p className={s.error}>{errors[registerName]?.message as string}</p>}

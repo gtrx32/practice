@@ -1,9 +1,8 @@
 .wrapper {
   background-color: var(--ui-color);
   padding: 2px;
-  display: inline-block;
   position: relative;
-  max-width: 890px;
+  width: 100%;
 
   &::after {
     content: "";

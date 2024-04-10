@@ -1,6 +1,6 @@
-import ListPage from "../..";
 import { Column } from "primereact/column";
-import s from "../overall.module.scss";
+import ListPage from "../..";
+import s from "../_shared/shared.module.scss";
 import ListDataTable from "../../_components/ListDataTable";
 import CustomBodyTemplate from "../../_components/CustomBodyTemplate";
 

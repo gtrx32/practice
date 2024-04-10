@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import useFormData from "../../../hooks/useFormData";
@@ -7,13 +7,17 @@ import { FormProvider, useForm } from "react-hook-form";
 import FormSubmitContext from "../../../context/FormSubmitContext/FormSubmitContext";
 import FormPageLayout from "../FormPageLayout";
 import { zodResolver } from "@hookform/resolvers/zod";
+import getResourceSchema from "../FormPageLayout/forms/_shared/getSchema";
+import ResourceNameContext from "../../../context/ResourceNameContext";
 
 const EditPage: React.FC<PropsWithChildren> = ({ children }) => {
   const { id } = useParams();
   const { data, relatedData, isLoading, isError } = useFormData({ dataId: id });
+  const resourceName = useContext(ResourceNameContext);
 
   const form = useForm<DataType>({
-    defaultValues: data || undefined /*, resolver: zodResolver(getResourceSchema()) */,
+    defaultValues: data || undefined,
+    resolver: zodResolver(getResourceSchema(resourceName)),
   });
 
   const onSave = form.handleSubmit((data) => {
