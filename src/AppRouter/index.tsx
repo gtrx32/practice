@@ -4,7 +4,7 @@ import LoginPage from "../pages/LoginPage";
 import CreatePage from "../pages/FormPages/CreatePage";
 import EditPage from "../pages/FormPages/EditPage";
 import DetailsPage from "../pages/DetailsPage";
-import { resourceListPages } from "./types";
+import { resourceCreatePages, resourceEditPages, resourceListPages } from "./types";
 import ResourceNameContext from "../context/ResourceNameContext";
 
 const AppRouter = () => (
@@ -25,6 +25,8 @@ export default AppRouter;
 
 export const defineResource = (resourceName: string) => {
   const ResourceListPage = resourceListPages[resourceName];
+  const ResourceEditPage = resourceEditPages[resourceName];
+  const ResourceCreatePage = resourceCreatePages[resourceName];
 
   return (
     <Route path={`/${resourceName}`}>
@@ -48,7 +50,7 @@ export const defineResource = (resourceName: string) => {
         path=":id/edit"
         element={
           <ResourceNameContext.Provider value={resourceName}>
-            <EditPage />
+            <ResourceEditPage />
           </ResourceNameContext.Provider>
         }
       />
@@ -56,7 +58,7 @@ export const defineResource = (resourceName: string) => {
         path="create"
         element={
           <ResourceNameContext.Provider value={resourceName}>
-            <CreatePage />
+            <ResourceCreatePage />
           </ResourceNameContext.Provider>
         }
       />
