@@ -2,7 +2,8 @@ import { PropsWithChildren } from "react";
 
 export interface SelectProps extends PropsWithChildren {
   options: SelectOption[];
-  registerName: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  registerName: any;
   placeholder: string;
 }
 

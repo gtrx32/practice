@@ -1,27 +1,25 @@
 import s from "./TextArea.module.scss";
 import { useId } from "react";
 import { TextAreaProps } from "./types";
-import { useFormContext } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 
 const TextArea: React.FC<TextAreaProps> = ({ children, registerName }) => {
   const id = useId();
+
+  const { control } = useFormContext<FormData>();
+
   const {
-    control,
-    formState: { errors },
-  } = useFormContext();
+    field,
+    fieldState: { error },
+  } = useController({ name: registerName, control, defaultValue: "" });
 
   return (
     <div className={s.wrapper}>
       <label className={s.label} htmlFor={id}>
         <div className={s.labelText}>{children}</div>
-        {errors[registerName]?.message && <p className={s.error}>{errors[registerName]?.message as string}</p>}
+        {error?.message && <p className={s.error}>{error.message}</p>}
       </label>
-      <textarea
-        id={id}
-        {...(control && control.register(registerName as keyof DataType))}
-        className={s.input}
-        placeholder="Введите данные"
-      ></textarea>
+      <textarea id={id} {...field} className={s.input} placeholder="Введите данные"></textarea>
     </div>
   );
 };

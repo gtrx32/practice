@@ -9,7 +9,7 @@ import Input from "../../../../../components/UI/Input";
 import s from "../_shared/shared.module.scss";
 
 export const postsSchema = z.object({
-  userId: z.any().refine((value) => value !== undefined, { message: "Это обязательное поле" }),
+  userId: z.any().refine((value) => value !== undefined && value !== "", { message: "Это обязательное поле" }),
   title: z.string().min(1, { message: "Это обязательное поле" }),
   body: z.string().min(1, { message: "Это обязательное поле" }),
 });
