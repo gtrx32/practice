@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useContext } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import useDetailsData from "../../hooks/useDetailsData";
-import DetailsPageLayout from "./DetailsPageLayout";
+import DetailsPageLayout from "./_components/DetailsPageLayout";
 import ResourceNameContext from "../../context/ResourceNameContext";
 import { useParams } from "react-router-dom";
 

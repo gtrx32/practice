@@ -1,5 +1,5 @@
 import DetailsPage from "../..";
-import AlbumsDetails from "../../details/AlbumsDetails";
+import AlbumsDetails from "../../_components/details/AlbumsDetails";
 
 const AlbumsDetailsPage = () => (
   <DetailsPage>
