@@ -6,6 +6,7 @@ import FormDataContext from "../../../../../context/FormDataContext/FormDataCont
 import FormSubmitContext from "../../../../../context/FormSubmitContext/FormSubmitContext";
 import Select from "../../../../../components/UI/Select";
 import Input from "../../../../../components/UI/Input";
+import s from "../_shared/shared.module.scss";
 
 export const postsSchema = z.object({
   userId: z.any().refine((value) => value !== undefined, { message: "Это обязательное поле" }),
@@ -18,16 +19,18 @@ const PostsForm = () => {
   const { relatedData } = useContext(FormDataContext);
 
   return (
-    <form onSubmit={onSave}>
-      <Select
-        placeholder="Автор"
-        registerName="userId"
-        options={(relatedData as UserType[]).map((item) => ({ value: item.id, label: item.name }))}
-      >
-        Выберите автора
-      </Select>
-      <Input registerName="title">Заголовок</Input>
-      <TextArea registerName="body">Текст поста</TextArea>
+    <form className={s.form} onSubmit={onSave}>
+      <div className={s.block}>
+        <Select
+          placeholder="Автор"
+          registerName="userId"
+          options={(relatedData as UserType[]).map((item) => ({ value: item.id, label: item.name }))}
+        >
+          Выберите автора
+        </Select>
+        <Input registerName="title">Заголовок</Input>
+        <TextArea registerName="body">Текст поста</TextArea>
+      </div>
       <SaveButton type="submit">Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </form>
   );

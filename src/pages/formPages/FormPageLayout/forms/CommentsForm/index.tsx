@@ -6,6 +6,7 @@ import FormSubmitContext from "../../../../../context/FormSubmitContext/FormSubm
 import Input from "../../../../../components/UI/Input";
 import Select from "../../../../../components/UI/Select";
 import TextArea from "../../../../../components/UI/TextArea";
+import s from "../_shared/shared.module.scss";
 
 export const commentsSchema = z.object({
   postId: z.any().refine((value) => value !== undefined, { message: "Это обязательное поле" }),
@@ -18,18 +19,20 @@ const CommentsForm = () => {
   const { relatedData } = useContext(FormDataContext);
 
   return (
-    <form onSubmit={onSave}>
-      <Select
-        placeholder="Пост"
-        registerName="postId"
-        options={(relatedData as PostType[]).map((item) => ({ value: item.id, label: item.title }))}
-      >
-        Выберите пост
-      </Select>
-      <Input registerName="email" maxWidth="440px">
-        Email автора
-      </Input>
-      <TextArea registerName="body">Текст комментария</TextArea>
+    <form className={s.form} onSubmit={onSave}>
+      <div className={s.block}>
+        <Select
+          placeholder="Пост"
+          registerName="postId"
+          options={(relatedData as PostType[]).map((item) => ({ value: item.id, label: item.title }))}
+        >
+          Выберите пост
+        </Select>
+        <Input registerName="email" maxWidth="440px">
+          Email автора
+        </Input>
+        <TextArea registerName="body">Текст комментария</TextArea>
+      </div>
       <SaveButton type="submit">Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </form>
   );

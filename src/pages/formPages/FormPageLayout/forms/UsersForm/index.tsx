@@ -37,7 +37,7 @@ const UsersForm = () => {
   const { onSave } = useContext(FormSubmitContext);
 
   return (
-    <form onSubmit={onSave}>
+    <form className={s.form} onSubmit={onSave}>
       <div className={s.block}>
         <Input registerName="name" maxWidth="440px">
           ФИО

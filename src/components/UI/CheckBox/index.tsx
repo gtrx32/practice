@@ -11,7 +11,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({ registerName, children }) => {
   } = useFormContext();
 
   return (
-    <label className={s.wrapper} htmlFor={id}>
+    <div className={s.wrapper}>
       <input
         id={id}
         {...(control && control.register(registerName as keyof DataType))}
@@ -25,7 +25,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({ registerName, children }) => {
         {children}
       </label>
       {errors[registerName]?.message && <p className={s.error}>{errors[registerName]?.message as string}</p>}
-    </label>
+    </div>
   );
 };
 export default CheckBox;

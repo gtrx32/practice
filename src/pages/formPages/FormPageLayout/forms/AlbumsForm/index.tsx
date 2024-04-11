@@ -5,6 +5,7 @@ import FormDataContext from "../../../../../context/FormDataContext/FormDataCont
 import FormSubmitContext from "../../../../../context/FormSubmitContext/FormSubmitContext";
 import Input from "../../../../../components/UI/Input";
 import Select from "../../../../../components/UI/Select";
+import s from "../_shared/shared.module.scss";
 
 export const albumsSchema = z.object({
   title: z.string().min(1, { message: "Это обязательное поле" }),
@@ -16,15 +17,17 @@ const AlbumsForm = () => {
   const { relatedData } = useContext(FormDataContext);
 
   return (
-    <form onSubmit={onSave}>
-      <Select
-        placeholder="Владелец"
-        registerName="userId"
-        options={(relatedData as UserType[]).map((item) => ({ value: item.id, label: item.name }))}
-      >
-        Выберите владельца
-      </Select>
-      <Input registerName="title">Название</Input>
+    <form className={s.form} onSubmit={onSave}>
+      <div className={s.block}>
+        <Select
+          placeholder="Владелец"
+          registerName="userId"
+          options={(relatedData as UserType[]).map((item) => ({ value: item.id, label: item.name }))}
+        >
+          Выберите владельца
+        </Select>
+        <Input registerName="title">Название</Input>
+      </div>
       <SaveButton type="submit">Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </form>
   );

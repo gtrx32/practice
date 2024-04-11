@@ -49,6 +49,8 @@
 
     div[class=" css-t3ipsp-control"],
     div[class=" css-13cymwt-control"] {
+      max-height: 32px;
+      min-height: 32px;
       box-shadow: none;
       transition-property: color, background-color, border-color, fill;
       transition-duration: 0.5s;
