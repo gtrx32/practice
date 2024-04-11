@@ -6,16 +6,20 @@ import { CheckBoxProps } from "./types";
 const CheckBox: React.FC<CheckBoxProps> = ({ registerName, children }) => {
   const id = useId();
 
-  const { control } = useFormContext<FormData>();
+  const { control } = useFormContext();
 
   const {
-    field,
     fieldState: { error },
-  } = useController({ name: registerName, control, defaultValue: false });
+  } = useController({ name: registerName, control });
 
   return (
     <div className={s.wrapper}>
-      <input id={id} {...field} type="checkbox" className={s.input} />
+      <input
+        id={id}
+        {...(control && control.register(registerName as keyof DataType))}
+        type="checkbox"
+        className={s.input}
+      />
       <label className={s.checkbox} htmlFor={id}>
         <div className={s.dot} />
       </label>
