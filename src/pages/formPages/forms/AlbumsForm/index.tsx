@@ -1,10 +1,10 @@
 import { z } from "zod";
-import SaveButton from "../../../../../components/UI/SaveButton";
+import SaveButton from "../../../../components/UI/SaveButton";
 import { useContext } from "react";
-import FormDataContext from "../../../../../context/FormDataContext/FormDataContext";
-import FormSubmitContext from "../../../../../context/FormSubmitContext/FormSubmitContext";
-import Input from "../../../../../components/UI/Input";
-import Select from "../../../../../components/UI/Select";
+import FormDataContext from "../../../../context/FormDataContext";
+import SaveFormContext from "../../../../context/SaveFormContext";
+import Input from "../../../../components/UI/Input";
+import Select from "../../../../components/UI/Select";
 import s from "../_shared/shared.module.scss";
 
 export const albumsSchema = z.object({
@@ -13,7 +13,7 @@ export const albumsSchema = z.object({
 });
 
 const AlbumsForm = () => {
-  const { onSave } = useContext(FormSubmitContext);
+  const { onSave } = useContext(SaveFormContext);
   const { relatedData } = useContext(FormDataContext);
 
   return (

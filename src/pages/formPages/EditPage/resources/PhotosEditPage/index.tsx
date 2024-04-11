@@ -1,5 +1,5 @@
 import EditPage from "../..";
-import PhotosForm from "../../../FormPageLayout/forms/PhotosForm";
+import PhotosForm from "../../../forms/PhotosForm";
 
 const PhotosEditPage = () => (
   <EditPage>

@@ -1,5 +1,5 @@
 import EditPage from "../..";
-import UsersForm from "../../../FormPageLayout/forms/UsersForm";
+import UsersForm from "../../../forms/UsersForm";
 
 const UsersEditPage = () => (
   <EditPage>

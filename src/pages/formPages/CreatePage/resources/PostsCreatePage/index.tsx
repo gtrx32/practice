@@ -1,5 +1,5 @@
 import CreatePage from "../..";
-import PostsForm from "../../../FormPageLayout/forms/PostsForm";
+import PostsForm from "../../../forms/PostsForm";
 
 const PostsCreatePage = () => (
   <CreatePage>

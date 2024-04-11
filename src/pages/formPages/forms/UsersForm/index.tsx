@@ -1,9 +1,9 @@
-import Input from "../../../../../components/UI/Input";
+import Input from "../../../../components/UI/Input";
 import { useContext } from "react";
 import { z } from "zod";
-import SaveButton from "../../../../../components/UI/SaveButton";
-import TextArea from "../../../../../components/UI/TextArea";
-import FormSubmitContext from "../../../../../context/FormSubmitContext/FormSubmitContext";
+import SaveButton from "../../../../components/UI/SaveButton";
+import TextArea from "../../../../components/UI/TextArea";
+import SaveFormContext from "../../../../context/SaveFormContext";
 import s from "../_shared/shared.module.scss";
 
 export const usersSchema = z.object({
@@ -35,7 +35,7 @@ export const usersSchema = z.object({
 });
 
 const UsersForm = () => {
-  const { onSave } = useContext(FormSubmitContext);
+  const { onSave } = useContext(SaveFormContext);
 
   return (
     <form className={s.form} onSubmit={onSave}>

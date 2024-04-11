@@ -1,12 +1,12 @@
-import Select from "../../../../../components/UI/Select";
-import Input from "../../../../../components/UI/Input";
+import Select from "../../../../components/UI/Select";
+import Input from "../../../../components/UI/Input";
 import { useContext } from "react";
 import { z } from "zod";
-import SaveButton from "../../../../../components/UI/SaveButton";
-import FormDataContext from "../../../../../context/FormDataContext/FormDataContext";
-import FormSubmitContext from "../../../../../context/FormSubmitContext/FormSubmitContext";
+import SaveButton from "../../../../components/UI/SaveButton";
+import FormDataContext from "../../../../context/FormDataContext";
+import SaveFormContext from "../../../../context/SaveFormContext";
 import s from "../_shared/shared.module.scss";
-import ImageUploader from "../../../../../components/UI/ImageUploader";
+import ImageUploader from "../../../../components/UI/ImageUploader";
 
 export const photosSchema = z.object({
   title: z.string().min(1, { message: "Это обязательное поле" }),
@@ -15,7 +15,7 @@ export const photosSchema = z.object({
 });
 
 const PhotosForm = () => {
-  const { onSave } = useContext(FormSubmitContext);
+  const { onSave } = useContext(SaveFormContext);
   const { relatedData } = useContext(FormDataContext);
 
   return (

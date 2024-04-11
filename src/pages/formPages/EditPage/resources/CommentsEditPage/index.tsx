@@ -1,5 +1,5 @@
 import EditPage from "../..";
-import CommentsForm from "../../../FormPageLayout/forms/CommentsForm";
+import CommentsForm from "../../../forms/CommentsForm";
 
 const CommentsEditPage = () => (
   <EditPage>

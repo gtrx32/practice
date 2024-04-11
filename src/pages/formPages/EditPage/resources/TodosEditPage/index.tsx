@@ -1,5 +1,5 @@
 import EditPage from "../..";
-import TodosForm from "../../../FormPageLayout/forms/TodosForm";
+import TodosForm from "../../../forms/TodosForm";
 
 const TodosEditPage = () => (
   <EditPage>

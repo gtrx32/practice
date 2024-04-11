@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { z } from "zod";
-import SaveButton from "../../../../../components/UI/SaveButton";
-import FormDataContext from "../../../../../context/FormDataContext/FormDataContext";
-import FormSubmitContext from "../../../../../context/FormSubmitContext/FormSubmitContext";
-import Input from "../../../../../components/UI/Input";
-import Select from "../../../../../components/UI/Select";
-import TextArea from "../../../../../components/UI/TextArea";
+import SaveButton from "../../../../components/UI/SaveButton";
+import FormDataContext from "../../../../context/FormDataContext";
+import SaveFormContext from "../../../../context/SaveFormContext";
+import Input from "../../../../components/UI/Input";
+import Select from "../../../../components/UI/Select";
+import TextArea from "../../../../components/UI/TextArea";
 import s from "../_shared/shared.module.scss";
 
 export const commentsSchema = z.object({
@@ -15,7 +15,7 @@ export const commentsSchema = z.object({
 });
 
 const CommentsForm = () => {
-  const { onSave } = useContext(FormSubmitContext);
+  const { onSave } = useContext(SaveFormContext);
   const { relatedData } = useContext(FormDataContext);
 
   return (

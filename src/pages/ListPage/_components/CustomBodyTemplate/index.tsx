@@ -4,7 +4,7 @@ import s from "./CustomBodyTemplate.module.scss";
 import ActionsBodyTemplate from "./ActionsBodyTemplate";
 import getItemById from "../../../../utils/getItemById";
 import { useContext } from "react";
-import DataTableContext from "../../../../context/DataTableContext/DataTableContext";
+import ListDataContext from "../../../../context/ListDataContext";
 
 interface CustomBodyTemplateProps {
   field: string;
@@ -12,7 +12,7 @@ interface CustomBodyTemplateProps {
 }
 
 const CustomBodyTemplate: React.FC<CustomBodyTemplateProps> = ({ field, rowData }) => {
-  const { relatedData } = useContext(DataTableContext);
+  const { relatedData } = useContext(ListDataContext);
 
   switch (field) {
     case "thumbnailUrl":

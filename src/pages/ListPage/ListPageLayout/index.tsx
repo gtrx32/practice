@@ -1,5 +1,5 @@
 import s from "./ListPageLayout.module.scss";
-import DataTableContext from "../../../context/DataTableContext/DataTableContext";
+import ListDataContext from "../../../context/ListDataContext";
 import Pagination from "../_components/Pagination";
 import { PropsWithChildren, useContext, useState } from "react";
 import UpperPanel from "../_components/UpperPanel";
@@ -38,9 +38,9 @@ const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, related
         />
       )}
 
-      <DataTableContext.Provider value={{ data: displayedData, relatedData: relatedData }}>
+      <ListDataContext.Provider value={{ data: displayedData, relatedData: relatedData }}>
         {children}
-      </DataTableContext.Provider>
+      </ListDataContext.Provider>
 
       <Pagination
         rowCount={filteredData.length}

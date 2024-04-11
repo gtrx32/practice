@@ -1,5 +1,5 @@
 import EditPage from "../..";
-import AlbumsForm from "../../../FormPageLayout/forms/AlbumsForm";
+import AlbumsForm from "../../../forms/AlbumsForm";
 
 const AlbumsEditPage = () => (
   <EditPage>

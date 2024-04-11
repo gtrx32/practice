@@ -1,5 +1,5 @@
 import CreatePage from "../..";
-import TodosForm from "../../../FormPageLayout/forms/TodosForm";
+import TodosForm from "../../../forms/TodosForm";
 
 const TodosCreatePage = () => (
   <CreatePage>

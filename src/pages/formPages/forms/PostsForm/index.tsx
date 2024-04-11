@@ -1,21 +1,21 @@
-import Select from "../../../../../components/UI/Select";
-import Input from "../../../../../components/UI/Input";
 import { useContext } from "react";
-import SaveButton from "../../../../../components/UI/SaveButton";
-import FormDataContext from "../../../../../context/FormDataContext/FormDataContext";
-import FormSubmitContext from "../../../../../context/FormSubmitContext/FormSubmitContext";
-import CheckBox from "../../../../../components/UI/CheckBox";
 import { z } from "zod";
+import SaveButton from "../../../../components/UI/SaveButton";
+import TextArea from "../../../../components/UI/TextArea";
+import FormDataContext from "../../../../context/FormDataContext";
+import SaveFormContext from "../../../../context/SaveFormContext";
+import Select from "../../../../components/UI/Select";
+import Input from "../../../../components/UI/Input";
 import s from "../_shared/shared.module.scss";
 
-export const todosSchema = z.object({
+export const postsSchema = z.object({
   userId: z.any().refine((value) => value !== undefined && value !== "", { message: "Это обязательное поле" }),
-  completed: z.any(),
   title: z.string().min(1, { message: "Это обязательное поле" }),
+  body: z.string().min(1, { message: "Это обязательное поле" }),
 });
 
-const TodosForm = () => {
-  const { onSave } = useContext(FormSubmitContext);
+const PostsForm = () => {
+  const { onSave } = useContext(SaveFormContext);
   const { relatedData } = useContext(FormDataContext);
 
   return (
@@ -28,12 +28,12 @@ const TodosForm = () => {
         >
           Выберите автора
         </Select>
-        <CheckBox registerName="completed">Выполнена</CheckBox>
-        <Input registerName="title">Текст</Input>
+        <Input registerName="title">Заголовок</Input>
+        <TextArea registerName="body">Текст поста</TextArea>
       </div>
       <SaveButton type="submit">Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </form>
   );
 };
 
-export default TodosForm;
+export default PostsForm;

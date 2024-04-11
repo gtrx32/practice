@@ -1,12 +1,12 @@
 import { PropsWithChildren, useContext } from "react";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import useFormData from "../../../hooks/useFormData";
-import FormDataContext from "../../../context/FormDataContext/FormDataContext";
+import FormDataContext from "../../../context/FormDataContext";
 import { FormProvider, useForm } from "react-hook-form";
-import FormSubmitContext from "../../../context/FormSubmitContext/FormSubmitContext";
+import SaveFormContext from "../../../context/SaveFormContext";
 import FormPageLayout from "../FormPageLayout";
 import { zodResolver } from "@hookform/resolvers/zod";
-import getResourceSchema from "../FormPageLayout/forms/_shared/getSchema";
+import getResourceSchema from "../forms/_shared/getResourceSchema";
 import ResourceNameContext from "../../../context/ResourceNameContext";
 import { useNavigate } from "react-router-dom";
 import mainApi from "../../../api/api";
@@ -40,9 +40,9 @@ const CreatePage: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <FormDataContext.Provider value={{ relatedData }}>
       <FormProvider {...form}>
-        <FormSubmitContext.Provider value={{ onSave }}>
+        <SaveFormContext.Provider value={{ onSave }}>
           <FormPageLayout pageType="create">{children}</FormPageLayout>
-        </FormSubmitContext.Provider>
+        </SaveFormContext.Provider>
       </FormProvider>
     </FormDataContext.Provider>
   );
