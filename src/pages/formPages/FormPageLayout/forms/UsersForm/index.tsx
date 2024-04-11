@@ -30,6 +30,7 @@ export const usersSchema = z.object({
   }),
   company: z.object({
     name: z.string().min(1, { message: "Это обязательное поле" }),
+    catchPhrase: z.any(),
   }),
 });
 

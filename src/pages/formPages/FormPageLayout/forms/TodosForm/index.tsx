@@ -10,6 +10,7 @@ import s from "../_shared/shared.module.scss";
 
 export const todosSchema = z.object({
   userId: z.any().refine((value) => value !== undefined && value !== "", { message: "Это обязательное поле" }),
+  completed: z.any(),
   title: z.string().min(1, { message: "Это обязательное поле" }),
 });
 

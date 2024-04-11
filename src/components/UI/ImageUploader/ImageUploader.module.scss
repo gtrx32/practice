@@ -1,0 +1,75 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .title {
+    font-family: "Furore";
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--text-color);
+  }
+
+  .uploader {
+    display: flex;
+    height: 100px;
+    gap: 10px;
+
+    .input {
+      display: none;
+    }
+
+    .image {
+      width: 100px;
+      min-width: 100px;
+      height: 100px;
+      position: relative;
+
+      .imagePreview {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+
+      .deleteButton {
+        position: absolute;
+        top: 0;
+        right: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        border: none;
+        outline: none;
+        font-family: "Furore";
+        font-size: 14px;
+        color: var(--image-label-color);
+        background-color: var(--color-gray);
+        transition: all 0.5s ease;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+
+  .error {
+    color: rgb(223, 24, 24);
+    font-family: "Jost";
+    padding: 3px;
+    animation: error-border 1s forwards;
+  }
+}
+
+@keyframes error-border {
+  0% {
+    background-color: rgba(255, 0, 0, 0.112);
+  }
+  40% {
+    background-color: rgba(255, 0, 0, 0.388);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 0.112);
+  }
+}

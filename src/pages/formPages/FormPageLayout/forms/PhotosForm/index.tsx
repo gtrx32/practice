@@ -6,10 +6,12 @@ import SaveButton from "../../../../../components/UI/SaveButton";
 import FormDataContext from "../../../../../context/FormDataContext/FormDataContext";
 import FormSubmitContext from "../../../../../context/FormSubmitContext/FormSubmitContext";
 import s from "../_shared/shared.module.scss";
+import ImageUploader from "../../../../../components/UI/ImageUploader";
 
 export const photosSchema = z.object({
   title: z.string().min(1, { message: "Это обязательное поле" }),
   albumId: z.any().refine((value) => value !== undefined && value !== "", { message: "Это обязательное поле" }),
+  thumbnailUrl: z.any(),
 });
 
 const PhotosForm = () => {
@@ -30,6 +32,7 @@ const PhotosForm = () => {
           Выберите альбом
         </Select>
       </div>
+      <ImageUploader registerName="thumbnailUrl" />
       <SaveButton type="submit">Сохранить изменения &#62;&#62;&#62;</SaveButton>
     </form>
   );
