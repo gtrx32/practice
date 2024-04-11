@@ -8,16 +8,29 @@ import FormPageLayout from "../FormPageLayout";
 import { zodResolver } from "@hookform/resolvers/zod";
 import getResourceSchema from "../FormPageLayout/forms/_shared/getSchema";
 import ResourceNameContext from "../../../context/ResourceNameContext";
+import { useNavigate } from "react-router-dom";
+import mainApi from "../../../api/api";
 
 const CreatePage: React.FC<PropsWithChildren> = ({ children }) => {
   const { relatedData, isLoading, isError } = useFormData({});
   const resourceName = useContext(ResourceNameContext);
+  const navigate = useNavigate();
 
   const form = useForm<DataType>({ resolver: zodResolver(getResourceSchema(resourceName)) });
 
   const onSave = form.handleSubmit((data) => {
-    console.log(data);
-    /* отправка запроса */
+    mainApi
+      .post(resourceName, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+      .then((json) => {
+        console.log(json);
+        navigate("/" + resourceName);
+      });
   });
 
   if (isError) return <div>error</div>;

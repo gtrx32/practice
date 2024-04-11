@@ -1,6 +1,5 @@
 import { PropsWithChildren, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import LoadingSpinner from "../../../components/LoadingSpinner";
+import { useNavigate, useParams } from "react-router-dom";
 import useFormData from "../../../hooks/useFormData";
 import FormDataContext from "../../../context/FormDataContext/FormDataContext";
 import { FormProvider, useForm } from "react-hook-form";
@@ -9,11 +8,14 @@ import FormPageLayout from "../FormPageLayout";
 import { zodResolver } from "@hookform/resolvers/zod";
 import getResourceSchema from "../FormPageLayout/forms/_shared/getSchema";
 import ResourceNameContext from "../../../context/ResourceNameContext";
+import mainApi from "../../../api/api";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const EditPage: React.FC<PropsWithChildren> = ({ children }) => {
   const { id } = useParams();
   const { data, relatedData, isLoading, isError } = useFormData({ dataId: id });
   const resourceName = useContext(ResourceNameContext);
+  const navigate = useNavigate();
 
   const form = useForm<DataType>({
     defaultValues: data || undefined,
@@ -21,8 +23,18 @@ const EditPage: React.FC<PropsWithChildren> = ({ children }) => {
   });
 
   const onSave = form.handleSubmit((data) => {
-    console.log(data);
-    /* отправка запроса */
+    mainApi
+      .put(resourceName + "/" + id, {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+      .then((json) => {
+        console.log(json);
+        navigate("/" + resourceName + "/" + id);
+      });
   });
 
   useEffect(() => {
