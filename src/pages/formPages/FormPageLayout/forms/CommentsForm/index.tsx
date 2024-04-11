@@ -8,7 +8,7 @@ import Select from "../../../../../components/UI/Select";
 import TextArea from "../../../../../components/UI/TextArea";
 
 export const commentsSchema = z.object({
-  postId: z.number().min(1, { message: "Это обязательное поле" }),
+  postId: z.any().refine((value) => value !== undefined, { message: "Это обязательное поле" }),
   email: z.string().min(1, { message: "Это обязательное поле" }).email("Некорректный адрес электронной почты"),
   body: z.string().min(1, { message: "Это обязательное поле" }),
 });

@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import MainPage from "../pages/MainPage";
 import LoginPage from "../pages/LoginPage";
-import CreatePage from "../pages/FormPages/CreatePage";
-import EditPage from "../pages/FormPages/EditPage";
+import CreatePage from "../pages/formPages/CreatePage";
+import EditPage from "../pages/formPages/EditPage";
 import DetailsPage from "../pages/DetailsPage";
 import { resourceCreatePages, resourceEditPages, resourceListPages } from "./types";
 import ResourceNameContext from "../context/ResourceNameContext";

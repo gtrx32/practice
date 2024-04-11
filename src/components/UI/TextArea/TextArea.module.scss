@@ -22,6 +22,10 @@
     justify-content: left;
     align-items: center;
 
+    &:has(.error) {
+      animation: error-border 1s forwards;
+    }
+
     .labelText {
       font-family: "Furore";
       font-size: 14px;
@@ -53,5 +57,17 @@
     &::placeholder {
       color: var(--color-gray);
     }
+  }
+}
+
+@keyframes error-border {
+  0% {
+    background-color: rgba(255, 0, 0, 0.112);
+  }
+  20% {
+    background-color: rgba(255, 0, 0, 0.271);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 0.112);
   }
 }

@@ -8,7 +8,7 @@ import FormSubmitContext from "../../../../../context/FormSubmitContext/FormSubm
 
 export const photosSchema = z.object({
   title: z.string().min(1, { message: "Это обязательное поле" }),
-  albumId: z.number().min(1, { message: "Это обязательное поле" }),
+  albumId: z.any().refine((value) => value !== undefined, { message: "Это обязательное поле" }),
 });
 
 const PhotosForm = () => {

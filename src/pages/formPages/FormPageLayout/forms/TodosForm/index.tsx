@@ -8,7 +8,7 @@ import CheckBox from "../../../../../components/UI/CheckBox";
 import { z } from "zod";
 
 export const todosSchema = z.object({
-  userId: z.number().min(1, { message: "Это обязательное поле" }),
+  userId: z.any().refine((value) => value !== undefined, { message: "Это обязательное поле" }),
   title: z.string().min(1, { message: "Это обязательное поле" }),
 });
 

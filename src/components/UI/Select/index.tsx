@@ -18,7 +18,6 @@ const Select: React.FC<SelectProps> = ({ options, registerName, placeholder, chi
       <Controller
         name={registerName}
         control={control}
-        rules={{ required: "Это обязательное поле" }}
         render={({ field: { onChange, value } }) => (
           <ReactSelect
             className={s.select}
