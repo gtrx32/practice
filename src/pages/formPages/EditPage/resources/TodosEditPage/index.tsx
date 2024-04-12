@@ -1,5 +1,5 @@
 import EditPage from "../..";
-import TodosForm from "../../../forms/TodosForm";
+import TodosForm from "../../../_components/forms/TodosForm";
 
 const TodosEditPage = () => (
   <EditPage>

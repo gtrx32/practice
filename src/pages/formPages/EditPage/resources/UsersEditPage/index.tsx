@@ -1,5 +1,5 @@
 import EditPage from "../..";
-import UsersForm from "../../../forms/UsersForm";
+import UsersForm from "../../../_components/forms/UsersForm";
 
 const UsersEditPage = () => (
   <EditPage>

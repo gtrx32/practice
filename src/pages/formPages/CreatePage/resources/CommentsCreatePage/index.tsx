@@ -1,5 +1,5 @@
 import CreatePage from "../..";
-import CommentsForm from "../../../forms/CommentsForm";
+import CommentsForm from "../../../_components/forms/CommentsForm";
 
 const CommentsCreatePage = () => (
   <CreatePage>

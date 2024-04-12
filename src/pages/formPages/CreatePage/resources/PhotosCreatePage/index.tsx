@@ -1,5 +1,5 @@
 import CreatePage from "../..";
-import PhotosForm from "../../../forms/PhotosForm";
+import PhotosForm from "../../../_components/forms/PhotosForm";
 
 const PhotosCreatePage = () => (
   <CreatePage>

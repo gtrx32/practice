@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import useListData from "../../hooks/useListData";
-import ListPageLayout from "./ListPageLayout";
+import ListPageLayout from "./_components/ListPageLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ErrorPage from "../ErrorPage";
 

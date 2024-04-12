@@ -1,5 +1,5 @@
 import DetailsPage from "../..";
-import CommentsDetails from "../../details/CommentsDetails";
+import CommentsDetails from "../../_components/details/CommentsDetails";
 
 const CommentsDetailsPage = () => (
   <DetailsPage>
