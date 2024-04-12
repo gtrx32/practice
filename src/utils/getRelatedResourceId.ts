@@ -1,4 +1,4 @@
-export function getRelatedResourceId(resourceName: string, data: DataType): string | undefined {
+const getRelatedResourceId = (resourceName: string, data: DataType): string | undefined => {
   switch (resourceName) {
     case "todos":
       return isTodoType(data) ? data.userId?.toString() : undefined;
@@ -13,24 +13,26 @@ export function getRelatedResourceId(resourceName: string, data: DataType): stri
     default:
       return undefined;
   }
-}
+};
 
-function isTodoType(data: DataType): data is TodoType {
+export default getRelatedResourceId;
+
+const isTodoType = (data: DataType): data is TodoType => {
   return "userId" in data && (data as TodoType).userId !== undefined;
-}
+};
 
-function isAlbumType(data: DataType): data is AlbumType {
+const isAlbumType = (data: DataType): data is AlbumType => {
   return "userId" in data && (data as AlbumType).userId !== undefined;
-}
+};
 
-function isPostType(data: DataType): data is PostType {
+const isPostType = (data: DataType): data is PostType => {
   return "userId" in data && (data as PostType).userId !== undefined;
-}
+};
 
-function isPhotoType(data: DataType): data is PhotoType {
+const isPhotoType = (data: DataType): data is PhotoType => {
   return "albumId" in data && (data as PhotoType).albumId !== undefined;
-}
+};
 
-function isCommentType(data: DataType): data is CommentType {
+const isCommentType = (data: DataType): data is CommentType => {
   return "postId" in data && (data as CommentType).postId !== undefined;
-}
+};

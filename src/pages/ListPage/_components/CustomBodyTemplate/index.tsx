@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { CheckIcon, CrossIcon } from "../../../../assets/images/icons";
 import s from "./CustomBodyTemplate.module.scss";
 import ActionsBodyTemplate from "./ActionsBodyTemplate";
-import getItemById from "../../../../utils/getItemById";
 import { useContext } from "react";
 import ListDataContext from "../../../../context/ListDataContext";
+import { getItemById } from "./types";
 
 interface CustomBodyTemplateProps {
   field: string;

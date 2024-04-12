@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import mainApi from "../api/api";
-import getRelatedTable from "../utils/getRelatedTable";
+import getRelatedResourceName from "../utils/getRelatedResourceName";
 import ResourceNameContext from "../context/ResourceNameContext";
 
 export const useListData = () => {
   const resourceName = useContext(ResourceNameContext);
-  const relatedResourceName = getRelatedTable(resourceName);
+  const relatedResourceName = getRelatedResourceName(resourceName);
 
   const [data, setData] = useState<DataType[]>([]);
   const [relatedData, setRelatedData] = useState<RelatedDataType[]>([]);

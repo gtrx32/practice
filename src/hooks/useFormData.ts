@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import mainApi from "../api/api";
-import getRelatedTable from "../utils/getRelatedTable";
+import getRelatedResourceName from "../utils/getRelatedResourceName";
 import ResourceNameContext from "../context/ResourceNameContext";
 
 interface useFormDataProps {
@@ -37,7 +37,7 @@ export const useFormData = ({ dataId }: useFormDataProps) => {
   useEffect(() => {
     if (resourceName === "users") return;
 
-    const relatedResourceName = getRelatedTable(resourceName);
+    const relatedResourceName = getRelatedResourceName(resourceName);
 
     if (relatedResourceName) {
       mainApi

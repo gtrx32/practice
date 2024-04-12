@@ -1,4 +1,4 @@
-const getItemById = (id: number, data: RelatedDataType[]) => {
+export const getItemById = (id: number, data: RelatedDataType[]) => {
   if (Array.isArray(data)) {
     const dataItem = data.find((item) => item?.id === id);
     if (dataItem) {
@@ -8,5 +8,3 @@ const getItemById = (id: number, data: RelatedDataType[]) => {
   }
   return "";
 };
-
-export default getItemById;

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import mainApi from "../api/api";
-import getRelatedTable from "../utils/getRelatedTable";
-import { getRelatedResourceId } from "../utils/getRelatedResourceId";
+import getRelatedResourceName from "../utils/getRelatedResourceName";
+import getRelatedResourceId from "../utils/getRelatedResourceId";
 import ResourceNameContext from "../context/ResourceNameContext";
 
 interface useDetailsDataProps {
@@ -34,7 +34,7 @@ export const useDetailsData = ({ dataId }: useDetailsDataProps) => {
   useEffect(() => {
     if (!data) return;
 
-    const relatedResourceName = getRelatedTable(resourceName);
+    const relatedResourceName = getRelatedResourceName(resourceName);
     const relatedResourceId = getRelatedResourceId(resourceName, data);
 
     if (relatedResourceName && relatedResourceId) {
