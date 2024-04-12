@@ -10,6 +10,7 @@ import getResourceSchema from "../forms/_shared/getResourceSchema";
 import ResourceNameContext from "../../../context/ResourceNameContext";
 import { useNavigate } from "react-router-dom";
 import mainApi from "../../../api/api";
+import ErrorPage from "../../ErrorPage";
 
 const CreatePage: React.FC<PropsWithChildren> = ({ children }) => {
   const { relatedData, isLoading, isError } = useFormData({});
@@ -33,7 +34,7 @@ const CreatePage: React.FC<PropsWithChildren> = ({ children }) => {
       });
   });
 
-  if (isError) return <div>error</div>;
+  if (isError) return <ErrorPage type="fail" />;
 
   if (isLoading) return <LoadingSpinner />;
 

@@ -2,11 +2,12 @@ import { PropsWithChildren } from "react";
 import useListData from "../../hooks/useListData";
 import ListPageLayout from "./ListPageLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import ErrorPage from "../ErrorPage";
 
 const ListPage: React.FC<PropsWithChildren> = ({ children }) => {
   const { data, relatedData, isLoading, isError } = useListData();
 
-  if (isError) return <div>error</div>;
+  if (isError) return <ErrorPage type="fail" />;
 
   if (isLoading) return <LoadingSpinner />;
 

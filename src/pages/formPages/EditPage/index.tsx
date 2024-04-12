@@ -10,6 +10,7 @@ import getResourceSchema from "../forms/_shared/getResourceSchema";
 import ResourceNameContext from "../../../context/ResourceNameContext";
 import mainApi from "../../../api/api";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import ErrorPage from "../../ErrorPage";
 
 const EditPage: React.FC<PropsWithChildren> = ({ children }) => {
   const { id } = useParams();
@@ -41,7 +42,7 @@ const EditPage: React.FC<PropsWithChildren> = ({ children }) => {
     data && form.reset(data);
   }, [data]);
 
-  if (isError) return <div>error</div>;
+  if (isError) return <ErrorPage type="fail" />;
 
   if (isLoading) return <LoadingSpinner />;
 
