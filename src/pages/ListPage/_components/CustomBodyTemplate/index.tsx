@@ -48,7 +48,7 @@ const CustomBodyTemplate: React.FC<CustomBodyTemplateProps> = ({ field, rowData 
         </Link>
       );
     case "actions":
-      return <ActionsBodyTemplate id={rowData.id} />;
+      return <ActionsBodyTemplate dataId={rowData.id} />;
     case "email":
       return (
         <a href={`mailto:${(rowData as UserType | CommentType)[field]}`} className={s.email}>

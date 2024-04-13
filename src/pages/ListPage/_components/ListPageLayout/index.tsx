@@ -7,7 +7,7 @@ import RelatedFilter from "../../_components/RelatedFilter";
 import { SelectPlaceholders, getFilters } from "./types";
 import { useFilteredDataTable } from "../../../../hooks/useFilteredDataTable";
 import Container from "../../../../components/UI/Container";
-import ResourceNameContext from "../../../../context/ResourceNameContext";
+import PageContext from "../../../../context/PageContext";
 
 interface ListPageLayoutProps extends PropsWithChildren {
   data: DataType[];
@@ -20,7 +20,7 @@ const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, related
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
 
-  const resourceName = useContext(ResourceNameContext);
+  const { resourceName } = useContext(PageContext);
   const [selectedFilters, setSelectedFilters] = useState<SelectOption[]>([]);
 
   const filteredData = useFilteredDataTable({ data, selectedFilters });

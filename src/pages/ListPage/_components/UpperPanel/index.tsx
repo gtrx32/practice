@@ -4,10 +4,10 @@ import SearchField from "../../../../components/UI/SearchField";
 import s from "./UpperPanel.module.scss";
 import { useContext } from "react";
 import { listPageTitleEnum } from "./types";
-import ResourceNameContext from "../../../../context/ResourceNameContext";
+import PageContext from "../../../../context/PageContext";
 
 const UpperPanel = () => {
-  const resourceName = useContext(ResourceNameContext);
+  const { resourceName } = useContext(PageContext);
   const title = listPageTitleEnum[resourceName];
 
   return (

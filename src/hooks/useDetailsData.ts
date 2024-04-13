@@ -1,25 +1,19 @@
 import { useContext } from "react";
-import getRelatedResourceName from "../utils/getRelatedResourceName";
 import getRelatedResourceId from "../utils/getRelatedResourceId";
-import ResourceNameContext from "../context/ResourceNameContext";
 import { useQuery } from "@tanstack/react-query";
-import { getById } from "../services/service";
+import { getById } from "../services/data";
+import PageContext from "../context/PageContext";
 
-interface useDetailsDataProps {
-  resourceId: string;
-}
-
-export const useDetailsData = ({ resourceId }: useDetailsDataProps) => {
-  const resourceName = useContext(ResourceNameContext);
-  const relatedResourceName = getRelatedResourceName(resourceName);
+export const useDetailsData = () => {
+  const { resourceName, relatedResourceName, dataId } = useContext(PageContext);
 
   const {
     data: data,
     isError: isDataError,
     isPending: isDataPending,
   } = useQuery<DataType>({
-    queryKey: ["detailsData", resourceName, resourceId],
-    queryFn: () => getById(resourceName, Number(resourceId)),
+    queryKey: ["detailsData", resourceName, dataId],
+    queryFn: () => getById(resourceName, dataId),
   });
 
   const relatedResourceId = getRelatedResourceId(resourceName, data);
@@ -31,7 +25,7 @@ export const useDetailsData = ({ resourceId }: useDetailsDataProps) => {
     isPending: isRelatedDataPending,
   } = useQuery<RelatedDataType>({
     queryKey: ["detailsRelatedData", resourceName, relatedResourceId],
-    queryFn: () => getById(relatedResourceName, Number(relatedResourceId)),
+    queryFn: () => getById(relatedResourceName, relatedResourceId ? relatedResourceId : -1),
     enabled: resourceName !== "users",
   }) as { data: RelatedDataType | null; isError: boolean; isPending: boolean };
 

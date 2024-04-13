@@ -1,27 +1,18 @@
 import { useContext } from "react";
-import getRelatedResourceName from "../utils/getRelatedResourceName";
-import ResourceNameContext from "../context/ResourceNameContext";
 import { useQuery } from "@tanstack/react-query";
-import { getAll, getById } from "../services/service";
-import { useLocation } from "react-router-dom";
+import { getAll, getById } from "../services/data";
+import PageContext from "../context/PageContext";
 
-interface useFormDataProps {
-  resourceId?: string;
-}
-
-export const useFormData = ({ resourceId }: useFormDataProps) => {
-  const resourceName = useContext(ResourceNameContext);
-  const relatedResourceName = getRelatedResourceName(resourceName);
-  const { pathname } = useLocation();
-  const pageType = pathname.split("/").pop();
+export const useFormData = () => {
+  const { pageType, resourceName, relatedResourceName, dataId } = useContext(PageContext);
 
   const {
     data: data,
     isError: isDataError,
     isPending: isDataPending,
   } = useQuery<DataType>({
-    queryKey: ["formData", resourceName, resourceId],
-    queryFn: () => getById(resourceName, Number(resourceId)),
+    queryKey: ["formData", resourceName, dataId],
+    queryFn: () => getById(resourceName, dataId),
     enabled: pageType === "edit",
   });
 

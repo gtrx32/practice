@@ -1,24 +1,19 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import s from "./TopPanel.module.scss";
 import { titles } from "./types";
 import { useContext } from "react";
 import ModalIsOpenContext from "../../context/ModalIsOpenContext";
 import Button from "../UI/Button";
 import clsx from "clsx";
-import ResourceNameContext from "../../context/ResourceNameContext";
+import PageContext from "../../context/PageContext";
 
-interface TopPanelProps {
-  pageType: "details" | "edit" | "create";
-}
-
-const TopPanel: React.FC<TopPanelProps> = ({ pageType }) => {
-  const navigate = useNavigate();
+const TopPanel = () => {
+  const { pageType, resourceName, dataId } = useContext(PageContext);
   const { setTarget, setModalIsOpen } = useContext(ModalIsOpenContext);
-  const resourceName = useContext(ResourceNameContext);
-  const { id } = useParams();
+  const navigate = useNavigate();
 
   const onDeleteHandler = () => {
-    setTarget({ resourceName, id: id as string });
+    setTarget({ resourceName, dataId });
     setModalIsOpen(true);
   };
 
@@ -42,7 +37,7 @@ const TopPanel: React.FC<TopPanelProps> = ({ pageType }) => {
           </Link>
           {(pageType === "details" || pageType === "edit") && (
             <>
-              <Link className={s.link} to={`/${resourceName}/${id}${pageType === "details" ? "/edit" : ""}`}>
+              <Link className={s.link} to={`/${resourceName}/${dataId}${pageType === "details" ? "/edit" : ""}`}>
                 {pageType === "details" ? "Редактировать" : "Посмотреть"}
               </Link>
               <button onClick={onDeleteHandler} className={s.link}>

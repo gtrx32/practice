@@ -1,19 +1,19 @@
 import s from "./Header.module.scss";
 import Container from "../../components/UI/Container";
 import Button from "../../components/UI/Button";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import MenuIsOpenContext from "../../context/MenuIsOpenContext";
 import ThemeContext from "../../context/ThemeContext";
 import { Logo, ProfileIcon, ThemeIcon } from "../../assets/images/icons";
 import clsx from "clsx";
+import PageContext from "../../context/PageContext";
 
 const Header = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const { menuIsOpen, setMenuIsOpen } = useContext(MenuIsOpenContext);
   const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
-
-  const { pathname } = useLocation();
+  const { pageType } = useContext(PageContext);
 
   return (
     <Container as="header" className={s.header}>
@@ -25,7 +25,7 @@ const Header = () => {
           <Button onClick={() => setTheme(theme === "light" ? "dark" : "light")} aria-label="theme">
             <ThemeIcon />
           </Button>
-          {pathname !== "/login" && (
+          {pageType !== "login" && (
             <div className={s.loginButton}>
               <Button aria-label="profile" onClick={() => setProfileMenuIsOpen(!profileMenuIsOpen)}>
                 <ProfileIcon />

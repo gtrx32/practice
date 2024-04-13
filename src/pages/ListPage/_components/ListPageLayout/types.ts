@@ -1,4 +1,4 @@
-export const getFilters = (resourceName: string, data: RelatedDataType[]): SelectOption[] => {
+export const getFilters = (resourceName: Resources, data: RelatedDataType[]): SelectOption[] => {
   if (Array.isArray(data))
     if (resourceName === "todos" || resourceName === "albums" || resourceName === "posts") {
       return (data as UserType[])?.map((item) => ({ value: item.id, label: item.name }));

@@ -1,12 +1,10 @@
 import { useContext } from "react";
-import getRelatedResourceName from "../utils/getRelatedResourceName";
-import ResourceNameContext from "../context/ResourceNameContext";
 import { useQuery } from "@tanstack/react-query";
-import { getAll } from "../services/service";
+import { getAll } from "../services/data";
+import PageContext from "../context/PageContext";
 
 export const useListData = () => {
-  const resourceName = useContext(ResourceNameContext);
-  const relatedResourceName = getRelatedResourceName(resourceName);
+  const { resourceName, relatedResourceName } = useContext(PageContext);
 
   const {
     data: data,

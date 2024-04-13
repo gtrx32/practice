@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import ResourceNameContext from "../context/ResourceNameContext";
+import PageContext from "../context/PageContext";
 
 interface useFilteredDataTableProps {
   data: DataType[];
@@ -7,14 +7,14 @@ interface useFilteredDataTableProps {
 }
 
 export const useFilteredDataTable = ({ data, selectedFilters }: useFilteredDataTableProps) => {
-  const resourceName = useContext(ResourceNameContext);
+  const { resourceName } = useContext(PageContext);
 
   return selectedFilters.length > 0 && resourceName !== "users"
     ? data.filter((item) => selectedFilters.some((option) => AreEqual(resourceName, item, option)))
     : data;
 };
 
-const AreEqual = (resourceName: string, item: any, option: SelectOption): boolean => {
+const AreEqual = (resourceName: Resources, item: DataType, option: SelectOption): boolean => {
   switch (resourceName) {
     case "todos":
     case "albums":

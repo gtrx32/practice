@@ -7,14 +7,14 @@ import SaveFormContext from "../../../context/SaveFormContext";
 import FormPageLayout from "../_components/FormPageLayout";
 import { zodResolver } from "@hookform/resolvers/zod";
 import getResourceSchema from "../_components/forms/_shared/getResourceSchema";
-import ResourceNameContext from "../../../context/ResourceNameContext";
+import PageContext from "../../../context/PageContext";
 import { useNavigate } from "react-router-dom";
 import mainApi from "../../../api/api";
 import ErrorPage from "../../ErrorPage";
 
 const CreatePage: React.FC<PropsWithChildren> = ({ children }) => {
-  const { relatedData, isLoading, isError } = useFormData({});
-  const resourceName = useContext(ResourceNameContext);
+  const { relatedData, isLoading, isError } = useFormData();
+  const { resourceName } = useContext(PageContext);
   const navigate = useNavigate();
 
   const form = useForm<DataType>({ resolver: zodResolver(getResourceSchema(resourceName)) });
@@ -38,15 +38,16 @@ const CreatePage: React.FC<PropsWithChildren> = ({ children }) => {
 
   if (isLoading) return <LoadingSpinner />;
 
-  return (
-    <FormDataContext.Provider value={{ relatedData }}>
-      <FormProvider {...form}>
-        <SaveFormContext.Provider value={{ onSave }}>
-          <FormPageLayout pageType="create">{children}</FormPageLayout>
-        </SaveFormContext.Provider>
-      </FormProvider>
-    </FormDataContext.Provider>
-  );
+  if (relatedData)
+    return (
+      <FormDataContext.Provider value={{ relatedData }}>
+        <FormProvider {...form}>
+          <SaveFormContext.Provider value={{ onSave }}>
+            <FormPageLayout>{children}</FormPageLayout>
+          </SaveFormContext.Provider>
+        </FormProvider>
+      </FormDataContext.Provider>
+    );
 };
 
 export default CreatePage;

@@ -1,7 +1,7 @@
 import { PropsWithChildren, useState } from "react";
 import MenuIsOpenContext from "./MenuIsOpenContext";
 import ModalIsOpenContext from "./ModalIsOpenContext";
-import ThemeContext, { Theme } from "./ThemeContext";
+import ThemeContext from "./ThemeContext";
 
 interface AppContextProvider extends PropsWithChildren {}
 
@@ -15,7 +15,11 @@ const AppContextProvider: React.FC<AppContextProvider> = ({ children }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [target, setTarget] = useState({ resourceName: "", id: "" });
+
+  const [target, setTarget] = useState<{ resourceName: Resources; dataId: number }>({
+    resourceName: "users",
+    dataId: -1,
+  });
 
   return (
     <ThemeContext.Provider value={{ theme: _theme, setTheme }}>

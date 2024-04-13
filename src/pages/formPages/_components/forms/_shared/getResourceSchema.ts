@@ -8,7 +8,7 @@ import { usersSchema } from "../UsersForm";
 
 const emptySchema = z.object({});
 
-const getResourceSchema = (resourceName: string): ZodType<any, any, any> => {
+const getResourceSchema = (resourceName: Resources): ZodType<any, any, any> => {
   switch (resourceName) {
     case "users":
       return usersSchema;

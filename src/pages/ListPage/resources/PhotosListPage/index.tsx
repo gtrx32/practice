@@ -4,9 +4,7 @@ import s from "../_shared/shared.module.scss";
 import ListDataTable from "../../_components/ListDataTable";
 import CustomBodyTemplate from "../../_components/CustomBodyTemplate";
 
-interface PhotosListPageProps {}
-
-const PhotosListPage: React.FC<PhotosListPageProps> = () => {
+const PhotosListPage = () => {
   return (
     <ListPage>
       <ListDataTable>

@@ -1,16 +1,16 @@
-const getRelatedResourceId = (resourceName: string, data: DataType | undefined): string | undefined => {
+const getRelatedResourceId = (resourceName: Resources, data: DataType | undefined): number | undefined => {
   if (data) {
     switch (resourceName) {
       case "todos":
-        return isTodoType(data) ? data.userId?.toString() : undefined;
+        return isTodoType(data) ? data.userId : undefined;
       case "albums":
-        return isAlbumType(data) ? data.userId?.toString() : undefined;
+        return isAlbumType(data) ? data.userId: undefined;
       case "posts":
-        return isPostType(data) ? data.userId?.toString() : undefined;
+        return isPostType(data) ? data.userId : undefined;
       case "photos":
-        return isPhotoType(data) ? data.albumId?.toString() : undefined;
+        return isPhotoType(data) ? data.albumId : undefined;
       case "comments":
-        return isCommentType(data) ? data.postId?.toString() : undefined;
+        return isCommentType(data) ? data.postId : undefined;
       default:
         return undefined;
     }

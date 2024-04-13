@@ -10,14 +10,12 @@ import { SideMenuArrowIcon } from "../../assets/images/icons";
 const SideNav = () => {
   const { menuIsOpen, setMenuIsOpen } = useContext(MenuIsOpenContext);
 
-  const handleMenuClick = () => setMenuIsOpen(!menuIsOpen);
-
   return (
     <div className={s.wrapper}>
       <div className={clsx(s.sideNav, !menuIsOpen && s.closedNav)}>
         <div className={s.topRow}>
           <Container className={clsx(s.shrink, !menuIsOpen && s.closed, s.admin)}>ADMIN</Container>
-          <Button onClick={handleMenuClick} className={s.button}>
+          <Button onClick={() => setMenuIsOpen(!menuIsOpen)} className={s.button}>
             <SideMenuArrowIcon className={menuIsOpen ? s.navHideButton : s.navShowButton} />
           </Button>
         </div>

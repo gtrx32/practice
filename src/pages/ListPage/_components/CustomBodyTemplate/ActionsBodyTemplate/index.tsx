@@ -4,25 +4,25 @@ import { Link } from "react-router-dom";
 import { PencilIcon, TrashcanIcon } from "../../../../../assets/images/icons";
 import ModalIsOpenContext from "../../../../../context/ModalIsOpenContext";
 import Button from "../../../../../components/UI/Button";
-import ResourceNameContext from "../../../../../context/ResourceNameContext";
+import PageContext from "../../../../../context/PageContext";
 
 interface ActionsBodyTemplateProps {
-  id: number;
+  dataId: number;
 }
 
-const ActionsBodyTemplate: React.FC<ActionsBodyTemplateProps> = ({ id }) => {
-  const resourceName = useContext(ResourceNameContext);
+const ActionsBodyTemplate: React.FC<ActionsBodyTemplateProps> = ({ dataId }) => {
+  const { resourceName } = useContext(PageContext);
   const { setTarget, setModalIsOpen } = useContext(ModalIsOpenContext);
 
   const onDeleteHandler = () => {
-    setTarget({ resourceName, id: id.toString() });
+    setTarget({ resourceName, dataId });
     setModalIsOpen(true);
   };
 
   return (
     <div className={s.buttons}>
       <Button className={s.button} asChild>
-        <Link to={`/${resourceName}/${id}/edit`}>
+        <Link to={`/${resourceName}/${dataId}/edit`}>
           <PencilIcon />
         </Link>
       </Button>

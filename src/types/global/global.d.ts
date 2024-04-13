@@ -1,3 +1,11 @@
+declare type Theme = "light" | "dark";
+
+declare type Pages = "main" | "login" | "error" | "list" | "details" | "edit" | "create";
+
+declare type Resources = "users" | "todos" | "photos" | "albums" | "posts" | "comments" | "none";
+
+declare type RelatedResources = "users" | "albums" | "posts" | "none";
+
 declare type DataType = UserType | TodoType | PhotoType | AlbumType | PostType | CommentType;
 
 declare type RelatedDataType = UserType | AlbumType | PostType;

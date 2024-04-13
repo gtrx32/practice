@@ -13,14 +13,12 @@ const PageLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const { theme } = useContext(ThemeContext);
   const { pathname } = useLocation();
 
-  const handleMenuClick = () => setMenuIsOpen(!menuIsOpen);
-
   return (
     <div className={s.wrapper} data-theme={theme}>
       <Header key={pathname} />
       <main className={s.main}>
         <SideNav />
-        <div onClick={handleMenuClick} className={clsx(s.cover, menuIsOpen ? s.blur : s.clear)} />
+        <div onClick={() => setMenuIsOpen(!menuIsOpen)} className={clsx(s.cover, menuIsOpen ? s.blur : s.clear)} />
         <div className={s.content}>{children}</div>
       </main>
       <DeleteRowModal />

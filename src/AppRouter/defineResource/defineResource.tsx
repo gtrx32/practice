@@ -1,45 +1,47 @@
-import { Route } from "react-router-dom";
-import ResourceNameContext from "../../context/ResourceNameContext";
-import { resourceListPages, resourceDetailsPages, resourceEditPages, resourceCreatePages } from "../types";
+import { Route, useLocation } from "react-router-dom";
+import { resourceListPages, resourceDetailsPages, resourceEditPages, resourceCreatePages } from "../pages";
+import PageContext from "../../context/PageContext";
 
-export const defineResource = (resourceName: string) => {
+export const defineResource = (resourceName: Resources, relatedResourceName: RelatedResources) => {
   const ResourceListPage = resourceListPages[resourceName];
   const ResourceDetailsPage = resourceDetailsPages[resourceName];
   const ResourceEditPage = resourceEditPages[resourceName];
   const ResourceCreatePage = resourceCreatePages[resourceName];
+
+  const dataId = Number(useLocation().pathname.match(/\/(\w+)\/(\d+)/)?.[2] ?? -1);
 
   return (
     <Route path={`/${resourceName}`}>
       <Route
         index
         element={
-          <ResourceNameContext.Provider value={resourceName}>
+          <PageContext.Provider value={{ pageType: "list", resourceName, relatedResourceName, dataId }}>
             <ResourceListPage />
-          </ResourceNameContext.Provider>
+          </PageContext.Provider>
         }
       />
       <Route
         path=":id"
         element={
-          <ResourceNameContext.Provider value={resourceName}>
+          <PageContext.Provider value={{ pageType: "details", resourceName, relatedResourceName, dataId }}>
             <ResourceDetailsPage />
-          </ResourceNameContext.Provider>
+          </PageContext.Provider>
         }
       />
       <Route
         path=":id/edit"
         element={
-          <ResourceNameContext.Provider value={resourceName}>
+          <PageContext.Provider value={{ pageType: "edit", resourceName, relatedResourceName, dataId }}>
             <ResourceEditPage />
-          </ResourceNameContext.Provider>
+          </PageContext.Provider>
         }
       />
       <Route
         path="create"
         element={
-          <ResourceNameContext.Provider value={resourceName}>
+          <PageContext.Provider value={{ pageType: "create", resourceName, relatedResourceName, dataId }}>
             <ResourceCreatePage />
-          </ResourceNameContext.Provider>
+          </PageContext.Provider>
         }
       />
     </Route>
