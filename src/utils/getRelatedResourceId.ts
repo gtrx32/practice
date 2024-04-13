@@ -1,17 +1,19 @@
-const getRelatedResourceId = (resourceName: string, data: DataType): string | undefined => {
-  switch (resourceName) {
-    case "todos":
-      return isTodoType(data) ? data.userId?.toString() : undefined;
-    case "albums":
-      return isAlbumType(data) ? data.userId?.toString() : undefined;
-    case "posts":
-      return isPostType(data) ? data.userId?.toString() : undefined;
-    case "photos":
-      return isPhotoType(data) ? data.albumId?.toString() : undefined;
-    case "comments":
-      return isCommentType(data) ? data.postId?.toString() : undefined;
-    default:
-      return undefined;
+const getRelatedResourceId = (resourceName: string, data: DataType | undefined): string | undefined => {
+  if (data) {
+    switch (resourceName) {
+      case "todos":
+        return isTodoType(data) ? data.userId?.toString() : undefined;
+      case "albums":
+        return isAlbumType(data) ? data.userId?.toString() : undefined;
+      case "posts":
+        return isPostType(data) ? data.userId?.toString() : undefined;
+      case "photos":
+        return isPhotoType(data) ? data.albumId?.toString() : undefined;
+      case "comments":
+        return isCommentType(data) ? data.postId?.toString() : undefined;
+      default:
+        return undefined;
+    }
   }
 };
 

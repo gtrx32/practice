@@ -1,53 +1,43 @@
-import { useContext, useEffect, useState } from "react";
-import mainApi from "../api/api";
+import { useContext } from "react";
 import getRelatedResourceName from "../utils/getRelatedResourceName";
 import getRelatedResourceId from "../utils/getRelatedResourceId";
 import ResourceNameContext from "../context/ResourceNameContext";
+import { useQuery } from "@tanstack/react-query";
+import { getById } from "../services/service";
 
 interface useDetailsDataProps {
-  dataId?: string;
+  resourceId: string;
 }
 
-export const useDetailsData = ({ dataId }: useDetailsDataProps) => {
+export const useDetailsData = ({ resourceId }: useDetailsDataProps) => {
   const resourceName = useContext(ResourceNameContext);
+  const relatedResourceName = getRelatedResourceName(resourceName);
 
-  const [data, setData] = useState<DataType | null>(null);
-  const [relatedData, setRelatedData] = useState<RelatedDataType | null>(null);
-  const [relatedPath, setRelatedPath] = useState("");
+  const {
+    data: data,
+    isError: isDataError,
+    isPending: isDataPending,
+  } = useQuery<DataType>({
+    queryKey: ["detailsData", resourceName, resourceId],
+    queryFn: () => getById(resourceName, Number(resourceId)),
+  });
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const relatedResourceId = getRelatedResourceId(resourceName, data);
+  const relatedPath = "/" + relatedResourceName + "/" + relatedResourceId;
 
-  useEffect(() => {
-    setIsLoading(true);
-    mainApi
-      .get(resourceName + "/" + dataId)
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch(() => setIsError(true))
-      .finally(() => {
-        resourceName == "users" && setIsLoading(false);
-      });
-  }, [resourceName]);
+  const {
+    data: relatedData,
+    isError: isRelatedDataError,
+    isPending: isRelatedDataPending,
+  } = useQuery<RelatedDataType>({
+    queryKey: ["detailsRelatedData", resourceName, relatedResourceId],
+    queryFn: () => getById(relatedResourceName, Number(relatedResourceId)),
+    enabled: resourceName !== "users",
+  }) as { data: RelatedDataType | null; isError: boolean; isPending: boolean };
 
-  useEffect(() => {
-    if (!data) return;
+  const isLoading = resourceName === "users" ? isDataPending : isDataPending || isRelatedDataPending;
 
-    const relatedResourceName = getRelatedResourceName(resourceName);
-    const relatedResourceId = getRelatedResourceId(resourceName, data);
-
-    if (relatedResourceName && relatedResourceId) {
-      mainApi
-        .get(relatedResourceName + "/" + relatedResourceId)
-        .then((response) => {
-          setRelatedPath("/" + relatedResourceName + "/" + relatedResourceId);
-          setRelatedData(response.data);
-        })
-        .catch(() => setIsError(true))
-        .finally(() => setIsLoading(false));
-    }
-  }, [data]);
+  const isError = isDataError || isRelatedDataError;
 
   return { data, relatedData, relatedPath, isLoading, isError };
 };

@@ -14,7 +14,7 @@ import ErrorPage from "../../ErrorPage";
 
 const EditPage: React.FC<PropsWithChildren> = ({ children }) => {
   const { id } = useParams();
-  const { data, relatedData, isLoading, isError } = useFormData({ dataId: id });
+  const { data, relatedData, isLoading, isError } = useFormData({ resourceId: id });
   const resourceName = useContext(ResourceNameContext);
   const navigate = useNavigate();
 

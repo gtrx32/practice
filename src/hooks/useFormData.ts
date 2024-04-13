@@ -1,54 +1,50 @@
-import { useContext, useEffect, useState } from "react";
-import mainApi from "../api/api";
+import { useContext } from "react";
 import getRelatedResourceName from "../utils/getRelatedResourceName";
 import ResourceNameContext from "../context/ResourceNameContext";
+import { useQuery } from "@tanstack/react-query";
+import { getAll, getById } from "../services/service";
+import { useLocation } from "react-router-dom";
 
 interface useFormDataProps {
-  dataId?: string;
+  resourceId?: string;
 }
 
-export const useFormData = ({ dataId }: useFormDataProps) => {
+export const useFormData = ({ resourceId }: useFormDataProps) => {
   const resourceName = useContext(ResourceNameContext);
+  const relatedResourceName = getRelatedResourceName(resourceName);
+  const { pathname } = useLocation();
+  const pageType = pathname.split("/").pop();
 
-  const [data, setData] = useState<DataType | null>(null);
-  const [relatedData, setRelatedData] = useState<RelatedDataType[]>([]);
+  const {
+    data: data,
+    isError: isDataError,
+    isPending: isDataPending,
+  } = useQuery<DataType>({
+    queryKey: ["formData", resourceName, resourceId],
+    queryFn: () => getById(resourceName, Number(resourceId)),
+    enabled: pageType === "edit",
+  });
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const {
+    data: relatedData,
+    isError: isRelatedDataError,
+    isPending: isRelatedDataPending,
+  } = useQuery<RelatedDataType[]>({
+    queryKey: ["formRelatedData", resourceName],
+    queryFn: () => getAll(relatedResourceName),
+    enabled: resourceName !== "users",
+  });
 
-  useEffect(() => {
-    if (!dataId) {
-      if (resourceName === "users") setIsLoading(false);
-      return;
-    }
+  const isLoading =
+    resourceName === "users"
+      ? pageType === "create"
+        ? false
+        : isDataPending
+      : pageType === "create"
+      ? isRelatedDataPending
+      : isDataPending || isRelatedDataPending;
 
-    setIsLoading(true);
-    mainApi
-      .get(resourceName + "/" + dataId)
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch(() => setIsError(true))
-      .finally(() => {
-        resourceName == "users" && setIsLoading(false);
-      });
-  }, [resourceName]);
-
-  useEffect(() => {
-    if (resourceName === "users") return;
-
-    const relatedResourceName = getRelatedResourceName(resourceName);
-
-    if (relatedResourceName) {
-      mainApi
-        .get(relatedResourceName)
-        .then((response) => {
-          setRelatedData(response.data);
-        })
-        .catch(() => setIsError(true))
-        .finally(() => setIsLoading(false));
-    }
-  }, [data]);
+  const isError = isDataError || isRelatedDataError;
 
   return { data, relatedData, isLoading, isError };
 };

@@ -9,7 +9,7 @@ import ErrorPage from "../ErrorPage";
 const DetailsPage: React.FC<PropsWithChildren> = ({ children }) => {
   const resourceName = useContext(ResourceNameContext);
   const { id } = useParams();
-  const { data, relatedData, relatedPath, isLoading, isError } = useDetailsData({ dataId: id });
+  const { data, relatedData, relatedPath, isLoading, isError } = useDetailsData({ resourceId: id as string });
 
   if (isError) return <ErrorPage type="fail" />;
 

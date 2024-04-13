@@ -1,27 +1,35 @@
-import { useContext, useEffect, useState } from "react";
-import mainApi from "../api/api";
+import { useContext } from "react";
 import getRelatedResourceName from "../utils/getRelatedResourceName";
 import ResourceNameContext from "../context/ResourceNameContext";
+import { useQuery } from "@tanstack/react-query";
+import { getAll } from "../services/service";
 
 export const useListData = () => {
   const resourceName = useContext(ResourceNameContext);
   const relatedResourceName = getRelatedResourceName(resourceName);
 
-  const [data, setData] = useState<DataType[]>([]);
-  const [relatedData, setRelatedData] = useState<RelatedDataType[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const {
+    data: data,
+    isError: isDataError,
+    isPending: isDataPending,
+  } = useQuery<DataType[]>({
+    queryKey: ["listData", resourceName],
+    queryFn: () => getAll(resourceName),
+  });
 
-  useEffect(() => {
-    setIsLoading(true);
-    Promise.all([mainApi.get(resourceName), mainApi.get(relatedResourceName)])
-      .then(([{ data: data }, { data: relatedData }]) => {
-        setData(data);
-        setRelatedData(relatedData);
-      })
-      .catch(() => setIsError(true))
-      .finally(() => setIsLoading(false));
-  }, []);
+  const {
+    data: relatedData,
+    isError: isRelatedDataError,
+    isPending: isRelatedDataPending,
+  } = useQuery<RelatedDataType[]>({
+    queryKey: ["listRelatedData", resourceName],
+    queryFn: () => getAll(relatedResourceName),
+    enabled: resourceName !== "users",
+  });
+
+  const isLoading = resourceName === "users" ? isDataPending : isDataPending || isRelatedDataPending;
+
+  const isError = isDataError || isRelatedDataError;
 
   return { data, relatedData, isLoading, isError };
 };
