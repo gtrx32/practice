@@ -10,18 +10,18 @@ import PhotosDetailsPage from "../pages/DetailsPage/resources/PhotosDetailsPage"
 import PostsDetailsPage from "../pages/DetailsPage/resources/PostsDetailsPage";
 import TodosDetailsPage from "../pages/DetailsPage/resources/TodosDetailsPage";
 import UsersDetailsPage from "../pages/DetailsPage/resources/UsersDetailsPage";
-import AlbumsEditPage from "../pages/formPages/EditPage/resources/AlbumsEditPage";
-import CommentsEditPage from "../pages/formPages/EditPage/resources/CommentsEditPage";
-import PhotosEditPage from "../pages/formPages/EditPage/resources/PhotosEditPage";
-import PostsEditPage from "../pages/formPages/EditPage/resources/PostsEditPage";
-import TodosEditPage from "../pages/formPages/EditPage/resources/TodosEditPage";
-import UsersEditPage from "../pages/formPages/EditPage/resources/UsersEditPage";
-import AlbumsCreatePage from "../pages/formPages/CreatePage/resources/AlbumsCreatePage";
-import CommentsCreatePage from "../pages/formPages/CreatePage/resources/CommentsCreatePage";
-import PhotosCreatePage from "../pages/formPages/CreatePage/resources/PhotosCreatePage";
-import PostsCreatePage from "../pages/formPages/CreatePage/resources/PostsCreatePage";
-import TodosCreatePage from "../pages/formPages/CreatePage/resources/TodosCreatePage";
-import UsersCreatePage from "../pages/formPages/CreatePage/resources/UsersCreatePage";
+import AlbumsCreatePage from "../pages/CreatePage/resources/AlbumsCreatePage";
+import CommentsCreatePage from "../pages/CreatePage/resources/CommentsCreatePage";
+import PhotosCreatePage from "../pages/CreatePage/resources/PhotosCreatePage";
+import PostsCreatePage from "../pages/CreatePage/resources/PostsCreatePage";
+import TodosCreatePage from "../pages/CreatePage/resources/TodosCreatePage";
+import UsersCreatePage from "../pages/CreatePage/resources/UsersCreatePage";
+import AlbumsEditPage from "../pages/EditPage/resources/AlbumsEditPage";
+import CommentsEditPage from "../pages/EditPage/resources/CommentsEditPage";
+import PhotosEditPage from "../pages/EditPage/resources/PhotosEditPage";
+import PostsEditPage from "../pages/EditPage/resources/PostsEditPage";
+import TodosEditPage from "../pages/EditPage/resources/TodosEditPage";
+import UsersEditPage from "../pages/EditPage/resources/UsersEditPage";
 
 export const resourceListPages: Record<string, React.FC> = {
   users: UsersListPage,
