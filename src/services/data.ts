@@ -2,12 +2,12 @@ import mainApi from "../api/api";
 
 export const getAll = async (resourceName: Resources) => {
   const response = await mainApi.get(resourceName);
-  return response.data;
+  return response;
 };
 
 export const getById = async (resourceName: Resources, resourceId: number) => {
   const response = await mainApi.get(resourceName + "/" + resourceId);
-  return response.data;
+  return response;
 };
 
 export const create = async (data: DataType, resourceName: Resources) => {
@@ -18,7 +18,7 @@ export const create = async (data: DataType, resourceName: Resources) => {
       "Content-type": "application/json; charset=UTF-8",
     },
   });
-  return response.data;
+  return response;
 };
 
 export const edit = async (data: DataType, resourceName: Resources, dataId: number) => {
@@ -29,10 +29,10 @@ export const edit = async (data: DataType, resourceName: Resources, dataId: numb
       "Content-type": "application/json; charset=UTF-8",
     },
   });
-  return response.data;
+  return response;
 };
 
 export const remove = async (resourceName: Resources, dataId: number) => {
   const response = await mainApi.delete(resourceName + "/" + dataId, { method: "DELETE" });
-  return response.data;
+  return response;
 };

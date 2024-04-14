@@ -7,24 +7,28 @@ export const useFormData = () => {
   const { pageType, resourceName, relatedResourceName, dataId } = useContext(PageContext);
 
   const {
-    data: data,
+    data: response,
     isError: isDataError,
     isPending: isDataPending,
-  } = useQuery<DataType>({
+  } = useQuery({
     queryKey: ["formData", resourceName, dataId],
     queryFn: () => getById(resourceName, dataId),
     enabled: pageType === "edit",
   });
 
+  const data = response?.data as DataType;
+
   const {
-    data: relatedData,
+    data: relatedResponse,
     isError: isRelatedDataError,
     isPending: isRelatedDataPending,
-  } = useQuery<RelatedDataType[]>({
+  } = useQuery({
     queryKey: ["formRelatedData", resourceName],
     queryFn: () => getAll(relatedResourceName),
     enabled: resourceName !== "users",
   });
+
+  const relatedData = relatedResponse?.data as RelatedDataType[];
 
   const isLoading =
     resourceName === "users"
@@ -34,7 +38,6 @@ export const useFormData = () => {
       : pageType === "create"
       ? isRelatedDataPending
       : isDataPending || isRelatedDataPending;
-
   const isError = isDataError || isRelatedDataError;
 
   return { data, relatedData, isLoading, isError };

@@ -7,29 +7,33 @@ export const useListData = () => {
   const { resourceName, relatedResourceName } = useContext(PageContext);
 
   const {
-    data: data,
+    data: response,
     isError: isDataError,
     isPending: isDataPending,
-  } = useQuery<DataType[]>({
+  } = useQuery({
     queryKey: ["listData", resourceName],
     queryFn: () => getAll(resourceName),
   });
 
+  const data = response?.data as DataType[];
+  const totalCount: any = response?.headers["x-total-count"] ?? data?.length;
+
   const {
-    data: relatedData,
+    data: relatedResponse,
     isError: isRelatedDataError,
     isPending: isRelatedDataPending,
-  } = useQuery<RelatedDataType[]>({
+  } = useQuery({
     queryKey: ["listRelatedData", resourceName],
     queryFn: () => getAll(relatedResourceName),
     enabled: resourceName !== "users",
   });
 
-  const isLoading = resourceName === "users" ? isDataPending : isDataPending || isRelatedDataPending;
+  const relatedData = relatedResponse?.data as RelatedDataType[];
 
+  const isLoading = resourceName === "users" ? isDataPending : isDataPending || isRelatedDataPending;
   const isError = isDataError || isRelatedDataError;
 
-  return { data, relatedData, isLoading, isError };
+  return { data, relatedData, isLoading, isError, totalCount };
 };
 
 export default useListData;
