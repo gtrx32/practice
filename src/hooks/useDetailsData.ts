@@ -27,7 +27,7 @@ export const useDetailsData = () => {
     queryKey: ["detailsRelatedData", resourceName, relatedResourceId],
     queryFn: () => getById(relatedResourceName, Number(relatedResourceId)),
     enabled: resourceName !== "users" && !!relatedResourceId,
-  }) as { data: RelatedDataType | null; isError: boolean; isPending: boolean };
+  });
 
   const isLoading = resourceName === "users" ? isDataPending : isDataPending || isRelatedDataPending;
 

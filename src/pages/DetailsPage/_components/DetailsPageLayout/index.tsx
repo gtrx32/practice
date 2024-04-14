@@ -8,7 +8,7 @@ import DetailsDataContext from "../../../../context/DetailsDataContext";
 
 interface DetailsPageLayoutProps extends PropsWithChildren {
   data: DataType;
-  relatedData: RelatedDataType | null;
+  relatedData: RelatedDataType;
   relatedPath: string;
 }
 
@@ -21,9 +21,7 @@ const DetailsPageLayout: React.FC<DetailsPageLayoutProps> = ({ data, relatedData
 
       {resourceName === "users" && <UserLinks dataId={dataId} />}
 
-      <DetailsDataContext.Provider value={{ data: data, relatedData: relatedData, relatedPath: relatedPath }}>
-        {children}
-      </DetailsDataContext.Provider>
+      <DetailsDataContext.Provider value={{ data, relatedData, relatedPath }}>{children}</DetailsDataContext.Provider>
     </Container>
   );
 };

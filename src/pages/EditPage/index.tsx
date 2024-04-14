@@ -11,11 +11,7 @@ const EditPage: React.FC<PropsWithChildren> = ({ children }) => {
 
   if (isLoading) return <LoadingSpinner />;
 
-  return (
-    <EditPageLayout data={data as DataType} relatedData={relatedData as RelatedDataType[]}>
-      {children}
-    </EditPageLayout>
-  );
+  return <EditPageLayout children={children} data={data as DataType} relatedData={relatedData as RelatedDataType[]} />;
 };
 
 export default EditPage;
