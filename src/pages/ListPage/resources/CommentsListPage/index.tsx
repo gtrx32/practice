@@ -8,18 +8,28 @@ const CommentsListPage = () => {
   return (
     <ListPage>
       <ListDataTable>
-        <Column header="ID" field="id" style={{ maxWidth: "70px" }} />
+        <Column header="ID" field="id" sortable headerClassName={"id"} style={{ maxWidth: "70px" }} />
         <Column
           header="Пост"
           body={(rowData) => <CustomBodyTemplate field="postId" rowData={rowData} />}
+          sortable
+          headerClassName={"postId"}
           style={{ maxWidth: "280px" }}
         />
         <Column
           header="E-mail автора"
           body={(rowData) => <CustomBodyTemplate field="email" rowData={rowData} />}
+          sortable
+          headerClassName={"email"}
           style={{ maxWidth: "215px" }}
         />
-        <Column header="Текст комментария" field="body" style={{ maxWidth: "330px" }} />
+        <Column
+          header="Текст комментария"
+          field="body"
+          sortable
+          headerClassName={"body"}
+          style={{ maxWidth: "330px" }}
+        />
         <Column
           header="Действия"
           headerClassName={s.actionsHeader}

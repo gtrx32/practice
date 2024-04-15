@@ -8,13 +8,15 @@ const PostsListPage = () => {
   return (
     <ListPage>
       <ListDataTable>
-        <Column header="ID" field="id" style={{ maxWidth: "70px" }} />
+        <Column header="ID" field="id" sortable headerClassName={"id"} style={{ maxWidth: "70px" }} />
         <Column
           header="Автор"
           body={(rowData) => <CustomBodyTemplate field="userId" rowData={rowData} />}
+          sortable
+          headerClassName={"userId"}
           style={{ maxWidth: "250px" }}
         />
-        <Column header="Заголовок" field="title" style={{ maxWidth: "600px" }} />
+        <Column header="Заголовок" field="title" sortable headerClassName={"title"} style={{ maxWidth: "600px" }} />
         <Column
           header="Действия"
           headerClassName={s.actionsHeader}

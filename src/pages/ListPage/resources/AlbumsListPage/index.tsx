@@ -8,13 +8,15 @@ const AlbumsListPage = () => {
   return (
     <ListPage>
       <ListDataTable>
-        <Column field="id" header="ID" style={{ maxWidth: "70px" }} />
+        <Column header="ID" field="id" sortable headerClassName={"id"} style={{ maxWidth: "70px" }} />
         <Column
           header="Владелец"
           body={(rowData) => <CustomBodyTemplate field="userId" rowData={rowData} />}
+          sortable
+          headerClassName={"userId"}
           style={{ maxWidth: "310px" }}
         />
-        <Column field="title" header="Название" style={{ maxWidth: "530px" }} />
+        <Column header="Название" field="title" sortable headerClassName={"title"} style={{ maxWidth: "530px" }} />
         <Column
           header="Действия"
           headerClassName={s.actionsHeader}

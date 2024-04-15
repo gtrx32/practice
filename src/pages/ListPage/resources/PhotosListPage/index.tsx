@@ -8,16 +8,18 @@ const PhotosListPage = () => {
   return (
     <ListPage>
       <ListDataTable>
-        <Column header="ID" field="id" style={{ maxWidth: "70px" }} />
+        <Column header="ID" field="id" sortable headerClassName={"id"} style={{ maxWidth: "70px" }} />
         <Column
           header="Превью"
           body={(rowData) => <CustomBodyTemplate field="thumbnailUrl" rowData={rowData} />}
           style={{ maxWidth: "100px" }}
         />
-        <Column header="Заголовок" field="title" style={{ maxWidth: "340px" }} />
+        <Column header="Заголовок" field="title" sortable headerClassName={"title"} style={{ maxWidth: "340px" }} />
         <Column
           header="Альбом"
           body={(rowData) => <CustomBodyTemplate field="albumId" rowData={rowData} />}
+          sortable
+          headerClassName={"albumId"}
           style={{ maxWidth: "360px" }}
         />
         <Column
