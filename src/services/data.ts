@@ -1,7 +1,7 @@
 import mainApi from "../api/api";
 
-export const getAll = async (resourceName: Resources) => {
-  const response = await mainApi.get(resourceName);
+export const getAll = async (resourceName: Resources, params?: string) => {
+  const response = (await params) ? mainApi.get(resourceName + params) : mainApi.get(resourceName);
   return response;
 };
 

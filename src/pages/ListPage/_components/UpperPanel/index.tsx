@@ -1,6 +1,6 @@
 import Button from "../../../../components/UI/Button";
 import { Link } from "react-router-dom";
-import SearchField from "../../../../components/UI/SearchField";
+import SearchField from "../SearchField";
 import s from "./UpperPanel.module.scss";
 import { useContext } from "react";
 import { listPageTitleEnum } from "./types";

@@ -1,18 +1,23 @@
 import { useContext } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getAll } from "../services/data";
 import PageContext from "../context/PageContext";
+import { useDataParams } from "./useDataParams";
 
 export const useListData = () => {
   const { resourceName, relatedResourceName } = useContext(PageContext);
+  const { getParamsArray, getParamsString } = useDataParams();
+
+  const params = "?" + getParamsString();
 
   const {
     data: response,
     isError: isDataError,
     isPending: isDataPending,
   } = useQuery({
-    queryKey: ["listData", resourceName],
-    queryFn: () => getAll(resourceName),
+    queryKey: ["listData", resourceName, getParamsArray()],
+    queryFn: () => getAll(resourceName, params),
+    placeholderData: keepPreviousData,
   });
 
   const data = response?.data as DataType[];

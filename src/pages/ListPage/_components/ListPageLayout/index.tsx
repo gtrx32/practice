@@ -5,7 +5,6 @@ import { PropsWithChildren, useContext, useState } from "react";
 import UpperPanel from "../../_components/UpperPanel";
 import RelatedFilter from "../../_components/RelatedFilter";
 import { SelectPlaceholders, getFilters } from "./types";
-import { useFilteredDataTable } from "../../../../hooks/useFilteredDataTable";
 import Container from "../../../../components/UI/Container";
 import PageContext from "../../../../context/PageContext";
 
@@ -15,16 +14,14 @@ interface ListPageLayoutProps extends PropsWithChildren {
 }
 
 const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, relatedData }) => {
+  const { resourceName } = useContext(PageContext);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
 
-  const { resourceName } = useContext(PageContext);
-  const [selectedFilters, setSelectedFilters] = useState<SelectOption[]>([]);
-
-  const filteredData = useFilteredDataTable({ data, selectedFilters });
-  const displayedData = filteredData.slice(startIndex, endIndex);
+  const displayedData = data.slice(startIndex, endIndex);
 
   return (
     <Container className={s.container}>
@@ -34,7 +31,6 @@ const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, related
         <RelatedFilter
           filters={getFilters(resourceName, relatedData)}
           placeholder={SelectPlaceholders[resourceName as keyof typeof SelectPlaceholders]}
-          onChange={(selected: SelectOption[]) => setSelectedFilters(selected)}
         />
       )}
 
@@ -43,7 +39,7 @@ const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, related
       </ListDataContext.Provider>
 
       <Pagination
-        rowCount={filteredData.length}
+        rowCount={data.length}
         startIndex={startIndex}
         endIndex={endIndex}
         currentPage={currentPage}
