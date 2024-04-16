@@ -4,15 +4,17 @@ export const useDataParams = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const getParamsString = (): string => {
-    const paramsString = new URLSearchParams();
+    const params = new URLSearchParams();
 
     searchParams.forEach((value, name) => {
-      value.includes(",")
-        ? value.split(",").forEach((val) => paramsString.append(name, val))
-        : paramsString.append(name, value);
+      value.includes(",") ? value.split(",").forEach((val) => params.append(name, val)) : params.append(name, value);
     });
 
-    return paramsString.toString();
+    return params.has("_page")
+      ? params.toString()
+      : params.size > 0
+      ? params.toString() + "&_page=1&_limit=10"
+      : "_page=1&_limit=10";
   };
 
   const getParamsArray = (): string[] => {

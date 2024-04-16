@@ -1,86 +1,63 @@
 import { useEffect, useState } from "react";
 import Button from "../../../../components/UI/Button";
 import s from "./Pagination.module.scss";
-import { PaginationProps } from "./types";
+import { generateButtons as generateButtons } from "./types";
+import { useDataParams } from "../../../../hooks/useDataParams";
 
-const Pagination: React.FC<PaginationProps> = ({
-  rowCount,
-  startIndex,
-  endIndex,
-  currentPage,
-  rowsPerPage,
-  setCurrentPage,
-  setRowsPerPage,
-}) => {
-  const [pagesCount, setPagesCount] = useState(1);
-  const [displayedPages, setDisplayedPages] = useState<number[]>([]);
+interface PaginationProps {
+  totalCount: number;
+}
+
+const Pagination: React.FC<PaginationProps> = ({ totalCount }) => {
+  const { setParam } = useDataParams();
+
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [showInput, setShowInput] = useState(false);
-  const [customPage, setCustomPage] = useState(currentPage.toString());
+  const pagesCount = Math.ceil(totalCount / limit);
 
-  const generateDisplayedPages = (currentPage: number, pageCount: number) => {
-    const firstPage = 1;
-    const lastPage = pageCount;
-    const prevPage = Math.max(currentPage - 1, firstPage);
-    const nextPage = Math.min(currentPage + 1, lastPage);
-    const displayedPages: number[] = [];
+  const pages = generateButtons(page, Math.ceil(totalCount / limit));
+  page > pages[pages.length - 1] ? setPage(pages[pages.length - 1]) : null;
 
-    displayedPages.push(firstPage);
-    prevPage > firstPage + 1 && displayedPages.push(-1);
-    prevPage !== firstPage && displayedPages.push(prevPage);
-    displayedPages.push(currentPage);
-    nextPage !== lastPage && displayedPages.push(nextPage);
-    nextPage < lastPage - 1 && displayedPages.push(-1);
-    displayedPages.push(lastPage);
-
-    const uniqueDisplayedPages = displayedPages.filter((page, index, array) => {
-      return page === -1 ? true : array.indexOf(page) === index;
-    });
-
-    setDisplayedPages(uniqueDisplayedPages);
-  };
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
 
   useEffect(() => {
-    if (rowCount > 0) setPagesCount(Math.ceil(rowCount / rowsPerPage));
-    setCurrentPage(1);
-  }, [rowCount, rowsPerPage]);
+    setParam("_page", page);
+  }, [page]);
 
   useEffect(() => {
-    generateDisplayedPages(currentPage, pagesCount);
-    setCustomPage(currentPage.toString());
-  }, [pagesCount, currentPage]);
+    setParam("_limit", limit);
+  }, [limit]);
 
-  const handlePrevPageClick = () => currentPage > 1 && setCurrentPage(currentPage - 1);
-  const handleNextPageClick = () => currentPage < pagesCount && setCurrentPage(currentPage + 1);
-
-  const handleCustomPageChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => setCustomPage(value);
-
-  const handleCustomPageSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onPrevPageClick = () => page > 1 && setPage(page - 1);
+  const onNextPageClick = () => page < pagesCount && setPage(page + 1);
+  const onCustomPageSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const pageNumber = parseInt(customPage);
-    if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= pagesCount) {
-      setCurrentPage(pageNumber);
-      setCustomPage(currentPage.toString());
-      setShowInput(false);
+    const form = event.target as HTMLFormElement;
+    const inputPage = form.querySelector<HTMLInputElement>("input")?.value;
+    if (inputPage) {
+      setPage(parseInt(inputPage));
     }
+    setShowInput(false);
   };
 
-  const handleRowsPerPageChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) =>
-    setRowsPerPage(Number(value));
+  const onLimitChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => setLimit(Number(value));
 
   return (
     <div className={s.wrapper}>
       {!showInput ? (
         <div className={s.pagination}>
-          <Button onClick={handlePrevPageClick}>&#60; Назад</Button>
-          {displayedPages.map((page, index) =>
-            page !== -1 ? (
+          <Button onClick={onPrevPageClick}>&#60; Назад</Button>
+          {pages.map((button, index) =>
+            button !== -1 ? (
               <Button
-                className={page === currentPage ? s.currentPage : ""}
-                disabled={page === currentPage}
-                onClick={() => setCurrentPage(page)}
+                className={button === page ? s.currentPage : ""}
+                disabled={button === page}
+                onClick={() => setPage(button)}
                 key={index}
               >
-                {page}
+                {button}
               </Button>
             ) : (
               <Button onClick={() => setShowInput(true)} key={index}>
@@ -88,19 +65,12 @@ const Pagination: React.FC<PaginationProps> = ({
               </Button>
             )
           )}
-          <Button onClick={handleNextPageClick}>Далее &#62;</Button>
+          <Button onClick={onNextPageClick}>Далее &#62;</Button>
         </div>
       ) : (
-        <form onSubmit={handleCustomPageSubmit} className={s.pagination}>
+        <form onSubmit={onCustomPageSubmit} className={s.pagination}>
           <Button type="submit">Перейти</Button>
-          <input
-            className={s.formInput}
-            type="number"
-            min={1}
-            max={pagesCount}
-            value={customPage}
-            onChange={handleCustomPageChange}
-          />
+          <input className={s.formInput} type="number" min={1} max={pagesCount} defaultValue={page} />
           <Button onClick={() => setShowInput(false)} type="submit">
             &#10006;
           </Button>
@@ -109,7 +79,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <div className={s.rows}>
         <div className={s.rowsPerPage}>
           Строк на странице:
-          <select className={s.selectCount} value={rowsPerPage} onChange={handleRowsPerPageChange}>
+          <select className={s.selectCount} value={limit} onChange={onLimitChange}>
             {[5, 10, 15, 20].map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -118,7 +88,7 @@ const Pagination: React.FC<PaginationProps> = ({
           </select>
         </div>
         <div className={s.showRows}>
-          {startIndex + 1}-{endIndex > rowCount ? rowCount : endIndex} из {rowCount}
+          {startIndex + 1}-{endIndex > totalCount ? totalCount : endIndex} из {totalCount}
         </div>
       </div>
     </div>

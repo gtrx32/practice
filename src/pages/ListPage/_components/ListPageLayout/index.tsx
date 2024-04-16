@@ -1,7 +1,7 @@
 import s from "./ListPageLayout.module.scss";
 import ListDataContext from "../../../../context/ListDataContext";
 import Pagination from "../../_components/Pagination";
-import { PropsWithChildren, useContext, useState } from "react";
+import { PropsWithChildren, useContext } from "react";
 import UpperPanel from "../../_components/UpperPanel";
 import RelatedFilter from "../../_components/RelatedFilter";
 import { SelectPlaceholders, getFilters } from "./types";
@@ -11,17 +11,11 @@ import PageContext from "../../../../context/PageContext";
 interface ListPageLayoutProps extends PropsWithChildren {
   data: DataType[];
   relatedData: RelatedDataType[];
+  totalCount: number;
 }
 
-const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, relatedData }) => {
+const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, relatedData, totalCount }) => {
   const { resourceName } = useContext(PageContext);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const endIndex = startIndex + rowsPerPage;
-
-  const displayedData = data.slice(startIndex, endIndex);
 
   return (
     <Container className={s.container}>
@@ -34,19 +28,9 @@ const ListPageLayout: React.FC<ListPageLayoutProps> = ({ children, data, related
         />
       )}
 
-      <ListDataContext.Provider value={{ data: displayedData, relatedData: relatedData }}>
-        {children}
-      </ListDataContext.Provider>
+      <ListDataContext.Provider value={{ data, relatedData: relatedData }}>{children}</ListDataContext.Provider>
 
-      <Pagination
-        rowCount={data.length}
-        startIndex={startIndex}
-        endIndex={endIndex}
-        currentPage={currentPage}
-        rowsPerPage={rowsPerPage}
-        setCurrentPage={setCurrentPage}
-        setRowsPerPage={setRowsPerPage}
-      />
+      <Pagination totalCount={totalCount} />
     </Container>
   );
 };
