@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../../../../components/UI/Button";
 import s from "./Pagination.module.scss";
 import { generateButtons as generateButtons } from "./types";
@@ -17,32 +17,33 @@ const Pagination: React.FC<PaginationProps> = ({ totalCount }) => {
   const pagesCount = Math.ceil(totalCount / limit);
 
   const pages = generateButtons(page, Math.ceil(totalCount / limit));
-  page > pages[pages.length - 1] ? setPage(pages[pages.length - 1]) : null;
 
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
 
-  useEffect(() => {
-    setParam("_page", page);
-  }, [page]);
-
-  useEffect(() => {
-    setParam("_limit", limit);
-  }, [limit]);
-
-  const onPrevPageClick = () => page > 1 && setPage(page - 1);
-  const onNextPageClick = () => page < pagesCount && setPage(page + 1);
+  const onPrevPageClick = () => {
+    page > 1 && setPage(page - 1);
+    page > 1 && setParam("_page", page - 1);
+  };
+  const onNextPageClick = () => {
+    page < pagesCount && setPage(page + 1);
+    page < pagesCount && setParam("_page", page + 1);
+  };
   const onCustomPageSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const inputPage = form.querySelector<HTMLInputElement>("input")?.value;
     if (inputPage) {
       setPage(parseInt(inputPage));
+      setParam("_page", inputPage);
     }
     setShowInput(false);
   };
 
-  const onLimitChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => setLimit(Number(value));
+  const onLimitChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
+    setLimit(Number(value));
+    setParam("_limit", value);
+  };
 
   return (
     <div className={s.wrapper}>
@@ -54,7 +55,10 @@ const Pagination: React.FC<PaginationProps> = ({ totalCount }) => {
               <Button
                 className={button === page ? s.currentPage : ""}
                 disabled={button === page}
-                onClick={() => setPage(button)}
+                onClick={() => {
+                  setPage(button);
+                  setParam("_page", button);
+                }}
                 key={index}
               >
                 {button}
