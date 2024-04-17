@@ -1,7 +1,15 @@
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 export const useDataParams = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    if (!searchParams.has("_page")) {
+      setParam("_page", 1);
+      setParam("_limit", 10);
+    }
+  }, []);
 
   const getParamsString = (): string => {
     const params = new URLSearchParams();

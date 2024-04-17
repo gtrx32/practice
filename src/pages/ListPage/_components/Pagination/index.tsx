@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../../../../components/UI/Button";
 import s from "./Pagination.module.scss";
 import { generateButtons as generateButtons } from "./types";
@@ -9,12 +9,14 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ totalCount }) => {
-  const { setParam } = useDataParams();
+  const { setParam, getParam } = useDataParams();
 
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(getParam("_page") ? Number(getParam("_page")) : 1);
+  const [limit, setLimit] = useState(getParam("_limit") ? Number(getParam("_limit")) : 10);
   const [showInput, setShowInput] = useState(false);
   const pagesCount = Math.ceil(totalCount / limit);
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const pages = generateButtons(page, Math.ceil(totalCount / limit));
 
@@ -31,8 +33,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalCount }) => {
   };
   const onCustomPageSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const inputPage = form.querySelector<HTMLInputElement>("input")?.value;
+    const inputPage = inputRef.current?.value;
     if (inputPage) {
       setPage(parseInt(inputPage));
       setParam("_page", inputPage);
@@ -74,7 +75,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalCount }) => {
       ) : (
         <form onSubmit={onCustomPageSubmit} className={s.pagination}>
           <Button type="submit">Перейти</Button>
-          <input className={s.formInput} type="number" min={1} max={pagesCount} defaultValue={page} />
+          <input ref={inputRef} className={s.formInput} type="number" min={1} max={pagesCount} defaultValue={page} />
           <Button onClick={() => setShowInput(false)} type="submit">
             &#10006;
           </Button>
